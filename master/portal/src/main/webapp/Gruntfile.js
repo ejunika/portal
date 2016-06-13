@@ -5,12 +5,12 @@ module.exports = function( grunt ) {
 			options: {
 				banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n',
 				sourceMap: true,
-		        sourceMapName: 'build/sourcemap.map'
+				sourceMapName: 'build/sourcemap.map'
 			},
 			build: {
-		        src: 'src/app.js',
-		        dest: 'build/app.min.js'
-		    }
+				src: 'src/app.js',
+				dest: 'build/app.min.js'
+			}
 		}
 	});
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
