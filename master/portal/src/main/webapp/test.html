@@ -10,12 +10,15 @@
     </head>
    </head>
    <body ng-controller="test-ctrl">
+       <select></select>
        <input type="text" ng-model="itemName" />
-       <ul>
-           <li ng-repeat="item in items | search: itemName: 'name'">{{item}}</li>
-       </ul>
-       <pre>
-       {{itemName}}
-       </pre>
+       <div ng-repeat="item in items | search: itemName: pName">
+          <pre>
+            {
+               id: {{ item.id }},
+               name: {{ item.name }}
+            }
+          </pre>
+       </div>
    </body>
 </html>

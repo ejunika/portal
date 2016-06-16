@@ -12,7 +12,7 @@
                                 if( v[ pName ].toString().toLowerCase().startsWith( searchStr.toLowerCase() ) ) {
                                     fValue.push( v );
                                 }
-                        	}
+                            }
                         }
                         else if( v.toLowerCase().toString().startsWith( searchStr.toLowerCase() ) ) {
                             fValue.push( v );
@@ -23,6 +23,7 @@
             } )
             .controller( "test-ctrl", [ "$scope", testAppCtrl ] );
         function testAppCtrl( $scope ) {
+        	$scope.pName = "id";
             $scope.items = [
                 {
                     id: 1,
@@ -61,5 +62,6 @@
                     name: "mango"
                 }
             ];
+            $scope.filterBy = $scope.items[ 0 ];
         }
 } )( angular );
