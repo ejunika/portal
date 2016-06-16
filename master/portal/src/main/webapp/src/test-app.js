@@ -23,7 +23,9 @@
             } )
             .controller( "test-ctrl", [ "$scope", testAppCtrl ] );
         function testAppCtrl( $scope ) {
-        	$scope.pName = "id";
+            $scope.onChange = function() {
+            	$scope.itemName = "";
+            };
             $scope.items = [
                 {
                     id: 1,
@@ -62,6 +64,13 @@
                     name: "mango"
                 }
             ];
+            $scope.ctr = 0;
             $scope.filterBy = $scope.items[ 0 ];
+            angular.forEach( $scope.filterBy, function( v, k ) {
+            	if( $scope.ctr == 0 ) {
+            		$scope.opn = k;
+            		$scope.ctr++;
+            	}
+            } );
         }
 } )( angular );

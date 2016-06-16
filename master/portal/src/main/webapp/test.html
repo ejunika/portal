@@ -10,14 +10,11 @@
     </head>
    </head>
    <body ng-controller="test-ctrl">
-       <select></select>
-       <input type="text" ng-model="itemName" />
-       <div ng-repeat="item in items | search: itemName: pName">
+       <input type="text" ng-model="itemName" placeholder="Search" /> By
+       <select ng-change="onChange()" ng-model="opn" ng-options="key as key for (key , value) in filterBy"></select>
+       <div ng-repeat="item in items | search :itemName :opn">
           <pre>
-            {
-               id: {{ item.id }},
-               name: {{ item.name }}
-            }
+            {{item}}
           </pre>
        </div>
    </body>
