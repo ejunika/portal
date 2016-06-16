@@ -1,0 +1,46 @@
+<form class="form-horizontal">
+	<div class="form-group">
+		<label for="dirName" 
+			class="col-lg-2 col-lg-offset-2 control-label">
+				Label
+		</label>
+		<div class="col-lg-4">
+			<input type="text" class="form-control" id="dirName"
+				placeholder="Name">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="inputPassword" 
+			class="col-lg-2 col-lg-offset-2 control-label">
+				Type
+		</label>
+		<div class="col-lg-4">
+			<select name="mySelect" 
+				class="form-control"
+				id="dirType"
+      			ng-options="type.label for type in dirType track by type.id"
+      			ng-model="selectedType">
+      		</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="inputPassword" 
+			class="col-lg-2 col-lg-offset-2 control-label">
+				Owner
+		</label>
+		<div class="col-lg-4">
+			<select name="mySelect" 
+				class="form-control"
+				id="owner"
+      			ng-options="login.lName for login in logins track by login.id"
+      			ng-model="selectedOwner">
+      		</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-lg-10 col-lg-offset-4">
+			<button type="reset" class="btn btn-default">Cancel</button>
+			<button type="submit" class="btn btn-primary">Add</button>
+		</div>
+	</div>
+</form>

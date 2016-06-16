@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app="test-app" strict-di>
+   <head>
+      <head>
+        <meta charset="ISO-8859-1">
+        <title>Test::APP</title>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.min.js"></script>
+        <script type="text/javascript" src="src/test-app.js"></script>
+    </head>
+   </head>
+   <body ng-controller="test-ctrl">
+       <input type="text" ng-model="itemName" />
+       <ul>
+           <li ng-repeat="item in items | search: itemName: 'name'">{{item}}</li>
+       </ul>
+       <pre>
+       {{itemName}}
+       </pre>
+   </body>
+</html>

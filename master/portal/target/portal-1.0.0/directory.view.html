@@ -1,0 +1,32 @@
+<div ng-init="init()" class="container">
+	<table class="table table-striped table-hover ">
+		<thead>
+			<tr>
+				<th>#id</th>
+				<th>Label</th>
+				<th>Parent</th>
+				<th>Owner's EmailId</th>
+				<th colspan="2">Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="d in directories track by d.id">
+				<td>{{d.id}}</td>
+				<td>{{d.label}}</td>
+				<td>{{d.parent.label ? d.parent.label : '#'}}</td>
+				<td>{{d.owner.emailId}}</td>
+				<td>
+					<a href="javascript: void(0)">
+						<i class="glyphicon glyphicon-trash"></i>
+					</a>
+				</td>
+				<td>
+					<a ng-click="openAddEditDirectory( $event, d )" 
+						href="javascript: void(0)">
+						<i class="glyphicon glyphicon-pencil"></i>
+					</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

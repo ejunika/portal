@@ -7,9 +7,11 @@ module.exports = function( grunt ) {
 				sourceMap: true,
 				sourceMapName: 'build/sourcemap.map'
 			},
-			build: {
+//			build: {
 //				src: 'src/app.js',
 //				dest: 'build/app.min.js'
+//			}
+			files: {
 				"build/test-app.min.js": "src/test-app.js"
 			}
 		}

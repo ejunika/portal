@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-strict-di>
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>Service Check</title>
+        <link rel="stylesheet" href="https://bootswatch.com/paper/bootstrap.min.css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular-route.min.js"></script>
+        <script type="text/javascript" src="./build/app.min.js"></script>
+    </head>
+    <body ng-controller="app.ctrl as app">
+        <div class="container">
+            <ul class="nav nav-tabs">
+                <li class="">
+                    <a href="#login">
+                        Login Manager
+                    </a>
+                </li>
+                <li class="">
+                    <a href="#directory">
+                        Directory Manager
+                    </a>
+                </li>
+            </ul>
+            <div ng-view></div>
+        </div>
+    </body>
+</html>
