@@ -8,11 +8,14 @@ module.exports = function( grunt ) {
 				sourceMapName: 'build/sourcemap.map'
 			},
 			build: {
-				src: 'src/app.js',
-				dest: 'build/app.min.js'
+//				src: 'src/app.js',
+//				dest: 'build/app.min.js'
+				"build/test-app.min.js": "src/test-app.js"
 			}
 		}
 	});
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 	grunt.registerTask( 'default', [ 'uglify' ] );
 }
+
+	
