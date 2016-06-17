@@ -5,6 +5,7 @@ import java.util.List;
 import com.nj.common.dao.LoginDAO;
 import com.nj.common.entity.Login;
 import com.nj.common.response.Response;
+import com.nj.util.PortalStatus;
 
 public class LoginManager {
 	private LoginDAO loginDAO;
@@ -31,6 +32,7 @@ public class LoginManager {
 	
 	public Response register( Login login ) {
 		getList().clear();
+		login.setStatus( PortalStatus.NEWLY_REGISTERED_USER );
 		if( getLoginDAO().create(login) ) {
 			getList().add( login );
 			getResponse().setData( getList() );
@@ -45,6 +47,19 @@ public class LoginManager {
 	}
 	
 	public Response doLogin( Login login ) {
+		getList().clear();
+		Login lFromDb = getLoginDAO().getByEmailId( login.getEmailId() );
+		if( lFromDb.getStatus().equals( PortalStatus.ACTIVE_USER ) && 
+				lFromDb.getPassword().equals( login.getPassword() ) ) {
+			getList().add( lFromDb );
+			getResponse().setInfo( "Success" );
+			getResponse().setStatus(true);
+			getResponse().setData(getList());
+		}
+		else {
+			getResponse().setInfo( "Error" );
+			getResponse().setStatus(false);
+		}
 		return getResponse();
 	}
 	
@@ -75,10 +90,38 @@ public class LoginManager {
 	}
 	
 	public Response blockLogin( Long id ) {
+		getList().clear();
+		Login lFromDb = (Login) getLoginDAO().getById( id );
+		if( lFromDb != null ) {
+			lFromDb.setStatus(PortalStatus.BLOCKED_USER );
+			if( getLoginDAO().modify( lFromDb ) ){
+				getList().add( lFromDb );
+				getResponse().setStatus(true);
+				getResponse().setInfo("Success");
+			}
+			else {
+				getResponse().setStatus(false);
+				getResponse().setInfo("Error");
+			}
+		}
 		return getResponse();
 	}
 	
 	public Response unBlockLogin( Long id ) {
+		getList().clear();
+		Login lFromDb = (Login) getLoginDAO().getById( id );
+		if( lFromDb != null ) {
+			lFromDb.setStatus(PortalStatus.ACTIVE_USER );
+			if( getLoginDAO().modify( lFromDb ) ){
+				getList().add( lFromDb );
+				getResponse().setStatus(true);
+				getResponse().setInfo("Success");
+			}
+			else {
+				getResponse().setStatus(false);
+				getResponse().setInfo("Error");
+			}
+		}
 		return getResponse();
 	}
 }

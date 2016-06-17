@@ -45,4 +45,21 @@ public class LoginDAO extends HibernateDAO implements ILoginDAO {
 		return entity;
 	}
 
+	public Login getByEmailId(String emailId) {
+		Login login = null;
+		try {
+			session = getSessionFactory().openSession();
+			criteria = session.createCriteria( Login.class );
+			criteria.add( Restrictions.eq( "emailId", emailId ) );
+			login = (Login) criteria.uniqueResult();
+		}
+		catch( Exception e ) {
+			e.printStackTrace();
+		}
+		finally {
+			session.close();
+		}
+		return login;
+	}
+
 }

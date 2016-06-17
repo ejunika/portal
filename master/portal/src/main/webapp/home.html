@@ -3,8 +3,15 @@
     <head>
     <meta charset="UTF-8">
     <title>Home::Home</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/app.style.css" />
+    <link rel="stylesheet" href="css/designer.style.css" />
     </head>
-    <body ng-controller="core.ctrl">
+    <body ng-controller="core.ctrl" ng-init="init()">
+        <nj-header></nj-header>
+        <nj-breadcrumb></nj-breadcrumb>
+        <nj-main-menu></nj-main-menu>
+        <nj-main-area></nj-main-area>
     <script type="text/javascript" src="./node_modules/requirejs/require.js" data-main="./ngApp/app.main"></script>
     </body>
 </html>

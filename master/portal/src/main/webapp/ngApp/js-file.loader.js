@@ -7,9 +7,26 @@
     define( [
         "jquery",
         "angular",
+        "angularroute",
         "bootstrap",
-        "core_module",
-        "core_controller"
+        "cm",
+        "cc",
+        "cs",
+        "rs",
+        "hm",
+        "hc",
+        "hd",
+        "bcm",
+        "bcc",
+        "bcd",
+        "mmm",
+        "mmc",
+        "mmd",
+        "mam",
+        "mac",
+        "mad",
+        "dm",
+        "dc"
     ], rcb );
     function rcb() {}
 } )();

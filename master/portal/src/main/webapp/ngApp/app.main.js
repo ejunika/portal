@@ -16,8 +16,24 @@
             pouchdb: "../node_modules/pouchdb/dist/pouchdb",
             boot: "boot",
             ac: "app-config",
-            core_module: "core/core.module",
-            core_controller: "core/core.ctrl",
+            cm: "core/core.module",
+            cc: "core/core.ctrl",
+            cs: "core/core.srvc",
+            rs: "core/request.srvc",
+            hm: "core/header/header.module",
+            hc: "core/header/header.ctrl",
+            hd: "core/header/header.dir",
+            bcm: "core/breadcrumb/breadcrumb.module",
+            bcc: "core/breadcrumb/breadcrumb.ctrl",
+            bcd: "core/breadcrumb/breadcrumb.dir",
+            mmm: "core/main-menu/main-menu.module",
+            mmc: "core/main-menu/main-menu.ctrl",
+            mmd: "core/main-menu/main-menu.dir",
+            mam: "core/main-area/main-area.module",
+            mac: "core/main-area/main-area.ctrl",
+            mad: "core/main-area/main-area.dir",
+            dm: "designer/designer.module",
+            dc: "designer/designer.ctrl",
             jsfileloader: "js-file.loader"
         },
         shim: {
@@ -27,6 +43,9 @@
             angular: {
                 exports: "angular",
                 deps: [ "jquery" ]
+            },
+            angularroute: {
+                deps: [ "angular" ]
             },
             bootstrap: {
                 deps: [ "jquery" ]

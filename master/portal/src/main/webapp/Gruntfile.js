@@ -8,7 +8,7 @@ module.exports = function( grunt ) {
                     banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
                 },
                 files : {
-                	'build/app.min.css': [ 'src/app.css' ]
+                	'build/app.style.min.css': [ 'css/app.style.css' ]
                 }
             }
         },
