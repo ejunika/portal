@@ -1,0 +1,32 @@
+[
+    {
+        "id": "HOME",
+        "hasOpns": false,
+        "name": "Home",
+        "selected": true,
+        "enable": true,
+        "icon": {
+            "clazz": "glyphicon glyphicon-home"
+        }
+    },
+    {
+        "id": "ADMIN",
+        "hasOpns": true,
+        "name": "Admin",
+        "selected": false,
+        "enable": false,
+        "icon": {
+            "clazz": "glyphicon glyphicon-king"
+        }
+    },
+    {
+        "id": "DESIGNER",
+        "name": "Desinger",
+        "hasOpns": false,
+        "selected": false,
+        "enable": true,
+        "icon": {
+            "clazz": "glyphicon glyphicon-picture"
+        }
+    }
+]

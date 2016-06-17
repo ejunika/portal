@@ -1,0 +1,253 @@
+a:hover, a:focus {
+    text-decoration: none !important;
+}
+
+.text-left {
+	text-align: left !important;
+}
+
+
+
+.d-wrapper {
+	width: calc( 100% - 31px );
+}
+.d-main-control {
+	width: 31px;
+	position: relative;
+}
+.d-main-menu {
+	width: 200px;
+    position: absolute;
+    margin-bottom: 0;
+    top: 0;
+    background: #F5F5F5;
+}
+.d-hf-menu {
+	transition: 0.5s;
+    right: -170px;
+}
+.d-tab-pane {
+    background: whitesmoke;
+    height: 35px;
+}
+.d-tabs {
+	width: calc( 100% - 200px );	
+}
+.d-tab-pane .nav>li {
+	width: 200px;
+}
+.d-add-tab-li {
+	width: 35px !important;
+}
+.d-add-tab-li a {
+	box-shadow: none !important;
+}
+.d-tab-pane .nav>li>a {
+    padding: 5px 5px;
+}
+.d-tab-pane .nav>li>a:not(.active>a) {
+	box-shadow: none;	
+}
+.d-tab-content-pane {
+    height: calc( 100% - 35px );
+}
+.d-dashboard-wrapper {
+	height: 100%;
+	width: calc( 100% - 300px );
+	overflow: auto;
+	transition: 0.2s;
+}
+.d-dashboard-wrapper-full {
+	width: 100% !important;
+}
+.d-dashboard {
+	position: relative;
+    overflow: hidden;
+}
+.d-dashboard-add-btn,
+.d-dashboard-remove-btn {
+	position: absolute !important;
+    box-shadow: none !important;
+    top: 5px;
+    right: 0;
+}
+.d-main {
+    position: relative;
+}
+.d-right-pane {
+    position: absolute;
+    top: 35px;
+    right: -350px;
+    width: 300px;
+    background: #FFFFFF;
+    right: 0;
+    padding: 1px;
+	transition: 0.2s;
+    height: calc( 100% - 35px );
+    border: 1px solid #DDD;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+}
+.d-right-pane-hide {
+	right: -301px !important;
+}
+.d-right-pane-body {
+	height: calc( 100% - 34px );
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+.d-right-pane-footer {
+    /* background: red; */
+	padding: 5px 5px;
+    height: 30px;
+    border-top: 1px solid white;
+}
+.d-control-btn-container {
+	width: 200px;
+    padding: 0;
+    margin: 0;
+}
+.d-control-btn {
+	list-style: none;
+	display: inline-flex;
+    background: white;
+    border: 1px solid #DDD;
+    height: 34px;
+    width: 34px;
+    float: right;
+}
+.d-control-btn a {
+	padding: 5px 9px;
+}
+
+.d-w-group-wrapper {
+    margin-bottom: 18px;
+}
+.d-w-group-item {
+    list-style: none;
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+}
+.d-w-group-item a {
+    padding: 10px 12px;
+    border: 1px solid;
+}
+.d-w-group-item a i {
+	left: 1px;
+}
+.d-w-g-separator {
+	height: 6px;
+    border-top: 1px solid #DDD;
+    margin-bottom: 5px;
+    position: relative;
+}
+.d-w-g-separator .pointer {
+	left: 35px;
+    position: absolute;
+    background: #FFFFFF;
+    width: 8px;
+    height: 8px;
+    transform: rotate(45deg);
+    border-left: 1px solid #DDD;
+    border-top: 1px solid #DDD;
+    top: -5px;
+    z-index: 46;
+    transition: .2s;
+}
+
+.d-w-list-group {
+    padding: 0;
+    margin: 0;
+}
+
+.d-w-list-item {
+    height: 30px;
+    border-bottom: 1px solid #DDD;
+    line-height: 2.5;
+}
+
+.d-w-list-item a{
+	margin-left: 10px;
+    margin-right: 10px;
+}
+
+/* ACCORDION */
+.panel-heading {
+    padding: 8px 15px !important;
+}
+.panel-group .panel+.panel {
+    margin-top: 1px !important;
+}
+.panel-group .panel {
+    border-radius: 1px !important;
+}
+.panel-title {
+    font-size: 13px !important;
+}
+
+.ui-sortable-placeholder {
+    height: 100px;
+    width: 100px;
+    float: left;
+    margin: 5px;
+    border: 1px solid #DDD;
+}
+
+/*WIDGETS*/
+.r-handle {
+    width: 8px;
+    height: 8px;
+    background: white;
+    border: 1px solid #212121;
+}
+.r-handle-e {
+    top: calc( 50% - 4px );
+    right: -6px;
+}
+.r-handle-w {
+    top: calc( 50% - 4px );
+    left: -6px;
+}
+.r-handle-s {
+    left: calc( 50% - 4px );
+    bottom: -6px;
+}
+.r-handle-n {
+    left: calc( 50% - 4px );
+    top: -6px;
+}
+.r-handle-se {
+    right: -6px;
+    bottom: -6px;
+}
+.r-handle-ne {
+    right: -6px;
+    top: -6px;
+}
+.r-handle-nw {
+    left: -6px;
+    top: -6px;
+}
+.r-handle-sw {
+    left: -6px;
+    bottom: -6px;
+}
+.w-draggable {
+    width: 0;
+    height: 0;
+}
+.widget {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+}
+.w-s-border {
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    width: calc( 100% + 6px );
+    height: calc( 100% + 6px );
+    border: 2px solid blue;
+    /*display: none;*/
+}

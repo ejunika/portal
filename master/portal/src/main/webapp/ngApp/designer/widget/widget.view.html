@@ -1,0 +1,19 @@
+<div class="w-draggable" ng-repeat="wObj in dashboardMap[ dId ].Layout.Widgets" 
+    jq-draggable 
+    drag-config="widgetDragConfig">
+    <div class="widget" 
+        jq-resizable 
+        ng-click="onClickWidget( $event, wObj )" 
+        resize-config="widgetResizeConfig" >
+        <span>{{ w.wName }}</span>
+        <div class="w-s-border"></div>
+        <div class="ui-resizable-handle ui-resizable-n r-handle r-handle-n"></div>
+        <div class="ui-resizable-handle ui-resizable-ne r-handle r-handle-ne"></div>
+        <div class="ui-resizable-handle ui-resizable-e r-handle r-handle-e"></div>
+        <div class="ui-resizable-handle ui-resizable-se r-handle r-handle-se"></div>
+        <div class="ui-resizable-handle ui-resizable-s r-handle r-handle-s"></div>
+        <div class="ui-resizable-handle ui-resizable-sw r-handle r-handle-sw"></div>
+        <div class="ui-resizable-handle ui-resizable-w r-handle r-handle-w"></div>
+        <div class="ui-resizable-handle ui-resizable-nw r-handle r-handle-nw"></div>
+    </div>
+</div>

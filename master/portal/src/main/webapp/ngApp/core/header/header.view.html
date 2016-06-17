@@ -1,0 +1,113 @@
+<nav class="navbar navbar-default clg-navbar" ng-init="init()">
+    <ul class="nav navbar-nav pull-left">
+        <li>
+            <a href="javascript: void( 0 )" 
+                class="clg-toggle-menu-btn nj-dropdown-toggle" 
+                ng-click="toggleMainMenu( $event )">
+                <i class="glyphicon glyphicon-align-justify animated bounceInDown"></i>
+            </a>
+        </li>
+    </ul>
+    <div class="pull-right">
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a href="javascript: void( 0 )" 
+                    data-toggle="dropdown" 
+                    role="button" 
+                    aria-haspopup="true" 
+                    aria-expanded="false"
+                    class="dropdown-toggle nj-dropdown-toggle">
+                    <i class="fa fa-envelope-o" 
+                        aria-hidden="true"></i>
+                    <span ng-show="hVm.data.emails.length > 0" 
+                        class="badge badge-default">
+                        {{ hVm.data.emails.length }}
+                    </span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li class="ddm-header">You have 3 messages</li>
+                    <li ng-repeat="mail in hVm.data.emails">
+                        <a href="javascript: void( 0 )">
+                            <div>
+                                <img src="images" />
+                            </div>
+                            <h4>
+                                Support
+                                <small>
+                                    <i class="fa fa-clock"></i>
+                                    5 mins
+                                </small>
+                            </h4>
+                            <p>{{ mail.text }}</p>
+                        </a>
+                    </li>
+                    <li class="ddm-footer">
+                        <a href="javascript: void(0)">
+                            See All Messages
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="javascript: void( 0 )" 
+                    data-toggle="dropdown" 
+                    role="button" 
+                    aria-haspopup="true" 
+                    aria-expanded="false"
+                    class="dropdown-toggle nj-dropdown-toggle">
+                    <i ng-class="{ 'swing': hVm.data.swingNt }" 
+                        class="fa fa-bell-o animated" 
+                        aria-hidden="true"></i>
+                    <span ng-show="hVm.data.unreadNtCount > 0" 
+                        class="badge badge-default">
+                        {{ hVm.data.unreadNtCount }}
+                    </span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right nt-dd">
+                    <li class="nt-dd-header">
+                        You have 
+                        <b>{{ hVm.data.unreadNtCount }} unread </b>
+                        notifications
+                    </li>
+                    <li class="nt-dd-item" 
+                        ng-click="hVm.fn.markNotificationAsRead( $event, nt )" 
+                        ng-repeat="nt in hVm.data.notifications">
+                        <span class="nt-icon">
+                            <i class="fa fa-anchor" 
+                                aria-hidden="true">
+                            </i>
+                        </span>
+                        <span class="nt-text" 
+                            ng-class="{ 'un-read': nt.status == 1 }">
+                            {{ nt.text }}   
+                        </span>
+                        <span class="nt-time">{{ nt.time }}</span>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="javascript: void( 0 )" 
+                    class="dropdown-toggle nj-dropdown-toggle" 
+                    data-toggle="dropdown" 
+                    role="button" 
+                    aria-haspopup="true" 
+                    aria-expanded="false">
+                    <img class="round-box" ng-src="{{ hVm.data.loggedInUser.imagePath }}" />
+                    <span class="logged-in-user-name">
+                        {{ hVm.data.loggedInUser.userName }}
+                    </span>
+                    <i class="fa fa-angle-down" 
+                    aria-hidden="true"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li ng-class="{ 'divider': luo.separator }" 
+                        ng-repeat="luo in hVm.data.luOptions track by $index">
+                        <a ng-if="!luo.separator" href="javascript: void( 0 )">
+                            {{ luo.title }}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>

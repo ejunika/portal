@@ -1,0 +1,91 @@
+{
+    "DataProvider": {
+        "Offline": {
+            "connections": [
+                {
+                    "id": "",
+                    "type": "",
+                    "fields": [
+                        {
+                            "id": "fieldId_1",
+                            "displayName": "fName1",
+                            "name": "fName1"
+                        },
+                        {
+                            "id": "fieldId_2",
+                            "displayName": "fName2",
+                            "name": "fName2"
+                        },
+                        {
+                            "id": "fieldId_3",
+                            "displayName": "fName3",
+                            "name": "fName3"
+                        }
+                    ]
+                }
+            ]
+        },
+        "Online": {
+            "connections": [
+                {
+                    "id": "",
+                    "type": "",
+                    "fields": [
+                        {},
+                        {},
+                        {}
+                    ]
+                }
+            ]
+        }
+    },
+    "GenInfo": {
+        "version": "",
+        "author": "",
+        "lastModified": ""
+    },
+    "Layout": {
+        "Widgets": [
+            {
+                "wName": "A"
+            },
+            {
+                "wName": "B"
+            },
+            {
+                "wName": "C"
+            },
+            {
+                "wName": "D"
+            }
+        ],
+        "gredientColor": "",
+        "gredientRotation": "",
+        "height": "",
+        "title": "",
+        "id": "",
+        "width": ""
+    },
+    "assignedDatasets": [
+        {
+            "dataProvider": "",
+            "assignedTo": "",
+            "Data": {
+                "records": [
+                    {
+                        "fieldId_1": "value1",
+                        "fieldId_2": "value2",
+                        "fieldId_3": "value3"
+                    },
+                    {
+                        "fieldId_1": "value1",
+                        "fieldId_2": "value2",
+                        "fieldId_3": "value3"
+                    }
+                ]
+            }
+        }
+    ],
+    "id": "",
+    "wsId": ""
+}

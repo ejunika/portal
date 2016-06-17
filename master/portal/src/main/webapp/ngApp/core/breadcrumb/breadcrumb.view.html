@@ -1,0 +1,5 @@
+<ul class="breadcrumb clg-breadcrumb" ng-init="bcVm.init()">
+	<li ng-repeat="bc in bcVm.data.bcStack">
+		<a ng-class="{ 'active': bc.selected }" href="javascript: void( 0 )">{{ bc.linkName }}</a>
+	</li>
+</ul>

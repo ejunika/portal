@@ -1,0 +1,245 @@
+*:focus {
+	outline: none !important;
+}
+html {
+	height: 100%;
+	width: 100%;
+}
+body {
+	height: 100%;
+	width: 100%;
+}
+.pad-0 {
+	padding: 0px !important;
+}
+.full-height {
+	height: 100%
+}
+.full-width {
+	width: 100%;
+}
+.full-size {
+	height: 100%;
+	width: 100%;
+}
+/*==================*/
+
+.nj-cxt-menu {
+    display: block;
+    position: absolute;
+    top: auto;
+    left: auto;
+    right: auto !important;
+    border-radius: 0;
+}
+
+.dropdown-menu-right {
+    right: 0 !important;
+}
+
+.nj-dropdown-toggle {
+    padding: 10px 10px !important;
+}
+  
+.badge-default {
+    font-family: "Open Sans",sans-serif;
+    position: absolute;
+    top: 2px;
+    right: 0px;
+    font-weight: 300;
+    padding: 3px 6px;
+    background: #F44336;
+}
+
+.un-read {
+    font-weight: bold;
+}
+
+.nt-dd {
+    min-width: 250px !important;
+}
+
+.nt-dd-item:hover {
+    background: #DDD;
+}
+.nt-dd-item {
+    padding: 5px;
+}
+
+
+
+
+.clg-container {
+	height: 100%;
+}
+.clg-navbar {
+    min-height: 40px;
+    border-radius: 0px;
+    margin-bottom: 0px;
+}
+.nt-icon {
+    background: green;
+    color: white;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    display: inline-block;
+    text-align: center;
+}
+.round-box {
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+}
+.highlighter-right {
+    width: 3px;
+    height: 100%;
+    background: green;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.clg-main-menu {
+    width: 200px;
+    height: calc( 100% - 82px );
+    position: absolute;
+    margin-bottom: 0px;
+    top: 78px;
+    background: #F5F5F5;
+}
+.clg-hf-menu {
+	transition: 0.2s;
+    left: -170px;
+}
+.clg-full-menu {
+	transition: 0.2s;
+	left: 0px;	
+}
+.clg-icons {
+	padding: 0px 5px;
+    margin-top: -1px;
+}
+.clg-breadcrumb {
+    padding: 5px 8px;
+    border-radius: 0;
+    margin-bottom: 2px;
+    min-height: 33px;
+}
+.clg-menu-item {
+	border-radius: 0px !important;
+    padding: 5px;
+}
+.clg-toggle-menu-btn {
+	transform: rotate( 0deg );
+    transition: 0.5s;
+	padding: 10px 8px;
+}
+.rotate {
+    transform: rotate( 360deg );
+    transition: 0.2s;
+}
+.clg-wrapper {
+	height: calc( 100% - 81px );
+    border: 1px solid #CCC;
+    padding: 1px;
+}
+.clg-wrapper-full {
+	transition: 0.2s;
+    width: calc( 100% - 31px );
+}
+.clg-wrapper-hf {
+	transition: 0.2s;
+	width: calc( 100% - 201px );
+}
+.clg-menu-item {
+    cursor: pointer;
+}
+.clg-menu-item:HOVER {
+    box-shadow: 1px 0px 5px #A0A0A0;
+    z-index: 1;
+    transition: 0.2s;
+}
+.clg-sub-container {
+	width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden; 
+}
+.clg-option {
+	height: 150px;
+    width: 200px;
+    border-radius: 0;
+    float: left;
+    margin: 5px 5px;
+}
+.clg-option:HOVER {
+    z-index: 1;
+    box-shadow: 0px 0px 10px #A0A0A0;
+    transition: 0.2s;
+}
+.clg-opn-container {
+	margin: 50px auto;
+    width: 80%;
+}
+.clg-opn-icon {
+	padding: 8px;
+}
+.clg-folder-container {
+    width: 150px;
+    float: left;
+    margin: 2px;
+    text-align: center;
+    position: relative;
+}
+.clg-file-browser {
+    width: 300px;
+    height: 100%;
+    border: 1px solid #DDD;
+}
+.clg-file-name-grid {
+	text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.clg-file-grid-view {
+/* 	position: relative; */
+}
+.clg-file-name-grid-edit-box {
+	position: absolute;
+    bottom: 36px;
+    right: 0;
+    left: 0;
+    width: 85%;
+    background: rgba(255, 255, 255, 0);
+    margin: 0 auto;
+    text-align: center;
+    display: none;
+    letter-spacing: 0.6px;
+}
+.clg-file-viewer {
+    width: calc( 100% - 301px);
+    height: 100%;
+    padding: 5px;
+    border: 1px solid #DDD;
+    margin-left: 1px;
+    overflow: auto;
+}
+.clg-file-option {
+    position: absolute;
+    background: #f5f5f5;
+    padding: 0px 5px;
+    top: 5px;
+    right: 5px;
+}
+.clg-folder-dropdown-menu {
+    top: 30px;
+    right: 5px;
+    /* min-width: 130px; */
+}
+#jstree {
+	height: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding: 8px;
+}

@@ -1,0 +1,9 @@
+{
+    "DATA_URLs": {
+        "DASHBOARD_DATA": "",
+        "WIDGET_DATA_URLs": {
+            "WIDGET_DATA": "",
+            "LINE_CHART_DATA": ""
+        }
+    }
+}

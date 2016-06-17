@@ -1,0 +1,15 @@
+<ul ng-class="getMenuToggleClasses()" 
+    class="list-group clg-main-menu animated bounceInLeft" 
+    ng-init="init()">
+    <li class="list-group-item clg-menu-item" 
+        ng-if="m.enable"
+        ng-click="handleMainMenuClick( $event, m )"
+        ng-repeat="m in mainMenuList track by $index" >
+        {{ m.name }}
+        <a href="javascript: void( 0 )" 
+            class="clg-icons pull-right">
+            <i ng-class="m.icon.clazz"></i>
+        </a>
+        <div ng-show="selected" class="highlighter-right"></div>
+    </li>
+</ul>

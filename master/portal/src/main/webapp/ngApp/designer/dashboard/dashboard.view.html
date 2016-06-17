@@ -1,0 +1,15 @@
+<div class="d-resizable-area full-size" 
+    jq-resizable 
+    resize-config="dashboardResizeConfig" >
+    <div class="drag-selection-area full-size" 
+        jq-selectable 
+        select-config="dragSelectConfig">
+        <div jq-droppable 
+            drop-config="dashboardDropConfig"
+            id="{{ 'MAIN_' + dId }}" 
+            class="d-dashboard" 
+            ng-style="getDashboardStyle( d )">
+            <nj-widget></nj-widget>
+        </div>
+    </div>
+</div>

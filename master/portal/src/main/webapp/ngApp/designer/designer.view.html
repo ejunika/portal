@@ -1,0 +1,157 @@
+<div class="full-size d-container" ng-init="init()">
+    <div class="full-height d-wrapper pull-left">
+        <div class="full-size d-main">
+            <div class="d-tab-pane">
+                <ul class="nav nav-tabs d-tabs pull-left">
+                    <!-- DASHBOARD TABS -->
+                    <li class="d-tab" ng-repeat="dId in openDashboardIds track by dId">
+                        <a id="{{ 'TAB_' + dId }}" 
+                            data-toggle="tab" href="{{ '#' + dId }}">
+                            {{ $parent.dashboardMap[ dId ].Layout.title }}
+                        </a>
+                        <a href="javascript: void( 0 )" class="d-dashboard-remove-btn">
+                            <i class="glyphicon glyphicon-remove pull-right"></i>
+                        </a>
+                    </li>
+                    <!-- ADD DASHBOARD BTN -->
+                    <li class="d-add-tab-li">
+                        <a data-toggle="tab" href="#">
+                            &nbsp;
+                        </a>
+                        <a href="javascript: void( 0 )" 
+                            ng-click="addDashboard( $event )" 
+                            class="d-dashboard-remove-btn">
+                                <i class="glyphicon glyphicon-plus pull-right"></i>
+                        </a>
+                    </li>
+                </ul>
+                <!-- DASHBOARD BUTTONS -->
+                <ul class="d-control-btn-container pull-right">
+                    <li class="d-control-btn">
+                        <a href="">
+                            <i class="glyphicon glyphicon-save"></i>
+                        </a>
+                    </li>
+                    <li class="d-control-btn">
+                        <a href="javascript: void( 0 )" ng-click="">
+                            <i class="glyphicon glyphicon-lock"></i>
+                        </a>
+                    </li>
+                    <li class="d-control-btn">
+                        <a href="">
+                            <i class="glyphicon glyphicon-export"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="d-tab-content-pane tab-content">
+                
+                <!-- DASHBOARD CONTAINER -->
+                <div repeat-end="afterAllDashboardLoad( dId )" 
+                    id="{{ dId }}" 
+                    class="d-dashboard-wrapper d-dashboard-wrapper-full tab-pane fade" 
+                    ng-repeat="dId in openDashboardIds track by dId">
+                    <nj-dashboard>{{dId}}</nj-dashboard>
+                </div>
+            </div>
+            <div class="full-height d-right-pane d-right-pane-hide">
+                 <div class="d-right-pane-body">
+                    <div class="row">
+                        <div class="col-md-10 d-w-search-container">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <div class="col-md-offset-1">
+                                        <input type="text" 
+                                            style="margin-top: 5px;"
+                                            class="form-control input-sm" 
+                                            placeholder="Search widget"
+                                            id="widget-search" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-2 d-w-view-switch-container">
+                            <a href="javascript: void( 0 )" class="d-w-view-switcher">
+                                <i class="glyphicon glyphicon-th"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 d-w-group-container">
+                            <ul class="d-w-group-wrapper">
+                                <li class="d-w-group-item">
+                                    <img class="full-size" ng-src="./app/modules/designer/images/more_color.png" />
+                                    <label>Cats</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="d-w-g-separator">
+                            <div class="pointer" style="left: 56px;"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="d-w-list-group">
+                                <li class="d-w-list-item" jq-draggable drag-config="widgetDragConfig">
+                                    <a href="">
+                                        <i class="glyphicon glyphicon-th"></i>
+                                    </a>
+                                    Column Chart
+                                </li>
+                                <li class="d-w-list-item">
+                                    <a href="">
+                                        <i class="glyphicon glyphicon-th"></i>
+                                    </a>
+                                    Line Chart
+                                </li>
+                                <li class="d-w-list-item">
+                                    <a href="">
+                                        <i class="glyphicon glyphicon-th"></i>
+                                    </a>
+                                    Pie Chart
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                 </div>
+                 <div class="d-right-pane-footer">
+                    <label class="pull-left">Properties</label>
+                    <a href="javascript: void( 0 )" class="pull-right" ng-click="hideRightPane( $event )">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </a>
+                 </div>
+            </div>
+        </div>
+<!--        <div class="full-size d-other"> -->
+<!--            Other -->
+<!--        </div> -->
+    </div>
+    <div class="full-height d-main-control pull-right">
+        <ul class="list-group full-height d-main-menu d-hf-menu">
+            <li class="list-group-item clg-menu-item" >
+                <a href="javascript: void( 0 )" class="clg-icons pull-left" ng-click="toggleRightPane()">
+                    <i class="glyphicon glyphicon-plus"></i>    
+                </a>
+                Data Sources
+            </li>
+            <li class="list-group-item clg-menu-item" >
+                <a href="javascript: void( 0 )" class="clg-icons pull-left">
+                    <i class="glyphicon glyphicon-trash"></i>   
+                </a>
+                Widgets Explorer
+            </li>
+            <li class="list-group-item clg-menu-item" >
+                <a href="javascript: void( 0 )" class="clg-icons pull-left">
+                    <i class="glyphicon glyphicon-remove"></i>  
+                </a>
+                Object Browser
+            </li>
+            <li class="list-group-item clg-menu-item" >
+                <a href="javascript: void( 0 )" class="clg-icons pull-left">
+                    <i class="glyphicon glyphicon-eye-open"></i>    
+                </a>
+                Widgets Attributes
+            </li>
+        </ul>
+    </div>
+</div>
