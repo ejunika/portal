@@ -15,7 +15,8 @@
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
 		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/PORTAL?createDatabaseIfNotExist=true" />
 		<property name="user" value="root" />
-		<property name="password" value="Vijeta" />
+		<property name="password" value="Admin" />
+<!-- 		<property name="password" value="Vijeta" /> -->
 		<!-- CONNECTION POOL INFORMATION -->
 		<property name="maxPoolSize" value="5" /> 
 		<property name="minPoolSize" value="1" />
