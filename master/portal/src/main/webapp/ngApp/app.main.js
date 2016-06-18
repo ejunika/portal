@@ -60,6 +60,12 @@
             angularroute: {
                 deps: [ "angular" ]
             },
+            angularanimate: {
+                deps: [ "angular" ]
+            },
+            angularjstoster: {
+                deps: [ "angular" ]
+            },
             bootstrap: {
                 deps: [ "jquery" ]
             }

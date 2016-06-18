@@ -19,6 +19,15 @@
                     appendTo: "body"
                 };
             };
+            $scope.saveDashboard = function( e ) {
+                cs.alert( "error", "Designer", "Service Error!!" );
+            };
+            $scope.previewDashboard = function( e ) {
+                cs.alert( "info", "Designer", "Preview enabled!!" );
+            };
+            $scope.exportToLocalDisk = function( e ) {
+                cs.alert( "success", "Designer", "Export successfully!!" );
+            };
             $scope.toggleRightPane = function( e ) {
                 var 
                 $rightPane = $( ".d-right-pane" ),
@@ -41,6 +50,7 @@
                         $timeout( function() {
                             $( "#TAB_" + obj.id ).click();
                             $scope.selectedDashboardId = obj.id;
+                            cs.alert( "success", "Designer", obj.Layout.title + " Added.." );
                         }, 0 );
                         break;
                     default:

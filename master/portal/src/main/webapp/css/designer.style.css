@@ -6,7 +6,9 @@ a:hover, a:focus {
 	text-align: left !important;
 }
 
-
+.dropdown-menu {
+    border-radius: 2px;
+}
 
 .d-wrapper {
 	width: calc( 100% - 31px );
@@ -41,6 +43,9 @@ a:hover, a:focus {
 }
 .d-add-tab-li a {
 	box-shadow: none !important;
+}
+.d-dashboard-menu-btn {
+	padding: 5px 11px !important;
 }
 .d-tab-pane .nav>li>a {
     padding: 5px 5px;
@@ -98,14 +103,12 @@ a:hover, a:focus {
 }
 .d-right-pane-body {
 	height: calc( 100% - 34px );
-	overflow-x: hidden;
-	overflow-y: auto;
+	overflow: hidden;
 }
 .d-right-pane-footer {
-    /* background: red; */
 	padding: 5px 5px;
     height: 30px;
-    border-top: 1px solid white;
+    border-top: 1px solid #dddddd;
 }
 .d-control-btn-container {
 	width: 200px;
@@ -126,13 +129,18 @@ a:hover, a:focus {
 }
 
 .d-w-group-wrapper {
-    margin-bottom: 18px;
+    margin-bottom: 5px;
+    padding: 0px 16px;
 }
+
 .d-w-group-item {
     list-style: none;
     display: inline-block;
     height: 50px;
     width: 50px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    text-align: center;
 }
 .d-w-group-item a {
     padding: 10px 12px;
@@ -164,6 +172,7 @@ a:hover, a:focus {
 .d-w-list-group {
     padding: 0;
     margin: 0;
+    overflow: auto;
 }
 
 .d-w-list-item {
@@ -207,46 +216,46 @@ a:hover, a:focus {
 }
 .r-handle-e {
     top: calc( 50% - 8px );
-    right: -4px;
-    border-right: 6px solid #727272;
+    right: -3px;
+    border-right: 5px solid #727272;
 }
 .r-handle-w {
     top: calc( 50% - 8px );
-    left: -4px;
-    border-left: 6px solid #727272;
+    left: -3px;
+    border-left: 5px solid #727272;
 }
 .r-handle-s {
     left: calc( 50% - 8px );
-    bottom: -4px;
-    border-bottom: 6px solid #727272;
+    bottom: -3px;
+    border-bottom: 5px solid #727272;
 }
 .r-handle-n {
     left: calc( 50% - 8px );
-    top: -4px;
-    border-top: 6px solid #727272;
+    top: -3px;
+    border-top: 5px solid #727272;
 }
 .r-handle-corner {
-	border-top: 6px solid #727272;
-	border-left: 6px solid #727272;
+	border-top: 5px solid #727272;
+	border-left: 5px solid #727272;
 }
 .r-handle-se {
-    right: -4px;
-    bottom: -4px;
+    right: -3px;
+    bottom: -3px;
     transform: rotate(180deg);
 }
 .r-handle-ne {
-    right: -4px;
-    top: -4px;
+    right: -3px;
+    top: -3px;
     transform: rotate(90deg);
 }
 .r-handle-nw {
-    left: -4px;
-    top: -4px;
+    left: -3px;
+    top: -3px;
     transform: rotate(0deg);
 }
 .r-handle-sw {
-    left: -4px;
-    bottom: -4px;
+    left: -3px;
+    bottom: -3px;
     transform: rotate(270deg);
 }
 .w-draggable {
@@ -257,6 +266,7 @@ a:hover, a:focus {
     position: absolute;
     width: 100px;
     height: 100px;
+    background: #b2dbfb;
 }
 .w-s-border {
     position: absolute;
@@ -264,5 +274,5 @@ a:hover, a:focus {
     left: -3px;
     width: calc( 100% + 6px );
     height: calc( 100% + 6px );
-    border: 2px solid #727272;
+    border: 1px solid #727272;
 }

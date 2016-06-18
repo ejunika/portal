@@ -9,6 +9,8 @@
         "jqueryui",
         "angular",
         "angularroute",
+        "angularanimate",
+        "angularjstoster",
         "uijquery",
         "bootstrap",
         "cm",

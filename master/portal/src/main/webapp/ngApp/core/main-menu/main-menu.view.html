@@ -1,4 +1,6 @@
 <ul ng-class="getMenuToggleClasses()" 
+    ng-mouseover="toggleMainMenu( $event, true )"
+    ng-mouseleave="toggleMainMenu( $event, false )"  
     class="list-group clg-main-menu animated bounceInLeft" 
     ng-init="init()">
     <li class="list-group-item clg-menu-item" 

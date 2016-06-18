@@ -3,6 +3,36 @@
         <div class="full-size d-main">
             <div class="d-tab-pane">
                 <ul class="nav nav-tabs d-tabs pull-left">
+                    <li class="d-add-tab-li dropdown">
+                        <a href="javascript: void( 0 )" 
+                            data-toggle="dropdown"
+                            ng-click="showDesignerMenu( $event )" 
+                            class="dropdown-toggle d-dashboard-menu-btn">
+                                <i class="glyphicon glyphicon-align-justify"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="javascript: void( 0 )">
+                                    Manage
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript: void( 0 )">
+                                    Settings
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript: void( 0 )">
+                                    Help
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript: void( 0 )">
+                                    Exit
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     <!-- DASHBOARD TABS -->
                     <li class="d-tab" ng-repeat="dId in openDashboardIds track by dId">
                         <a id="{{ 'TAB_' + dId }}" 
@@ -28,18 +58,18 @@
                 <!-- DASHBOARD BUTTONS -->
                 <ul class="d-control-btn-container pull-right">
                     <li class="d-control-btn">
-                        <a href="">
-                            <i class="glyphicon glyphicon-save"></i>
+                        <a href="javascript: void( 0 )" ng-click="previewDashboard( $event )">
+                            <i class="glyphicon glyphicon-eye-open"></i>
                         </a>
                     </li>
                     <li class="d-control-btn">
-                        <a href="javascript: void( 0 )" ng-click="">
-                            <i class="glyphicon glyphicon-lock"></i>
+                        <a href="javascript: void( 0 )" ng-click="saveDashboard( $event )">
+                            <i class="glyphicon glyphicon-floppy-disk"></i>
                         </a>
                     </li>
                     <li class="d-control-btn">
-                        <a href="">
-                            <i class="glyphicon glyphicon-export"></i>
+                        <a href="javascript: void( 0 )" ng-click="exportToLocalDisk( $event )">
+                            <i class="glyphicon glyphicon glyphicon-save"></i>
                         </a>
                     </li>
                 </ul>
@@ -78,40 +108,96 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 d-w-group-container">
-                            <ul class="d-w-group-wrapper">
-                                <li class="d-w-group-item">
-                                    <img class="full-size" ng-src="images/more_color.png" />
-                                    <label>Cats</label>
-                                </li>
-                            </ul>
+                            <div style="min-width: 296px;">
+                                <ul class="d-w-group-wrapper">
+	                                <li class="d-w-group-item">
+	                                    <img class="full-size" ng-src="images/chart.png" />
+	                                    <label>Cats</label>
+	                                </li>
+	                                <li class="d-w-group-item">
+	                                    <img class="full-size" ng-src="images/chart.png" />
+	                                    <label>Cats</label>
+	                                </li>
+	                                <li class="d-w-group-item">
+	                                    <img class="full-size" ng-src="images/chart.png" />
+	                                    <label>Cats</label>
+	                                </li>
+	                                <li class="d-w-group-item">
+	                                    <img class="full-size" ng-src="images/chart.png" />
+	                                    <label>Cats</label>
+	                                </li>
+	                                <li class="d-w-group-item">
+	                                    <img class="full-size" ng-src="images/chart.png" />
+	                                    <label>Cats</label>
+	                                </li>
+	                            </ul>
+                            </div>
                         </div>
                     </div>
                     <div class="d-w-g-separator">
-                            <div class="pointer" style="left: 56px;"></div>
+                        <div class="pointer" style="left: 36px;"></div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <ul class="d-w-list-group">
-                                <li class="d-w-list-item" 
-                                    jq-draggable="wExpItemDragCfg">
-                                    <a href="">
-                                        <i class="glyphicon glyphicon-th"></i>
-                                    </a>
-                                    Column Chart
-                                </li>
-                                <li class="d-w-list-item">
-                                    <a href="">
-                                        <i class="glyphicon glyphicon-th"></i>
-                                    </a>
-                                    Line Chart
-                                </li>
-                                <li class="d-w-list-item">
-                                    <a href="">
-                                        <i class="glyphicon glyphicon-th"></i>
-                                    </a>
-                                    Pie Chart
-                                </li>
-                            </ul>
+                    <div class="row" style="height: calc( 100% - 145px );">
+                        <div class="col-md-12 full-height">
+                            <div class="full-height">
+                                <ul class="d-w-list-group full-height">
+	                                <li class="d-w-list-item" 
+	                                    jq-draggable="wExpItemDragCfg">
+	                                    <a href="">
+	                                        <i class="glyphicon glyphicon-th"></i>
+	                                    </a>
+	                                    Column Chart
+	                                </li>
+	                                <li class="d-w-list-item">
+	                                    <a href="">
+	                                        <i class="glyphicon glyphicon-th"></i>
+	                                    </a>
+	                                    Line Chart
+	                                </li>
+	                                <li class="d-w-list-item">
+	                                    <a href="">
+	                                        <i class="glyphicon glyphicon-th"></i>
+	                                    </a>
+	                                    Pie Chart
+	                                </li>
+	                                <li class="d-w-list-item">
+	                                    <a href="">
+	                                        <i class="glyphicon glyphicon-th"></i>
+	                                    </a>
+	                                    Pie Chart
+	                                </li>
+	                                <li class="d-w-list-item">
+	                                    <a href="">
+	                                        <i class="glyphicon glyphicon-th"></i>
+	                                    </a>
+	                                    Pie Chart
+	                                </li>
+	                                <li class="d-w-list-item">
+	                                    <a href="">
+	                                        <i class="glyphicon glyphicon-th"></i>
+	                                    </a>
+	                                    Pie Chart
+	                                </li>
+	                                <li class="d-w-list-item">
+	                                    <a href="">
+	                                        <i class="glyphicon glyphicon-th"></i>
+	                                    </a>
+	                                    Pie Chart
+	                                </li>
+	                                <li class="d-w-list-item">
+	                                    <a href="">
+	                                        <i class="glyphicon glyphicon-th"></i>
+	                                    </a>
+	                                    Pie Chart
+	                                </li>
+	                                <li class="d-w-list-item">
+	                                    <a href="">
+	                                        <i class="glyphicon glyphicon-th"></i>
+	                                    </a>
+	                                    Pie Chart
+	                                </li>
+	                            </ul>
+                            </div>
                         </div>
                     </div>
                  </div>

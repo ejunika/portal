@@ -3,10 +3,14 @@
     define( [ "cm", "ac" ], rcb );
     function rcb( cm, ac ) {
         cm.service( ac.services.core, [ 
+            "toaster",
             coreSrvcFn
         ] );
-        function coreSrvcFn() {
+        function coreSrvcFn( toaster ) {
             var cs = this;
+            cs.alert = function( type, title, msg ) {
+                toaster.pop( type, title, msg );
+            };
             cs.getPouchDbInstance = function( dbName ) {
                 return new pDb( dbName );
             };

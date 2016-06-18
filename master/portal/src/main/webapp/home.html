@@ -3,17 +3,42 @@
     <head>
     <meta charset="UTF-8">
     <title>Home::Home</title>
+    <link rel="stylesheet" href="./node_modules/angularjs-toaster/toaster.min.css" />
     <link type="text/css" rel="stylesheet" href="./node_modules/jquery-ui/themes/base/jquery-ui.css" />
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="./node_modules/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="./css/app.style.css" />
     <link rel="stylesheet" href="./css/designer.style.css" />
+    <style type="text/css">
+    .dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+}
+    </style>
     </head>
     <body ng-controller="core.ctrl" ng-init="init()">
         <nj-header></nj-header>
         <nj-breadcrumb></nj-breadcrumb>
         <nj-main-menu></nj-main-menu>
         <nj-main-area></nj-main-area>
+        <toaster-container></toaster-container>
+        <ul ng-style="coVm.data.cxtMenuPosition" 
+            class="dropdown-menu nj-cxt-menu ng-hide">
+            <li ng-click="coVm.fn.cxtMenuHandler( $event, cmo )">
+                <a><!-- <i class="glyphicon glyphicon-plus"></i> -->Connections</a>
+            </li>
+            <li ng-click="coVm.fn.cxtMenuHandler( $event, cmo )">
+                <a><!-- <i class="glyphicon glyphicon-plus"></i> -->Close</a>
+            </li>
+            <li ng-click="coVm.fn.cxtMenuHandler( $event, cmo )">
+                <a><!-- <i class="glyphicon glyphicon-plus"></i> -->Properties</a>
+            </li>
+        </ul>
     <script type="text/javascript" src="./node_modules/requirejs/require.js" data-main="./ngApp/app.main"></script>
     </body>
 </html>
