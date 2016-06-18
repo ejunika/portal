@@ -51,7 +51,7 @@
                     id="{{ dId }}" 
                     class="d-dashboard-wrapper d-dashboard-wrapper-full tab-pane fade" 
                     ng-repeat="dId in openDashboardIds track by dId">
-                    <nj-dashboard>{{dId}}</nj-dashboard>
+                    <nj-dashboard></nj-dashboard>
                 </div>
             </div>
             <div class="full-height d-right-pane d-right-pane-hide">
@@ -80,7 +80,7 @@
                         <div class="col-md-12 d-w-group-container">
                             <ul class="d-w-group-wrapper">
                                 <li class="d-w-group-item">
-                                    <img class="full-size" ng-src="./app/modules/designer/images/more_color.png" />
+                                    <img class="full-size" ng-src="images/more_color.png" />
                                     <label>Cats</label>
                                 </li>
                             </ul>
@@ -92,7 +92,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <ul class="d-w-list-group">
-                                <li class="d-w-list-item" jq-draggable drag-config="widgetDragConfig">
+                                <li class="d-w-list-item" 
+                                    jq-draggable="wExpItemDragCfg">
                                     <a href="">
                                         <i class="glyphicon glyphicon-th"></i>
                                     </a>
@@ -115,7 +116,7 @@
                     </div>
                  </div>
                  <div class="d-right-pane-footer">
-                    <label class="pull-left">Properties</label>
+                    <label class="pull-left">Widgets::Charts</label>
                     <a href="javascript: void( 0 )" class="pull-right" ng-click="hideRightPane( $event )">
                         <i class="glyphicon glyphicon-remove"></i>
                     </a>

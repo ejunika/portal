@@ -47,16 +47,24 @@
     "Layout": {
         "Widgets": [
             {
-                "wName": "A"
+                "id": "1",
+                "wName": "A",
+                "selected": false
             },
             {
-                "wName": "B"
+                "id": "2",
+                "wName": "B",
+                "selected": false
             },
             {
-                "wName": "C"
+                "id": "3",
+                "wName": "C",
+                "selected": false
             },
             {
-                "wName": "D"
+                "id": "4",
+                "wName": "D",
+                "selected": false
             }
         ],
         "gredientColor": "",

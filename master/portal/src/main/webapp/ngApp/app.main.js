@@ -5,6 +5,7 @@
         paths: {
             jquery : "../node_modules/jquery/dist/jquery.min",
             jqueryui : "../node_modules/jquery-ui/jquery-ui",
+            uijquery: "utility/ui.jquery",
             canvasjs : "../node_modules/canvasjs/dist/jquery.canvasjs.min",
             angular : "../node_modules/angular/angular",
             alstorage: "../node_modules/angular-local-storage/dist/angular-local-storage",
@@ -34,11 +35,23 @@
             mad: "core/main-area/main-area.dir",
             dm: "designer/designer.module",
             dc: "designer/designer.ctrl",
+            dbm: "designer/dashboard/dashboard.module",
+            dbc: "designer/dashboard/dashboard.ctrl",
+            dbd: "designer/dashboard/dashboard.dir",
+            wm: "designer/widget/widget.module",
+            wc: "designer/widget/widget.ctrl",
+            wd: "designer/widget/widget.dir",
             jsfileloader: "js-file.loader"
         },
         shim: {
             jquery: {
                 exports: "jQuery"
+            },
+            jqueryui: {
+                deps: [ "jquery" ]
+            },
+            uijquery: {
+                deps: [ "jqueryui" ]
             },
             angular: {
                 exports: "angular",

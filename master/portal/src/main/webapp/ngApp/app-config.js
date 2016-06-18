@@ -14,7 +14,9 @@
                 breadcrumb: "breadcrumb.module",
                 mainMenu: "main-menu.module",
                 mainArea: "main-area.module",
-                designer: "designer.module"
+                designer: "designer.module",
+                dashboard: "dashboard.module",
+                widget: "widget.module"
             },
             controllers: {
                 core: "core.ctrl",
@@ -22,7 +24,9 @@
                 breadcrumb: "breadcrumb.ctrl",
                 mainMenu: "main-menu.ctrl",
                 mainArea: "main-area.ctrl",
-                designer: "designer.ctrl"
+                designer: "designer.ctrl",
+                dashboard: "dashboard.ctrl",
+                widget: "widget.ctrl"
             },
             directives: {
                 core: {},
@@ -41,6 +45,14 @@
                 mainArea: {
                     name: "njMainArea",
                     tUrl: "ngApp/core/main-area/main-area.view.html"
+                },
+                dashboard: {
+                    name: "njDashboard",
+                    tUrl: "ngApp/designer/dashboard/dashboard.view.html"
+                },
+                widget: {
+                    name: "njWidget",
+                    tUrl: "ngApp/designer/widget/widget.view.html"
                 }
             },
             factories: {

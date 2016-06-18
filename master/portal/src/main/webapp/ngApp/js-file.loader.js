@@ -6,8 +6,10 @@
     "use strict";
     define( [
         "jquery",
+        "jqueryui",
         "angular",
         "angularroute",
+        "uijquery",
         "bootstrap",
         "cm",
         "cc",
@@ -26,7 +28,13 @@
         "mac",
         "mad",
         "dm",
-        "dc"
+        "dc",
+        "dbm",
+        "dbc",
+        "dbd",
+        "wm",
+        "wc",
+        "wd"
     ], rcb );
     function rcb() {}
 } )();

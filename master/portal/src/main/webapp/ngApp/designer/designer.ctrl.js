@@ -12,7 +12,26 @@
         function designerCtrlFn( $scope, $timeout, cs, rs ) {
             $scope.init = function() {
                 $scope.openDashboardIds = [];
+                $scope.selectedDashboardId = "";
                 $scope.dashboardMap = {};
+                $scope.wExpItemDragCfg = {
+                    helper: "clone",
+                    appendTo: "body"
+                };
+            };
+            $scope.toggleRightPane = function( e ) {
+                var 
+                $rightPane = $( ".d-right-pane" ),
+                $dashboardWrapper = $( ".d-dashboard-wrapper" );
+                
+                if( $rightPane.hasClass( "d-right-pane-hide" ) ) {
+                    $rightPane.removeClass( "d-right-pane-hide" );
+                    $dashboardWrapper.removeClass( "d-dashboard-wrapper-full" );
+                }
+                else {
+                    $rightPane.addClass( "d-right-pane-hide" );
+                    $dashboardWrapper.addClass( "d-dashboard-wrapper-full" );
+                }
             };
             $scope.notify = function( type, obj ) {
                 switch( type ) {
@@ -21,6 +40,7 @@
                         $scope.dashboardMap[ obj.id ] = obj;
                         $timeout( function() {
                             $( "#TAB_" + obj.id ).click();
+                            $scope.selectedDashboardId = obj.id;
                         }, 0 );
                         break;
                     default:

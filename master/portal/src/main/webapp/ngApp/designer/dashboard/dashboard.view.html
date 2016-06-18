@@ -1,11 +1,8 @@
-<div class="d-resizable-area full-size" 
-    jq-resizable 
-    resize-config="dashboardResizeConfig" >
+<div class="d-resizable-area full-size" ng-init="init()" 
+    jq-resizable="dashboardResizeConfig" >
     <div class="drag-selection-area full-size" 
-        jq-selectable 
-        select-config="dragSelectConfig">
-        <div jq-droppable 
-            drop-config="dashboardDropConfig"
+        jq-selectable="dragSelectConfig">
+        <div jq-droppable="dashboardDropConfig"
             id="{{ 'MAIN_' + dId }}" 
             class="d-dashboard" 
             ng-style="getDashboardStyle( d )">

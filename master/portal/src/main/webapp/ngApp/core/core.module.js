@@ -4,6 +4,7 @@
     function rcb( angular, ac ) {
         return angular.module( ac.modules.core, [
             "ngRoute",
+            "ui.jquery",
             ac.modules.header,
             ac.modules.breadcrumb,
             ac.modules.mainMenu,

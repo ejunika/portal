@@ -2,8 +2,6 @@
     "use strict";
     define( [ "angular", "ac" ], rcb );
     function rcb( ng, ac ) {
-        return ng.module( ac.modules.designer, [
-            ac.modules.dashboard
-        ] );
+        return ng.module( ac.modules.widget, [] );
     }
 } )();
