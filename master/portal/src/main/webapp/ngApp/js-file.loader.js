@@ -12,6 +12,7 @@
         "angularanimate",
         "angularjstoster",
         "uijquery",
+        "njutil",
         "bootstrap",
         "cm",
         "cc",

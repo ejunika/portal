@@ -26,9 +26,8 @@
                     class="dropdown-toggle nj-dropdown-toggle">
                     <i class="fa fa-envelope-o" 
                         aria-hidden="true"></i>
-                    <span ng-show="hVm.data.emails.length > 0" 
-                        class="badge badge-default">
-                        {{ hVm.data.emails.length }}
+                    <span class="badge badge-default">
+                        7
                     </span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right">
@@ -65,9 +64,8 @@
                     <i ng-class="{ 'swing': hVm.data.swingNt }" 
                         class="fa fa-bell-o animated" 
                         aria-hidden="true"></i>
-                    <span ng-show="hVm.data.unreadNtCount > 0" 
-                        class="badge badge-default">
-                        {{ hVm.data.unreadNtCount }}
+                    <span class="badge badge-default">
+                        3
                     </span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right nt-dd">
@@ -99,7 +97,7 @@
                     role="button" 
                     aria-haspopup="true" 
                     aria-expanded="false">
-                    <img class="round-box" ng-src="{{ hVm.data.loggedInUser.imagePath }}" />
+                    <img class="round-box" src="images/ejaz.jpg" />
                     <span class="logged-in-user-name">
                         {{ hVm.data.loggedInUser.userName }}
                     </span>
@@ -107,10 +105,38 @@
                     aria-hidden="true"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right">
-                    <li ng-class="{ 'divider': luo.separator }" 
-                        ng-repeat="luo in hVm.data.luOptions track by $index">
-                        <a ng-if="!luo.separator" href="javascript: void( 0 )">
-                            {{ luo.title }}
+                    <li>
+                        <div style="
+                            height: 100px;
+                            width: 100px;
+                            margin: 0 auto;
+                            text-align: center;
+                        ">
+                            <img src="images/ejaz.jpg" style="
+                                width: 75px;
+                                height: 75px;
+                                border-radius: 50%;
+                                display: block;
+                                margin: 0 auto;
+                            ">
+                            <label>EJAZ</label>
+                        </div>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            Account Settings
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            Logout
                         </a>
                     </li>
                 </ul>

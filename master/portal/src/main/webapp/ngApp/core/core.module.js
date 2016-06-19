@@ -6,6 +6,7 @@
             "ngRoute",
             "ngAnimate",
             "ui.jquery",
+            "nj.util",
             "toaster",
             ac.modules.header,
             ac.modules.breadcrumb,

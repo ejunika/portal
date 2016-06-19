@@ -1,0 +1,141 @@
+{
+    "info": {},
+    "groups": [
+        {
+            "id": "",
+            "info": "",
+            "active": true,
+            "label": "Charts",
+            "widgets": [
+                {
+                    "id": "",
+                    "info": "",
+                    "label": ""
+                },
+                {
+                    "id": "",
+                    "info": "",
+                    "label": ""
+                },
+                {
+                    "id": "",
+                    "info": "",
+                    "label": ""
+                },
+                {
+                    "id": "",
+                    "info": "",
+                    "label": ""
+                }
+            ]
+        },
+        {
+            "id": "",
+            "info": "",
+            "label": "Filters",
+            "widgets": [
+                {
+                    "id": "",
+                    "info": "",
+                    "label": ""
+                },
+                {
+                    "id": "",
+                    "info": "",
+                    "label": ""
+                },
+                {
+                    "id": "",
+                    "info": "",
+                    "label": ""
+                },
+                {
+                    "id": "",
+                    "info": "",
+                    "label": ""
+                }
+            ]
+        },
+        {
+            "id": "",
+            "info": "",
+            "label": "Some others",
+            "widgets": [
+                {
+                    "id": "",
+                    "info": "",
+                    "label": ""
+                },
+                {
+                    "id": "",
+                    "info": "",
+                    "label": ""
+                },
+                {
+                    "id": "",
+                    "info": "",
+                    "label": ""
+                },
+                {
+                    "id": "",
+                    "info": "",
+                    "label": ""
+                }
+            ]
+        },
+        {
+            "id": "",
+            "info": "",
+            "label": "Adv Charts",
+            "widgets": [
+                {
+                    "id": "",
+                    "info": "",
+                    "label": ""
+                },
+                {
+                    "id": "",
+                    "info": "",
+                    "label": ""
+                },
+                {
+                    "id": "",
+                    "info": "",
+                    "label": ""
+                },
+                {
+                    "id": "",
+                    "info": "",
+                    "label": ""
+                }
+            ]
+        },
+        {
+            "id": "",
+            "info": "",
+            "label": "Others",
+            "widgets": [
+                {
+                    "id": "",
+                    "info": "",
+                    "label": ""
+                },
+                {
+                    "id": "",
+                    "info": "",
+                    "label": ""
+                },
+                {
+                    "id": "",
+                    "info": "",
+                    "label": ""
+                },
+                {
+                    "id": "",
+                    "info": "",
+                    "label": ""
+                }
+            ]
+        }
+    ]
+}

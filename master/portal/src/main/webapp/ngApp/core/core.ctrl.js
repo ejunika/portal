@@ -4,13 +4,16 @@
     function rcb( cm, ac ) {
         cm.controller( ac.controllers.core, [ 
             ac.ngVars.scope,
+            ac.services.core,
             "$timeout",
             coreCtrl 
         ] );
-        function coreCtrl( $scope, $timeout ) {
+        function coreCtrl( $scope, cs, $timeout ) {
             $scope.init = function() {
+                $scope.cs = cs;
                 $scope.fullMainMenu = false;
                 $scope.mouseOverCnt = 0;
+                cs.cxtMenuPosition = {};
             };
             $scope.toggleMainMenu = function( e, full ) {
                 if( full ) {

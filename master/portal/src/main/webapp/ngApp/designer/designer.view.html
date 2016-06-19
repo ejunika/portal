@@ -16,6 +16,7 @@
                                     Manage
                                 </a>
                             </li>
+                            <li class="divider"></li>
                             <li>
                                 <a href="javascript: void( 0 )">
                                     Settings
@@ -26,6 +27,7 @@
                                     Help
                                 </a>
                             </li>
+                            <li class="divider"></li>
                             <li>
                                 <a href="javascript: void( 0 )">
                                     Exit
@@ -108,27 +110,11 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 d-w-group-container">
-                            <div style="min-width: 296px;">
+                            <div style="min-width: 298px;">
                                 <ul class="d-w-group-wrapper">
-	                                <li class="d-w-group-item">
+	                                <li ng-class="{'active': g.active}" ng-repeat="g in widgetExpGroups" class="d-w-group-item">
 	                                    <img class="full-size" ng-src="images/chart.png" />
-	                                    <label>Cats</label>
-	                                </li>
-	                                <li class="d-w-group-item">
-	                                    <img class="full-size" ng-src="images/chart.png" />
-	                                    <label>Cats</label>
-	                                </li>
-	                                <li class="d-w-group-item">
-	                                    <img class="full-size" ng-src="images/chart.png" />
-	                                    <label>Cats</label>
-	                                </li>
-	                                <li class="d-w-group-item">
-	                                    <img class="full-size" ng-src="images/chart.png" />
-	                                    <label>Cats</label>
-	                                </li>
-	                                <li class="d-w-group-item">
-	                                    <img class="full-size" ng-src="images/chart.png" />
-	                                    <label>Cats</label>
+	                                    <label>{{ g.label }}</label>
 	                                </li>
 	                            </ul>
                             </div>

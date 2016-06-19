@@ -31,10 +31,12 @@ body {
     left: auto;
     right: auto !important;
     border-radius: 0;
+    left: -100%;
 }
 
 .dropdown-menu-right {
     right: 0 !important;
+    min-width: 200px !important;
 }
 
 .nj-dropdown-toggle {
@@ -76,6 +78,7 @@ body {
     min-height: 40px;
     border-radius: 0px;
     margin-bottom: 0px;
+    padding: 0 10px;
 }
 .nt-icon {
     background: green;

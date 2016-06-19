@@ -129,7 +129,7 @@ a:hover, a:focus {
 }
 
 .d-w-group-wrapper {
-    margin-bottom: 5px;
+    margin-bottom: -8px;
     padding: 0px 16px;
 }
 
@@ -141,6 +141,21 @@ a:hover, a:focus {
     border: 1px solid #ccc;
     border-radius: 2px;
     text-align: center;
+    margin: 1px;
+    opacity: 0.4;
+}
+.d-w-group-item.active {
+	opacity: 1 !important;
+}
+.d-w-group-item:hover {
+	opacity: 0.8;
+}
+.d-w-group-item label {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: bold;
 }
 .d-w-group-item a {
     padding: 10px 12px;

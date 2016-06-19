@@ -21,24 +21,13 @@
 }
     </style>
     </head>
-    <body ng-controller="core.ctrl" ng-init="init()">
+    <body ng-controller="core.ctrl" ng-init="init()" style="font-family: cursive">
         <nj-header></nj-header>
         <nj-breadcrumb></nj-breadcrumb>
         <nj-main-menu></nj-main-menu>
         <nj-main-area></nj-main-area>
         <toaster-container></toaster-container>
-        <ul ng-style="coVm.data.cxtMenuPosition" 
-            class="dropdown-menu nj-cxt-menu ng-hide">
-            <li ng-click="coVm.fn.cxtMenuHandler( $event, cmo )">
-                <a><!-- <i class="glyphicon glyphicon-plus"></i> -->Connections</a>
-            </li>
-            <li ng-click="coVm.fn.cxtMenuHandler( $event, cmo )">
-                <a><!-- <i class="glyphicon glyphicon-plus"></i> -->Close</a>
-            </li>
-            <li ng-click="coVm.fn.cxtMenuHandler( $event, cmo )">
-                <a><!-- <i class="glyphicon glyphicon-plus"></i> -->Properties</a>
-            </li>
-        </ul>
+        <cxt-menu-box></cxt-menu-box>
     <script type="text/javascript" src="./node_modules/requirejs/require.js" data-main="./ngApp/app.main"></script>
     </body>
 </html>

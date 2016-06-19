@@ -3,10 +3,11 @@
     define( [ "dbm", "ac" ], rcb );
     function rcb( dbm, ac ) {
         dbm.controller( ac.controllers.dashboard, [ 
-            ac.ngVars.scope, 
+            ac.ngVars.scope,
+            ac.services.core,
             dashboardCtrlFn 
         ] );
-        function dashboardCtrlFn( $scope ) {
+        function dashboardCtrlFn( $scope, cs ) {
             $scope.init = function() {
                 $scope.selectedWidgetIds = [];
                 $scope.dragSelectConfig = {
@@ -24,6 +25,25 @@
                     },
                     filter: ".widget"
                 };
+            };
+            $scope.cxtMenuHandler = {
+                handler: function( e, opn ) {
+                    cs.alert( "info", "Designer", opn.label + " clicked" )
+                },
+                opnList: [
+                     {
+                         id: "1",
+                         label: "Connection"
+                     },
+                     {
+                         id: "2",
+                         divider: true,
+                     },
+                     {
+                         id: "3",
+                         label: "Properties"
+                     }
+                ]
             };
             $scope.getDashboardStyle = function( dashboard ) {
                 return {

@@ -6,6 +6,7 @@
             jquery : "../node_modules/jquery/dist/jquery.min",
             jqueryui : "../node_modules/jquery-ui/jquery-ui",
             uijquery: "utility/ui.jquery",
+            njutil: "utility/nj.util",
             canvasjs : "../node_modules/canvasjs/dist/jquery.canvasjs.min",
             angular : "../node_modules/angular/angular",
             alstorage: "../node_modules/angular-local-storage/dist/angular-local-storage",
@@ -58,6 +59,9 @@
                 deps: [ "jquery" ]
             },
             angularroute: {
+                deps: [ "angular" ]
+            },
+            njutil: {
                 deps: [ "angular" ]
             },
             angularanimate: {
