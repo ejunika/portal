@@ -112,9 +112,12 @@
                         <div class="col-md-12 d-w-group-container">
                             <div style="min-width: 298px;">
                                 <ul class="d-w-group-wrapper">
-	                                <li ng-class="{'active': g.active}" ng-repeat="g in widgetExpGroups" class="d-w-group-item">
-	                                    <img class="full-size" ng-src="images/chart.png" />
-	                                    <label>{{ g.label }}</label>
+	                                <li ng-class="{'active': g.active}" 
+	                                   ng-repeat="g in widgetExpGroups" 
+	                                   ng-click="listWidget( $event, g )" 
+	                                   class="d-w-group-item">
+	                                   <img class="full-size" ng-src="images/chart.png" />
+	                                   <label>{{ g.label }}</label>
 	                                </li>
 	                            </ul>
                             </div>
@@ -128,59 +131,13 @@
                             <div class="full-height">
                                 <ul class="d-w-list-group full-height">
 	                                <li class="d-w-list-item" 
+	                                    ng-repeat="w in widgetList" 
+	                                    drag-data="w"
 	                                    jq-draggable="wExpItemDragCfg">
 	                                    <a href="">
 	                                        <i class="glyphicon glyphicon-th"></i>
 	                                    </a>
-	                                    Column Chart
-	                                </li>
-	                                <li class="d-w-list-item">
-	                                    <a href="">
-	                                        <i class="glyphicon glyphicon-th"></i>
-	                                    </a>
-	                                    Line Chart
-	                                </li>
-	                                <li class="d-w-list-item">
-	                                    <a href="">
-	                                        <i class="glyphicon glyphicon-th"></i>
-	                                    </a>
-	                                    Pie Chart
-	                                </li>
-	                                <li class="d-w-list-item">
-	                                    <a href="">
-	                                        <i class="glyphicon glyphicon-th"></i>
-	                                    </a>
-	                                    Pie Chart
-	                                </li>
-	                                <li class="d-w-list-item">
-	                                    <a href="">
-	                                        <i class="glyphicon glyphicon-th"></i>
-	                                    </a>
-	                                    Pie Chart
-	                                </li>
-	                                <li class="d-w-list-item">
-	                                    <a href="">
-	                                        <i class="glyphicon glyphicon-th"></i>
-	                                    </a>
-	                                    Pie Chart
-	                                </li>
-	                                <li class="d-w-list-item">
-	                                    <a href="">
-	                                        <i class="glyphicon glyphicon-th"></i>
-	                                    </a>
-	                                    Pie Chart
-	                                </li>
-	                                <li class="d-w-list-item">
-	                                    <a href="">
-	                                        <i class="glyphicon glyphicon-th"></i>
-	                                    </a>
-	                                    Pie Chart
-	                                </li>
-	                                <li class="d-w-list-item">
-	                                    <a href="">
-	                                        <i class="glyphicon glyphicon-th"></i>
-	                                    </a>
-	                                    Pie Chart
+	                                    {{ w.label }}
 	                                </li>
 	                            </ul>
                             </div>

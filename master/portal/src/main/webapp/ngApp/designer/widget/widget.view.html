@@ -1,5 +1,6 @@
 <div class="w-draggable" 
     ng-init="init()" 
+    ng-style="{top: w.top, left: w.left}"
     ng-repeat="w in dashboardMap[ dId ].Layout.Widgets" 
     jq-draggable="widgetDragConfig">
     <div class="widget" 

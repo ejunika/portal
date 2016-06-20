@@ -24,6 +24,9 @@
                     $scope.widgetExpGroups = jsonData.groups;
                 } );
             };
+            $scope.listWidget = function( e, g ) {
+                $scope.widgetList = g.widgets;
+            };
             $scope.saveDashboard = function( e ) {
                 cs.alert( "error", "Designer", "Service Error!!" );
             };
