@@ -12,7 +12,7 @@
                 $scope.selectedWidgetIds = [];
                 $scope.dragSelectConfig = {
                     start: function( e, ui ) {
-                        
+                        $( ".dropdown-menu" ).parent().removeClass( "open" );
                     },
                     stop: function( e, ui ) {
                         var sdId = $scope.selectedDashboardId;
@@ -26,8 +26,8 @@
                     filter: ".widget"
                 };
             };
-            $scope.cxtMenuHandler = {
-                handler: function( e, opn ) {
+            $scope.cxtMenuCfg = {
+                opnClicked: function( e, opn ) {
                     cs.alert( "info", "Designer", opn.label + " clicked" )
                 },
                 opnList: [

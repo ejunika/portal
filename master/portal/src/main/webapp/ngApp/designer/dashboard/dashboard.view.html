@@ -1,10 +1,10 @@
 <div class="d-resizable-area full-size" 
     ng-init="init()" 
-    nj-cxt-menu="cxtMenuHandler"
     jq-resizable="dashboardResizeConfig" >
     <div class="drag-selection-area full-size" 
         jq-selectable="dragSelectConfig">
         <div jq-droppable="dashboardDropConfig"
+            nj-cxt-menu="cxtMenuCfg"
             id="{{ 'MAIN_' + dId }}" 
             class="d-dashboard" 
             ng-style="getDashboardStyle( d )">

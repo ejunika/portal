@@ -3,10 +3,11 @@
     define( [ "wm", "ac" ], rcb );
     function rcb( wm, ac ) {
         wm.controller( ac.controllers.widget, [ 
-            ac.ngVars.scope, 
+            ac.ngVars.scope,
+            ac.services.core,
             widgetCtrlFn 
         ] );
-        function widgetCtrlFn( $scope ) {
+        function widgetCtrlFn( $scope, cs ) {
             $scope.init = function() {
                 $scope.widgetResizeConfig = {
                     handles: { 
@@ -23,6 +24,32 @@
             };
             $scope.onClickWidget = function( e, w ) {
                $scope.handleWidgetSelection( e, w );
+            };
+            $scope.cxtMenuWidCfg = {
+                opnList: [
+                    {
+                        id: "",
+                        label: "Data Set"
+                    },
+                    {
+                        id: "",
+                        label: "Scripts"
+                    },
+                    {
+                        divider: true
+                    },
+                    {
+                        id: "",
+                        label: "Delete"
+                    },
+                    {
+                        id: "",
+                        label: "Properties"
+                    }
+                ],
+                opnClicked: function( e, opn ) {
+                    cs.alert( "info", "Designer", opn.label + " clicked" );
+                }
             };
         }
     }
