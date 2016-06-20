@@ -4,10 +4,11 @@
     function rcb( dbm, ac ) {
         dbm.controller( ac.controllers.dashboard, [ 
             ac.ngVars.scope,
+            "$timeout",
             ac.services.core,
             dashboardCtrlFn 
         ] );
-        function dashboardCtrlFn( $scope, cs ) {
+        function dashboardCtrlFn( $scope, $timeout, cs ) {
             $scope.init = function() {
                 $scope.selectedWidgetIds = [];
                 $scope.dragSelectConfig = {
@@ -24,6 +25,22 @@
                         } );
                     },
                     filter: ".widget"
+                };
+                $scope.dashboardDropConfig = {
+                    accept: ".d-w-list-item",
+                    drop: function( e, ui ) {
+                        var dragData = ui.draggable.data("dragData");
+                        $scope.dashboardMap[ $scope.selectedDashboardId ].Layout.Widgets.push({
+                            id: cs.getUniqueId(),
+                            wName: dragData.label,
+                            selected: false,
+                            top: e.clientY + "px",
+                            left: e.clientX + "px"
+                        });
+                        $timeout( function() {
+                            cs.alert( "success", "Designer", dragData.label + " Added" );
+                        }, 0 );
+                    }
                 };
             };
             $scope.cxtMenuCfg = {

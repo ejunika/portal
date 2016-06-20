@@ -5,7 +5,32 @@
         angular
             .module( "nj.util", [] )
             .directive( "njCxtMenu", [ "$parse", njCxtMenuFn ] )
-            .directive( "cxtMenuBox", [ "$parse", cxtMenuBoxFn ] );
+            .directive( "cxtMenuBox", [ "$parse", cxtMenuBoxFn ] )
+            .filter( "search", [ searchFilterFn ] );
+        function searchFilterFn() {
+            return function( list, searchToken, pName ) {
+                if( !searchToken ) return list;
+                var ciSearchToken = searchToken.toLowerCase(), 
+                fList = [], ciIvalue;
+                angular.forEach( list, function( v, k ) {
+                    if( typeof( v ) === "object" ) {
+                        if( v.hasOwnProperty( pName ) ) {
+                            ciIvalue = v[ pName ].toString().toLowerCase();
+                            if( ciIvalue.startsWith( ciSearchToken ) ) {
+                                fList.push( v );
+                            }
+                        }
+                    }
+                    else {
+                        ciIvalue = v.toString().toLowerCase();
+                        if( ciIvalue.startsWith( ciSearchToken ) ) {
+                            fList.push( v );
+                        }
+                    }
+                } );
+                return fList;
+            };
+        }
         function njCxtMenuFn( $parse ) {
             return {
                 restrict: "A",
@@ -45,7 +70,7 @@
                 restrict: "E",
                 template: '<ul ng-style="$root.menuPos" class="dropdown-menu cxt-menu"><li ng-class="{ \'divider\': opn.divider }" ng-repeat="opn in $root.opnList" ng-click="$root.opnClicked( $event, opn )"><a>{{opn.label}}</a></li></ul>',
                 link: function( $scope, el, attrs, ctrl ) {
-                    var njCxtMenuHandler = $parse( attrs.cxtMenuBox )( $scope );
+//                    var njCxtMenuHandler = $parse( attrs.cxtMenuBox )( $scope );
                 }
             }
         }

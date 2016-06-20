@@ -2,138 +2,342 @@
     "info": {},
     "groups": [
         {
-            "id": "",
-            "info": "",
+            "id": "CHARTS",
+            "info": {},
             "active": true,
             "label": "Charts",
             "widgets": [
                 {
-                    "id": "",
-                    "info": "",
-                    "label": ""
+                    "id": "AREA_CHART",
+                    "info": {},
+                    "active": true,
+                    "label": "Area"
                 },
                 {
-                    "id": "",
-                    "info": "",
-                    "label": ""
+                    "id": "BAR_CHART",
+                    "info": {},
+                    "active": true,
+                    "label": "Bar"
                 },
                 {
-                    "id": "",
-                    "info": "",
-                    "label": ""
+                    "id": "BUBBLE_CHART",
+                    "info": {},
+                    "active": true,
+                    "label": "Bubble"
                 },
                 {
-                    "id": "",
-                    "info": "",
-                    "label": ""
+                    "id": "COLUMN_CHART",
+                    "info": {},
+                    "active": true,
+                    "label": "Column"
+                },
+                {
+                    "id": "FUNNEL_CHART",
+                    "info": {},
+                    "active": true,
+                    "label": "Funnel"
+                },
+                {
+                    "id": "IN_FUNNEL_CHART",
+                    "info": {},
+                    "active": true,
+                    "label": "Inverted Funnel"
+                },
+                {
+                    "id": "LINE_CHART",
+                    "info": {},
+                    "active": true,
+                    "label": "Line"
+                },
+                {
+                    "id": "MAP_CHART",
+                    "info": {},
+                    "active": true,
+                    "label": "Map"
+                },
+                {
+                    "id": "MIXED_CHART",
+                    "info": {},
+                    "active": true,
+                    "label": "Mixed"
+                },
+                {
+                    "id": "PIE_CHART",
+                    "info": {},
+                    "active": true,
+                    "label": "Pie"
+                },
+                {
+                    "id": "PROG_PIE_CHART",
+                    "info": {},
+                    "active": true,
+                    "label": "Progress Pie"
+                },
+                {
+                    "id": "PYRAMID_CHART",
+                    "info": {},
+                    "active": true,
+                    "label": "Pyramid"
+                },
+                {
+                    "id": "SCAT_PLOT_CHART",
+                    "info": {},
+                    "active": true,
+                    "label": "Scattered Plot"
+                },
+                {
+                    "id": "SPIDER_CHART",
+                    "info": {},
+                    "active": true,
+                    "label": "Spider"
                 }
             ]
         },
         {
-            "id": "",
-            "info": "",
+            "id": "GRIDS",
+            "info": {},
+            "active": true,
+            "label": "Grids",
+            "widgets": [
+                {
+                    "id": "DATA_GRID",
+                    "info": {},
+                    "active": true,
+                    "label": "Data Grid"
+                },
+                {
+                    "id": "PAGE_DATA_GRID",
+                    "info": {},
+                    "active": true,
+                    "label": "Paging Data Grid"
+                },
+                {
+                    "id": "SCORE_CARD",
+                    "info": {},
+                    "active": true,
+                    "label": "Score Card"
+                },
+                {
+                    "id": "PIVOT_GRID",
+                    "info": {},
+                    "active": true,
+                    "label": "Pivot Grid"
+                }
+            ]
+        },
+        {
+            "id": "FILTERS",
+            "info": {},
+            "active": true,
             "label": "Filters",
             "widgets": [
                 {
-                    "id": "",
-                    "info": "",
-                    "label": ""
+                    "id": "CHECKBOX",
+                    "info": {},
+                    "active": true,
+                    "label": "Check Box"
                 },
                 {
-                    "id": "",
-                    "info": "",
-                    "label": ""
+                    "id": "COMBOBOX_FILTER",
+                    "info": {},
+                    "active": true,
+                    "label": "Combo Filter"
                 },
                 {
-                    "id": "",
-                    "info": "",
-                    "label": ""
+                    "id": "HIER_COMBOBOX_FILTER",
+                    "info": {},
+                    "active": true,
+                    "label": "Hierarchical Combo Box"
                 },
                 {
-                    "id": "",
-                    "info": "",
-                    "label": ""
+                    "id": "DD_FILTER",
+                    "info": {},
+                    "active": true,
+                    "label": "Drop Down"
+                },
+                {
+                    "id": "RADIO_FILTER",
+                    "info": {},
+                    "active": true,
+                    "label": "Radio Filter"
                 }
             ]
         },
         {
-            "id": "",
-            "info": "",
-            "label": "Some others",
+            "id": "ADV_CHARTS",
+            "info": {},
+            "active": true,
+            "label": "Adv. Charts",
             "widgets": [
                 {
-                    "id": "",
-                    "info": "",
-                    "label": ""
+                    "id": "BOX_PLOT",
+                    "info": {},
+                    "active": true,
+                    "label": "Box Plot"
                 },
                 {
-                    "id": "",
-                    "info": "",
-                    "label": ""
+                    "id": "CANDLE_STICK",
+                    "info": {},
+                    "active": true,
+                    "label": "Candle Stick"
                 },
                 {
-                    "id": "",
-                    "info": "",
-                    "label": ""
+                    "id": "CHEVRON",
+                    "info": {},
+                    "active": true,
+                    "label": "Chevron"
                 },
                 {
-                    "id": "",
-                    "info": "",
-                    "label": ""
+                    "id": "GR_BAR",
+                    "info": {},
+                    "active": true,
+                    "label": "Group Bar"
+                },
+                {
+                    "id": "HEAT_MAP",
+                    "info": {},
+                    "active": true,
+                    "label": "Heat Map"
+                },
+                {
+                    "id": "TEXT_ANALYZER",
+                    "info": {},
+                    "active": false,
+                    "label": "Text Analyzer"
+                },
+                {
+                    "id": "TIME_SERIES",
+                    "info": {},
+                    "active": false,
+                    "label": "Time Series"
+                },
+                {
+                    "id": "TREE_MAP",
+                    "info": {},
+                    "active": false,
+                    "label": "Tree Map"
+                },
+                {
+                    "id": "WORD_CLOUD",
+                    "info": {},
+                    "active": false,
+                    "label": "Word Cloud"
+                },
+                {
+                    "id": "TRELLIS",
+                    "info": {},
+                    "active": false,
+                    "label": "Trellis Chart"
                 }
             ]
         },
         {
-            "id": "",
-            "info": "",
-            "label": "Adv Charts",
-            "widgets": [
-                {
-                    "id": "",
-                    "info": "",
-                    "label": ""
-                },
-                {
-                    "id": "",
-                    "info": "",
-                    "label": ""
-                },
-                {
-                    "id": "",
-                    "info": "",
-                    "label": ""
-                },
-                {
-                    "id": "",
-                    "info": "",
-                    "label": ""
-                }
-            ]
-        },
-        {
-            "id": "",
-            "info": "",
+            "id": "OTHERS",
+            "info": {},
+            "active": true,
             "label": "Others",
             "widgets": [
                 {
-                    "id": "",
-                    "info": "",
-                    "label": ""
+                    "id": "BOX",
+                    "info": {},
+                    "active": true,
+                    "label": "Box"
                 },
                 {
-                    "id": "",
-                    "info": "",
-                    "label": ""
+                    "id": "BULLET",
+                    "info": {},
+                    "active": true,
+                    "label": "Bullet"
                 },
                 {
-                    "id": "",
-                    "info": "",
-                    "label": ""
+                    "id": "DATE_PICKER",
+                    "info": {},
+                    "active": true,
+                    "label": "Date Picker"
                 },
                 {
-                    "id": "",
-                    "info": "",
-                    "label": ""
+                    "id": "EXPORT_DASHBOARD",
+                    "info": {},
+                    "active": true,
+                    "label": "Export Dashboard"
+                },
+                {
+                    "id": "GAUGE",
+                    "info": {},
+                    "active": true,
+                    "label": "Gauge"
+                },
+                {
+                    "id": "GRAPHICS",
+                    "info": {},
+                    "active": true,
+                    "label": "Graphics"
+                },
+                {
+                    "id": "H_SLIDER",
+                    "info": {},
+                    "active": true,
+                    "label": "Slider (Horizontal)"
+                },
+                {
+                    "id": "V_SLIDER",
+                    "info": {},
+                    "active": true,
+                    "label": "Slider (Vertical)"
+                },
+                {
+                    "id": "IMAGE",
+                    "info": {},
+                    "active": true,
+                    "label": "Slider (Vertical)"
+                },
+                {
+                    "id": "IMAGE",
+                    "info": {},
+                    "active": true,
+                    "label": "Image"
+                },
+                {
+                    "id": "LEGEND",
+                    "info": {},
+                    "active": true,
+                    "label": "Legend"
+                },
+                {
+                    "id": "SEMI_GAUGE",
+                    "info": {},
+                    "active": true,
+                    "label": "Semi Gauge"
+                },
+                {
+                    "id": "STEPPER",
+                    "info": {},
+                    "active": true,
+                    "label": "Stepper"
+                },
+                {
+                    "id": "SVG_IMG",
+                    "info": {},
+                    "active": true,
+                    "label": "Image (SVG)"
+                },
+                {
+                    "id": "TEXT_BOX",
+                    "info": {},
+                    "active": true,
+                    "label": "Text Box"
+                },
+                {
+                    "id": "TREND",
+                    "info": {},
+                    "active": true,
+                    "label": "Trend"
+                },
+                {
+                    "id": "URL_BTN",
+                    "info": {},
+                    "active": true,
+                    "label": "Button (URL)"
                 }
             ]
         }
