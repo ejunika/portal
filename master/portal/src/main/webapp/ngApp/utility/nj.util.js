@@ -64,14 +64,21 @@
                             $scope.$root.opnList = $scope.$root.cxtMenuList[ cmi ].opnList;
                             $scope.$root.opnClicked = $scope.$root.cxtMenuList[ cmi ].opnClicked;
                             $scope.$root.menuPos = {
-                                left: e.clientX,
-                                top: e.clientY
+                                left: getAdjustableLeft( e ),
+                                top: getAdjustableTop( e )
                             };
-                            $( ".dropdown-menu" ).parent().removeClass( "open" );
+                            $( ".dropdown-menu" ).parent()
+                            .removeClass( "open" );
                             $( ".cxt-menu" ).parent()
                             .addClass( "dropdown open" )
                             .css( "position", "initial");
                         } );
+                        function getAdjustableLeft( e ) {
+                            return e.clientX;
+                        }
+                        function getAdjustableTop( e ) {
+                            return e.clientY;
+                        }
                     } );
                 }
             }

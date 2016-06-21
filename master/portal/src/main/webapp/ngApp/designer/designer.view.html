@@ -1,4 +1,5 @@
-<div class="full-size d-container" ng-init="init()">
+<div class="full-size d-container" 
+    ng-init="init()">
     <div class="full-height d-wrapper pull-left">
         <div class="full-size d-main">
             <div class="d-tab-pane">
@@ -17,7 +18,7 @@
                                 </a>
                             </li>
                             <li class="divider"></li>
-                            <li>
+                            <li ng-click="openTab( $event, 'SETTINGS' )">
                                 <a href="javascript: void( 0 )">
                                     Settings
                                 </a>
@@ -35,13 +36,15 @@
                             </li>
                         </ul>
                     </li>
-                    <!-- DASHBOARD TABS -->
+                    <!-- TABS -->
                     <li class="d-tab" ng-repeat="tab in openTabs track by tab.id">
                         <a id="{{ 'TAB_' + tab.id }}" 
                             data-toggle="tab" href="{{ '#' + tab.id }}">
                             {{ tab.title }}
                         </a>
-                        <a ng-click="closeTab( $event, tab )" href="javascript: void( 0 )" class="d-dashboard-remove-btn">
+                        <a ng-click="closeTab( $event, tab )" 
+                            href="javascript: void( 0 )" 
+                            class="d-dashboard-remove-btn">
                             <i class="glyphicon glyphicon-remove pull-right"></i>
                         </a>
                     </li>
@@ -59,17 +62,17 @@
                 </ul>
                 <!-- DASHBOARD BUTTONS -->
                 <ul class="d-control-btn-container pull-right">
-                    <li class="d-control-btn">
+                    <li ng-show="openDashboardIds.length > 0"  class="d-control-btn">
                         <a href="javascript: void( 0 )" ng-click="previewDashboard( $event )">
                             <i class="glyphicon glyphicon-eye-open"></i>
                         </a>
                     </li>
-                    <li class="d-control-btn">
+                    <li ng-show="openDashboardIds.length > 0"  class="d-control-btn">
                         <a href="javascript: void( 0 )" ng-click="saveDashboard( $event )">
                             <i class="glyphicon glyphicon-floppy-disk"></i>
                         </a>
                     </li>
-                    <li class="d-control-btn">
+                    <li ng-show="openDashboardIds.length > 0"  class="d-control-btn">
                         <a href="javascript: void( 0 )" ng-click="exportToLocalDisk( $event )">
                             <i class="glyphicon glyphicon glyphicon-save"></i>
                         </a>
@@ -77,7 +80,7 @@
                 </ul>
             </div>
             <div class="d-tab-content-pane tab-content">
-	            <!-- DASHBOARD CONTAINER -->
+	            <!-- TAB CONTENT -->
 	            <div id="{{ tab.id }}" 
 	                class="d-dashboard-wrapper d-dashboard-wrapper-full tab-pane fade" 
 	                ng-repeat="tab in openTabs track by tab.id">
@@ -159,25 +162,25 @@
     </div>
     <div class="full-height d-main-control pull-right">
         <ul class="list-group full-height d-main-menu d-hf-menu">
-            <li class="list-group-item clg-menu-item" >
+            <li ng-show="openDashboardIds.length > 0" class="list-group-item clg-menu-item" >
                 <a href="javascript: void( 0 )" class="clg-icons pull-left" ng-click="toggleRightPane()">
                     <i class="glyphicon glyphicon-plus"></i>    
                 </a>
                 Data Sources
             </li>
-            <li class="list-group-item clg-menu-item" >
+            <li ng-show="openDashboardIds.length > 0" class="list-group-item clg-menu-item" >
                 <a href="javascript: void( 0 )" class="clg-icons pull-left">
                     <i class="glyphicon glyphicon-trash"></i>   
                 </a>
                 Widgets Explorer
             </li>
-            <li class="list-group-item clg-menu-item" >
+            <li ng-show="openDashboardIds.length > 0" class="list-group-item clg-menu-item" >
                 <a href="javascript: void( 0 )" class="clg-icons pull-left">
                     <i class="glyphicon glyphicon-remove"></i>  
                 </a>
                 Object Browser
             </li>
-            <li class="list-group-item clg-menu-item" >
+            <li ng-show="openDashboardIds.length > 0" class="list-group-item clg-menu-item" >
                 <a href="javascript: void( 0 )" class="clg-icons pull-left">
                     <i class="glyphicon glyphicon-eye-open"></i>    
                 </a>

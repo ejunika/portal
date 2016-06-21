@@ -92,10 +92,14 @@
                         }
                         $timeout( function() {
                             $( "#TAB_" + $scope.selectedDashboardId ).click();
-                            cs.alert( "success", "Designer", obj.Layout.title + " Removed" );
+                            cs.alert( "info", "Designer", obj.Layout.title + " Removed" );
                         }, 0 );
                         break;
                     case "OPEN_OTHER_TAB":
+                        $timeout( function() {
+                            $( "#TAB_" + obj.id ).click();
+                            cs.alert( "info", "Designer", obj.title + " Mode" );
+                        }, 0 );
                         break;
                     default:
                         break;
@@ -116,7 +120,7 @@
             };
             $scope.openTab = function( e, type ) {
                 var tab = {};
-                if( type == "DASHBOARD" ) {
+                if( type == "DASHBOARD" && $scope.openDashboardIds.length < 4 ) {
                     tab = {
                         type: 0,
                         id: cs.getUniqueId(),
@@ -143,8 +147,13 @@
                         default:
                             break;
                     }
+                    if( $scope.isto ) {
+                        $scope.openTabs.splice( 0, 1 );
+                    }
                     cs.insertAt( $scope.openTabs, tab, 0 );
+                    $scope.isto = true;
                     $scope.loadSpecialPage( tab );
+                    $scope.notify( "OPEN_OTHER_TAB", tab );
 //                  TODO Load special page as tab content
 //                  NOTE only one special page can be load at a time, write logic for it.
                 }
