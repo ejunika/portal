@@ -115,7 +115,7 @@
                         <div class="col-md-12 d-w-group-container">
                             <div style="min-width: 298px;">
                                 <ul class="d-w-group-wrapper">
-	                                <li ng-class="{'active': g.active}"
+	                                <li ng-class="{'active': g.active}" 
 	                                   ng-repeat="g in widgetExpGroups" 
 	                                   ng-click="groupClicked( $event, g )" 
 	                                   class="d-w-group-item">
@@ -135,6 +135,7 @@
                             <div class="full-height">
                                 <ul class="d-w-list-group full-height">
 	                                <li class="d-w-list-item" 
+	                                    ng-if="w.active" 
 	                                    ng-repeat="w in widgetList | search :searchTxt : 'label'" 
 	                                    drag-data="w"
 	                                    jq-draggable="wExpItemDragCfg">
@@ -149,8 +150,10 @@
                     </div>
                  </div>
                  <div class="d-right-pane-footer">
-                    <label class="pull-left">Widgets::Charts</label>
-                    <a href="javascript: void( 0 )" class="pull-right" ng-click="hideRightPane( $event )">
+                    <label class="pull-left">Widgets::{{ wExpGrLastClicked.label }}</label>
+                    <a href="javascript: void( 0 )" 
+                        class="pull-right" 
+                        ng-click="toggleRightPane( $event )">
                         <i class="glyphicon glyphicon-remove"></i>
                     </a>
                  </div>
@@ -162,25 +165,33 @@
     </div>
     <div class="full-height d-main-control pull-right">
         <ul class="list-group full-height d-main-menu d-hf-menu">
-            <li ng-show="openDashboardIds.length > 0" class="list-group-item clg-menu-item" >
-                <a href="javascript: void( 0 )" class="clg-icons pull-left" ng-click="toggleRightPane()">
-                    <i class="glyphicon glyphicon-plus"></i>    
+            <li ng-show="openDashboardIds.length > 0" 
+                class="list-group-item clg-menu-item" >
+                <a href="javascript: void( 0 )" 
+                    class="clg-icons pull-left" 
+                    ng-click="toggleRightPane( $event )">
+                    <i class="glyphicon glyphicon-plus"></i>
                 </a>
                 Data Sources
             </li>
-            <li ng-show="openDashboardIds.length > 0" class="list-group-item clg-menu-item" >
-                <a href="javascript: void( 0 )" class="clg-icons pull-left">
+            <li ng-show="openDashboardIds.length > 0" 
+                class="list-group-item clg-menu-item" >
+                <a href="javascript: void( 0 )" 
+                    class="clg-icons pull-left">
                     <i class="glyphicon glyphicon-trash"></i>   
                 </a>
                 Widgets Explorer
             </li>
-            <li ng-show="openDashboardIds.length > 0" class="list-group-item clg-menu-item" >
-                <a href="javascript: void( 0 )" class="clg-icons pull-left">
+            <li ng-show="openDashboardIds.length > 0" 
+                class="list-group-item clg-menu-item" >
+                <a href="javascript: void( 0 )" 
+                    class="clg-icons pull-left">
                     <i class="glyphicon glyphicon-remove"></i>  
                 </a>
                 Object Browser
             </li>
-            <li ng-show="openDashboardIds.length > 0" class="list-group-item clg-menu-item" >
+            <li ng-show="openDashboardIds.length > 0" 
+                class="list-group-item clg-menu-item" >
                 <a href="javascript: void( 0 )" class="clg-icons pull-left">
                     <i class="glyphicon glyphicon-eye-open"></i>    
                 </a>

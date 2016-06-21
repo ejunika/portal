@@ -4,7 +4,7 @@
         {
             "id": "CHARTS",
             "info": {},
-            "active": false,
+            "active": true,
             "label": "Charts",
             "widgets": [
                 {

@@ -23,6 +23,9 @@
                 };
                 rs.getJson( "ngApp/designer/widget-exp/widget-exp.data.json", function( jsonData) {
                     $scope.widgetExpGroups = jsonData.groups;
+                    $timeout( function() {
+                        angular.element( $(".d-w-group-wrapper .active") ).click();
+                    }, 0 );
                 } );
             };
             

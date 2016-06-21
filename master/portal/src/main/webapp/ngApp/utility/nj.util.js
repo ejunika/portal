@@ -27,14 +27,14 @@
                     if( typeof( v ) === "object" ) {
                         if( v.hasOwnProperty( pName ) ) {
                             ciIvalue = v[ pName ].toString().toLowerCase();
-                            if( ciIvalue.startsWith( ciSearchToken ) ) {
+                            if( ciIvalue.indexOf( ciSearchToken ) != -1 ) {
                                 fList.push( v );
                             }
                         }
                     }
                     else {
                         ciIvalue = v.toString().toLowerCase();
-                        if( ciIvalue.startsWith( ciSearchToken ) ) {
+                        if( ciIvalue.indexOf( ciSearchToken ) != -1 ) {
                             fList.push( v );
                         }
                     }
