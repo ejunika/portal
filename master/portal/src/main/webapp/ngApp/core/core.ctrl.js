@@ -14,6 +14,11 @@
                 $scope.fullMainMenu = false;
                 $scope.mouseOverCnt = 0;
                 cs.cxtMenuPosition = {};
+                $scope.selectHelper = {
+                    position: "absolute",
+                    border: "1px solid #2196f3",
+                    background: "rgba(33, 150, 243, 0.1)"
+                };
             };
             $scope.toggleMainMenu = function( e, full ) {
                 if( full ) {

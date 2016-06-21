@@ -6,6 +6,10 @@ a:hover, a:focus {
 	text-align: left !important;
 }
 
+.input-md {
+    font-size: 14px !important;
+}
+
 .dropdown-menu {
     border-radius: 2px;
 }
@@ -64,6 +68,9 @@ a:hover, a:focus {
 }
 .d-dashboard-wrapper-full {
 	width: 100% !important;
+}
+.d-unsaved {
+	color: red;
 }
 .d-dashboard {
 	position: relative;

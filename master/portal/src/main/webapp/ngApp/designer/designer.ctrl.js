@@ -50,9 +50,6 @@
             $scope.previewDashboard = function( e ) {
                 cs.alert( "info", "Designer", "Preview enabled!!" );
             };
-            $scope.exportToLocalDisk = function( e ) {
-                cs.alert( "success", "Designer", "Export successfully!!" );
-            };
             $scope.toggleRightPane = function( e ) {
                 var 
                 $rightPane = $( ".d-right-pane" ),
@@ -104,6 +101,9 @@
                             cs.alert( "info", "Designer", obj.title + " Mode" );
                         }, 0 );
                         break;
+                    case "REMOVE_SPECIAL_TAB":
+                        $scope.isto = false;
+                        break;
                     default:
                         break;
                 }
@@ -147,10 +147,11 @@
                                 id: cs.getUniqueId(),
                                 title: "Settings"
                             };
+                            break;
                         default:
                             break;
                     }
-                    if( $scope.isto ) {
+                    if( $scope.isto && $scope.openTabs[ 0 ].type != 0 ) {
                         $scope.openTabs.splice( 0, 1 );
                     }
                     cs.insertAt( $scope.openTabs, tab, 0 );
@@ -169,11 +170,59 @@
                 dashboard = $scope.dashboardMap[ tab.id ];
                 if( indexInOpenTabs != -1 ) {
                     $scope.openTabs.splice( indexInOpenTabs, 1 );
-                    $scope.notify( "REMOVE_DASHBOARD", dashboard );
+                    if( tab.type != 1 ) {
+                        $scope.notify( "REMOVE_DASHBOARD", dashboard );
+                    }
+                    else {
+                        $scope.notify( "REMOVE_SPECIAL_TAB", tab );
+                    }
                 }
             };
             $scope.openSettings = function( e ) {
                 
+            };
+            $scope.openDashboard = function( dashboard ) {
+                var tab = {
+                    type: 0,
+                    id: dashboard.id,
+                    title: dashboard.Layout.title
+                };
+                $scope.$apply( function() {
+                    $scope.openTabs.push( tab );
+                    $scope.openDashboardIds.push( dashboard.id );
+                    $scope.dashboardMap[ dashboard.id ] = dashboard;
+                } );
+                $timeout( function() {
+                    $('a[data-toggle="tab"]')
+                        .off('shown.bs.tab')
+                        .on('shown.bs.tab', function (e) {
+                            var dbId = $(e.target)[ 0 ].id.split( "_" )[ 1 ];
+                            $scope.selectedDashboardId = dbId;
+                        });
+                    $( "#TAB_" + dashboard.id ).click();
+                    cs.alert( "success", "Designer", dashboard.Layout.title + " Loaded" );
+                }, 0 );
+            };
+            $scope.openFromLocal = function( e ) {
+                $("<input type='file' accept='.njd'>").on( "change", function( e ) {
+                    var f = e.target.files[ 0 ];
+                    var fileReader = new FileReader();
+                    fileReader.onload = function( result ) {
+                        var dashboard = JSON.parse( result.currentTarget.result );
+                        $scope.openDashboard( dashboard );
+                    }
+                    fileReader.readAsText(f);
+                } ).trigger( "click" );
+            };
+            $scope.exportToLocalDisk = function( e, dbId ) {
+                var data = $scope.dashboardMap[ $scope.selectedDashboardId ], 
+                enEata, a;
+                enEata = "text/json;charset=utf-8," + encodeURIComponent( angular.toJson( data ) );
+                a = document.createElement('a');
+                a.href = 'data:' + enEata;
+                a.download = data.Layout.title + ".njd";
+                a.click();
+                cs.alert( "success", "Designer", "Dashboard exported to locak disk" );
             };
         }
     }

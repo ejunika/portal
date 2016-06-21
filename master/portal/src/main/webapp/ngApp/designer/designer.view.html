@@ -23,12 +23,17 @@
                                     Settings
                                 </a>
                             </li>
+                            <li ng-click="openFromLocal( $event )">
+                                <a href="javascript: void( 0 )">
+                                    Open from local
+                                </a>
+                            </li>
+                            <li class="divider"></li>
                             <li>
                                 <a href="javascript: void( 0 )">
                                     Help
                                 </a>
                             </li>
-                            <li class="divider"></li>
                             <li>
                                 <a href="javascript: void( 0 )">
                                     Exit
@@ -40,6 +45,7 @@
                     <li class="d-tab" ng-repeat="tab in openTabs track by tab.id">
                         <a id="{{ 'TAB_' + tab.id }}" 
                             data-toggle="tab" href="{{ '#' + tab.id }}">
+                            <sup ng-if="tab.type != 1" class="d-unsaved">*</sup>
                             {{ tab.title }}
                         </a>
                         <a ng-click="closeTab( $event, tab )" 
@@ -98,7 +104,7 @@
                                         <input type="text" 
                                             ng-model="searchTxt"
                                             style="margin-top: 5px;"
-                                            class="form-control input-sm" 
+                                            class="form-control input-md" 
                                             placeholder="Search widget"
                                             id="widget-search" />
                                     </div>
@@ -166,11 +172,11 @@
     <div class="full-height d-main-control pull-right">
         <ul class="list-group full-height d-main-menu d-hf-menu">
             <li ng-show="openDashboardIds.length > 0" 
+                ng-click="toggleRightPane( $event )"
                 class="list-group-item clg-menu-item" >
                 <a href="javascript: void( 0 )" 
-                    class="clg-icons pull-left" 
-                    ng-click="toggleRightPane( $event )">
-                    <i class="glyphicon glyphicon-plus"></i>
+                    class="clg-icons pull-left">
+                    <i class="glyphicon glyphicon-align-justify"></i>
                 </a>
                 Data Sources
             </li>

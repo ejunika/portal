@@ -12,6 +12,7 @@
             $scope.init = function() {
                 $scope.selectedWidgetIds = [];
                 $scope.dragSelectConfig = {
+                    selectHelper: ".selectHelper",
                     start: function( e, ui ) {
                         $( ".dropdown-menu" ).parent().removeClass( "open" );
                     },
