@@ -55,6 +55,10 @@
                 };
                 return $.grep( list, filterFn );
             };
+            cs.insertAt = function( arr, item, index ) {
+                arr.splice( index, 0, item );
+                return arr;
+            };
         }
     }
 } )();

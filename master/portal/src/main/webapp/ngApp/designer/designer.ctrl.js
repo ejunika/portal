@@ -11,11 +11,12 @@
         ] );
         function designerCtrlFn( $scope, $timeout, cs, rs ) {
             $scope.init = function() {
-                $scope.openTabsId = [];
+                $scope.openTabs = [];
                 $scope.openDashboardIds = [];
                 $scope.selectedDashboardId = "";
                 $scope.dashboardMap = {};
                 $scope.tabMap = {};
+                $scope.wExpGrLastClicked = {};
                 $scope.wExpItemDragCfg = {
                     helper: "clone",
                     appendTo: "body"
@@ -24,8 +25,21 @@
                     $scope.widgetExpGroups = jsonData.groups;
                 } );
             };
+            
+//            WIDGET EXPLORER
             $scope.listWidget = function( e, g ) {
                 $scope.widgetList = g.widgets;
+            };
+            $scope.movePointer = function( e, g ) {
+                var left = $( e.target ).closest( "li" ).position().left + 5;
+                $( ".pointer" ).css( "left", left );
+            };
+            $scope.groupClicked = function( e, g ) {
+                $scope.wExpGrLastClicked.active = false;
+                g.active = true;
+                $scope.wExpGrLastClicked = g;
+                $scope.listWidget( e, g );
+                $scope.movePointer( e, g );
             };
             $scope.saveDashboard = function( e ) {
                 cs.alert( "error", "Designer", "Service Error!!" );
@@ -53,7 +67,6 @@
             $scope.notify = function( type, obj ) {
                 switch( type ) {
                     case "ADD_DASHBOARD":
-                        $scope.openTabsId.push( obj.id );
                         $scope.openDashboardIds.push( obj.id );
                         $scope.dashboardMap[ obj.id ] = obj;
                         $timeout( function() {
@@ -64,25 +77,87 @@
                                     $scope.selectedDashboardId = dbId;
                                 });
                             $( "#TAB_" + obj.id ).click();
-                            cs.alert( "success", "Designer", obj.Layout.title + " Added.." );
+                            cs.alert( "success", "Designer", obj.Layout.title + " Added" );
                         }, 0 );
+                        break;
+                    case "REMOVE_DASHBOARD":
+                        var indexInOpenDashboardIds = $scope.openDashboardIds.indexOf( obj.id );
+                        $scope.openDashboardIds.splice( indexInOpenDashboardIds, 1 );
+                        delete $scope.dashboardMap[ obj.id ];
+                        if( $scope.openDashboardIds.length > indexInOpenDashboardIds ) {
+                            $scope.selectedDashboardId = $scope.openDashboardIds[ indexInOpenDashboardIds ];
+                        }
+                        else {
+                            $scope.selectedDashboardId = $scope.openDashboardIds[ $scope.openDashboardIds.length - 1 ];
+                        }
+                        $timeout( function() {
+                            $( "#TAB_" + $scope.selectedDashboardId ).click();
+                            cs.alert( "success", "Designer", obj.Layout.title + " Removed" );
+                        }, 0 );
+                        break;
+                    case "OPEN_OTHER_TAB":
                         break;
                     default:
                         break;
                 }
             };
-            $scope.addDashboard = function( e ) {
-                var filePath = "ngApp/designer/dashboard/dashboard.data.json",
-                dashboardCount = $scope.openDashboardIds.length;
+            $scope.addDashboard = function( tab ) {
+                var filePath = "ngApp/designer/dashboard/dashboard.data.json";
                 rs.getJson( filePath, scb );
                 function scb( dashboard ) {
-                    dashboard.id = cs.getUniqueId();
+                    dashboard.id = tab.id;
                     dashboard.Layout.height = 2200;
                     dashboard.Layout.width = 2200;
-                    dashboard.Layout.title = "Untitled_" + ++dashboardCount;
+                    dashboard.Layout.title = tab.title;
                     dashboard.Layout.gredientColor = "#0000";
                     dashboard.Layout.gredientRotation = "90";
                     $scope.notify( "ADD_DASHBOARD", dashboard );
+                }
+            };
+            $scope.openTab = function( e, type ) {
+                var tab = {};
+                if( type == "DASHBOARD" ) {
+                    tab = {
+                        type: 0,
+                        id: cs.getUniqueId(),
+                        title: "Untitled_" + $scope.openTabs.length
+                    };
+                    $scope.openTabs.push( tab );
+                    $scope.addDashboard( tab );
+                }
+                else {
+                    switch( type ) {
+                        case "MANAGE":
+                            tab = {
+                                type: 1,
+                                id: cs.getUniqueId(),
+                                title: "Manage"
+                            };
+                            break;
+                        case "SETTINGS":
+                            tab = {
+                                type: 1,
+                                id: cs.getUniqueId(),
+                                title: "Settings"
+                            };
+                        default:
+                            break;
+                    }
+                    cs.insertAt( $scope.openTabs, tab, 0 );
+                    $scope.loadSpecialPage( tab );
+//                  TODO Load special page as tab content
+//                  NOTE only one special page can be load at a time, write logic for it.
+                }
+            };
+            $scope.loadSpecialPage = function( tab ) {
+                
+            };
+            $scope.closeTab = function( e, tab ) {
+                var indexInOpenTabs = $scope.openTabs.indexOf( tab ),
+                dashboard = $scope.dashboardMap[ tab.id ];
+                if( indexInOpenTabs != -1 ) {
+                    $scope.openTabs.splice( indexInOpenTabs, 1 );
+                    $scope.notify( "REMOVE_DASHBOARD", dashboard );
                 }
             };
             $scope.openSettings = function( e ) {

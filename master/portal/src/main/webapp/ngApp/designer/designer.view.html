@@ -11,7 +11,7 @@
                                 <i class="glyphicon glyphicon-align-justify"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li>
+                            <li ng-click="openTab( $event, 'MANAGE' )">
                                 <a href="javascript: void( 0 )">
                                     Manage
                                 </a>
@@ -36,12 +36,12 @@
                         </ul>
                     </li>
                     <!-- DASHBOARD TABS -->
-                    <li class="d-tab" ng-repeat="dId in openDashboardIds track by dId">
-                        <a id="{{ 'TAB_' + dId }}" 
-                            data-toggle="tab" href="{{ '#' + dId }}">
-                            {{ $parent.dashboardMap[ dId ].Layout.title }}
+                    <li class="d-tab" ng-repeat="tab in openTabs track by tab.id">
+                        <a id="{{ 'TAB_' + tab.id }}" 
+                            data-toggle="tab" href="{{ '#' + tab.id }}">
+                            {{ tab.title }}
                         </a>
-                        <a href="javascript: void( 0 )" class="d-dashboard-remove-btn">
+                        <a ng-click="closeTab( $event, tab )" href="javascript: void( 0 )" class="d-dashboard-remove-btn">
                             <i class="glyphicon glyphicon-remove pull-right"></i>
                         </a>
                     </li>
@@ -51,7 +51,7 @@
                             &nbsp;
                         </a>
                         <a href="javascript: void( 0 )" 
-                            ng-click="addDashboard( $event )" 
+                            ng-click="openTab( $event, 'DASHBOARD' )" 
                             class="d-dashboard-remove-btn">
                                 <i class="glyphicon glyphicon-plus pull-right"></i>
                         </a>
@@ -77,14 +77,13 @@
                 </ul>
             </div>
             <div class="d-tab-content-pane tab-content">
-                
-                <!-- DASHBOARD CONTAINER -->
-                <div repeat-end="afterAllDashboardLoad( dId )" 
-                    id="{{ dId }}" 
-                    class="d-dashboard-wrapper d-dashboard-wrapper-full tab-pane fade" 
-                    ng-repeat="dId in openDashboardIds track by dId">
-                    <nj-dashboard></nj-dashboard>
-                </div>
+	            <!-- DASHBOARD CONTAINER -->
+	            <div id="{{ tab.id }}" 
+	                class="d-dashboard-wrapper d-dashboard-wrapper-full tab-pane fade" 
+	                ng-repeat="tab in openTabs track by tab.id">
+	                <nj-dashboard ng-if="tab.type == 0"></nj-dashboard>
+	                <nj-special ng-if="tab.type == 1"></nj-special>
+	            </div>
             </div>
             <div class="full-height d-right-pane d-right-pane-hide">
                  <div class="d-right-pane-body">
@@ -113,11 +112,12 @@
                         <div class="col-md-12 d-w-group-container">
                             <div style="min-width: 298px;">
                                 <ul class="d-w-group-wrapper">
-	                                <li ng-class="{'active': g.active}" 
+	                                <li ng-class="{'active': g.active}"
 	                                   ng-repeat="g in widgetExpGroups" 
-	                                   ng-click="listWidget( $event, g )" 
+	                                   ng-click="groupClicked( $event, g )" 
 	                                   class="d-w-group-item">
-	                                   <img class="full-size" ng-src="images/chart.png" />
+	                                   <img class="full-size" 
+	                                       ng-src="images/chart.png" />
 	                                   <label>{{ g.label }}</label>
 	                                </li>
 	                            </ul>

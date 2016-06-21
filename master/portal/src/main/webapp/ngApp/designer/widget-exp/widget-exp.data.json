@@ -4,7 +4,7 @@
         {
             "id": "CHARTS",
             "info": {},
-            "active": true,
+            "active": false,
             "label": "Charts",
             "widgets": [
                 {
@@ -116,7 +116,7 @@
         {
             "id": "GRIDS",
             "info": {},
-            "active": true,
+            "active": false,
             "label": "Grids",
             "widgets": [
                 {
@@ -148,7 +148,7 @@
         {
             "id": "FILTERS",
             "info": {},
-            "active": true,
+            "active": false,
             "label": "Filters",
             "widgets": [
                 {
@@ -186,7 +186,7 @@
         {
             "id": "ADV_CHARTS",
             "info": {},
-            "active": true,
+            "active": false,
             "label": "Adv. Charts",
             "widgets": [
                 {
@@ -254,7 +254,7 @@
         {
             "id": "OTHERS",
             "info": {},
-            "active": true,
+            "active": false,
             "label": "Others",
             "widgets": [
                 {

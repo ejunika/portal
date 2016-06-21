@@ -34,8 +34,8 @@
                             id: cs.getUniqueId(),
                             wName: dragData.label,
                             selected: false,
-                            top: e.clientY + "px",
-                            left: e.clientX + "px"
+                            top: e.clientY - $( e.target ).offset().top - 3 + "px",
+                            left: e.clientX - $( e.target ).offset().left - 3 + "px"
                         });
                         $timeout( function() {
                             cs.alert( "success", "Designer", dragData.label + " Added" );
@@ -45,7 +45,7 @@
             };
             $scope.cxtMenuCfg = {
                 opnClicked: function( e, opn ) {
-                    cs.alert( "info", "Designer", opn.label + " clicked" )
+                    cs.alert( "info", "Designer", opn.label + " clicked" );
                 },
                 opnList: [
                      {

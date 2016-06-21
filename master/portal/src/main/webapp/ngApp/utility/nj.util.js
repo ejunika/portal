@@ -6,7 +6,18 @@
             .module( "nj.util", [] )
             .directive( "njCxtMenu", [ "$parse", njCxtMenuFn ] )
             .directive( "cxtMenuBox", [ "$parse", cxtMenuBoxFn ] )
-            .filter( "search", [ searchFilterFn ] );
+            .filter( "search", [ searchFilterFn ] )
+            .directive( "repeatEnd", [ repeatEndDirFn ] );
+        function repeatEndDirFn() {
+            return {
+                restrict: "A",
+                link: function( $scope, el, attrs ) {
+                    if( $scope.$last ) {
+                        $scope.$eval( attrs.repeatEnd );
+                    }
+                }
+            };
+        }
         function searchFilterFn() {
             return function( list, searchToken, pName ) {
                 if( !searchToken ) return list;

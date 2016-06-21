@@ -1,7 +1,7 @@
 <div class="w-draggable" 
     ng-init="init()" 
     ng-style="{top: w.top, left: w.left}"
-    ng-repeat="w in dashboardMap[ dId ].Layout.Widgets" 
+    ng-repeat="w in dashboardMap[ tab.id ].Layout.Widgets" 
     jq-draggable="widgetDragConfig">
     <div class="widget" 
         nj-cxt-menu="cxtMenuWidCfg"
