@@ -8,24 +8,43 @@
             "label": "Charts",
             "widgets": [
                 {
+<<<<<<< HEAD
                     "id": "AREA_CHART",
                     "info": {},
                     "active": true,
                     "label": "Area"
+=======
+                    "id": "",
+                    "info": "",
+                    "label": "Line Chart"
+>>>>>>> branch 'master' of https://github.com/ejunika/portal.git
                 },
                 {
+<<<<<<< HEAD
                     "id": "BAR_CHART",
                     "info": {},
                     "active": true,
                     "label": "Bar"
+=======
+                    "id": "",
+                    "info": "",
+                    "label": "Area Chart"
+>>>>>>> branch 'master' of https://github.com/ejunika/portal.git
                 },
                 {
+<<<<<<< HEAD
                     "id": "BUBBLE_CHART",
                     "info": {},
                     "active": true,
                     "label": "Bubble"
+=======
+                    "id": "",
+                    "info": "",
+                    "label": "Pie chart"
+>>>>>>> branch 'master' of https://github.com/ejunika/portal.git
                 },
                 {
+<<<<<<< HEAD
                     "id": "COLUMN_CHART",
                     "info": {},
                     "active": true,
@@ -90,6 +109,11 @@
                     "info": {},
                     "active": true,
                     "label": "Spider"
+=======
+                    "id": "",
+                    "info": "",
+                    "label": "Spider chart"
+>>>>>>> branch 'master' of https://github.com/ejunika/portal.git
                 }
             ]
         },
