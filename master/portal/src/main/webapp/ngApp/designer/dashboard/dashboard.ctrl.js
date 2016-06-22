@@ -31,7 +31,7 @@
                     accept: ".d-w-list-item",
                     drop: function( e, ui ) {
                         var dragData = ui.draggable.data("dragData");
-                        $scope.dashboardMap[ $scope.selectedDashboardId ].Layout.Widgets.push({
+                        $scope.dashboardMap[ $scope.selectedDashboardId ].Layout.widgets.push({
                             id: cs.getUniqueId(),
                             wName: dragData.label,
                             selected: false,
@@ -44,14 +44,73 @@
                     }
                 };
             };
+            $scope.createConnection = function( data ) {
+                var rawFields = data.splice( 0, 1 ),
+                rawRecords = data, 
+                connection = {
+                    id: cs.getUniqueId(),
+                    label: "csv1",
+                    type: "",
+                    sheets: [ {
+                        id: cs.getUniqueId(),
+                        label: "",
+                        fields: [],
+                        records: []
+                    } ]
+                }, field, record;
+                for( var fCnt = 0; fCnt < rawFields[ 0 ].length; fCnt++ ) {
+                    field = {
+                        id: cs.getUniqueId(),
+                        label: rawFields[ 0 ][ fCnt ]
+                    };
+                    connection.sheets[ 0 ].fields.push( field );
+                }
+                for( var row = 0; row < rawRecords.length; row++ ) {
+                    record = {};
+                    for( var col = 0; col < rawRecords[ row ].length; col++ ) {
+                        record[ connection.sheets[ 0 ].fields[ col ].id ] = rawRecords[ row ][ col ];
+                    }
+                    connection.sheets[ 0 ].records.push( record );
+                } 
+            };
+            $scope.addNewDataProvider = function() {
+                $("<input type='file' accept='.csv'>")
+                .on( "change", function( e ) {
+                    var f = e.target.files[ 0 ];
+                    Papa.parse( f, {
+                        delimiter: "",
+                        newline: "",
+                        header: false,
+                        dynamicTyping: false,
+                        preview: 0,
+                        encoding: "",
+                        worker: false,
+                        comments: false,
+                        step: undefined,
+                        complete: function( result ) {
+                            $scope.createConnection( result.data );
+                        },
+                        error: undefined,
+                        download: false,
+                        skipEmptyLines: false,
+                        chunk: undefined,
+                        fastMode: undefined,
+                        beforeFirstChunk: undefined,
+                        withCredentials: undefined
+                    } );
+                } ).trigger( "click" );
+            };
             $scope.cxtMenuCfg = {
                 opnClicked: function( e, opn ) {
-                    cs.alert( "info", "Designer", opn.label + " clicked" );
+                    if( opn.id == "NEW_CONN" ) {
+                        $scope.addNewDataProvider();
+//                        cs.alert( "info", "Designer", opn.label + " clicked" );
+                    }
                 },
                 opnList: [
                      {
-                         id: "1",
-                         label: "Connection"
+                         id: "NEW_CONN",
+                         label: "Create Connection"
                      },
                      {
                          id: "2",
@@ -92,14 +151,14 @@
             };
             $scope.selectAllWidget = function() {
                 var selectedDashboard = $scope.dashboardMap[ $scope.selectedDashboardId ],
-                widgets = selectedDashboard.Layout.Widgets;
+                widgets = selectedDashboard.Layout.widgets;
                 for( var i = 0; i < widgets.length; i++ ) {
                     $scope.selectWidget( widgets[ i ] );
                 }
             };
             $scope.deSelectAllWidget = function() {
                 var selectedDashboard = $scope.dashboardMap[ $scope.selectedDashboardId ],
-                widgets = selectedDashboard.Layout.Widgets;
+                widgets = selectedDashboard.Layout.widgets;
                 for( var i = 0; i < widgets.length; i++ ) {
                     $scope.deSelectWidget( widgets[ i ] );
                 }

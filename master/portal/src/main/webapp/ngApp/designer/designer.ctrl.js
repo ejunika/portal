@@ -200,29 +200,44 @@
                             $scope.selectedDashboardId = dbId;
                         });
                     $( "#TAB_" + dashboard.id ).click();
-                    cs.alert( "success", "Designer", dashboard.Layout.title + " Loaded" );
+                    cs.alert( "success", "Designer", dashboard.Layout.title + " has been loaded" );
                 }, 0 );
             };
             $scope.openFromLocal = function( e ) {
-                $("<input type='file' accept='.njd'>").on( "change", function( e ) {
+                $("<input type='file' accept='.njd'>")
+                .on( "change", function( e ) {
                     var f = e.target.files[ 0 ];
                     var fileReader = new FileReader();
                     fileReader.onload = function( result ) {
-                        var dashboard = JSON.parse( result.currentTarget.result );
+                        var dashboard = angular.fromJson(result.currentTarget.result);
                         $scope.openDashboard( dashboard );
-                    }
+                    };
                     fileReader.readAsText(f);
                 } ).trigger( "click" );
             };
             $scope.exportToLocalDisk = function( e, dbId ) {
                 var data = $scope.dashboardMap[ $scope.selectedDashboardId ], 
-                enEata, a;
-                enEata = "text/json;charset=utf-8," + encodeURIComponent( angular.toJson( data ) );
-                a = document.createElement('a');
-                a.href = 'data:' + enEata;
-                a.download = data.Layout.title + ".njd";
-                a.click();
-                cs.alert( "success", "Designer", "Dashboard exported to locak disk" );
+                dataToExport = angular.toJson( data ),
+                fileName = data.Layout.title + ".njd",
+                enData, downloadLink, blob;
+                /*Check for IE*/
+                if( /*@cc_on!@*/ false || !!document.documentMode ) {
+                    blob = new Blob( [ dataToExport ] );
+                    navigator.msSaveBlob( blob, fileName );
+                }
+                /*Check for  SAFARI */
+                else if( Object.prototype.toString.call(window.HTMLElement).indexOf("Constructor") > 0 ) {
+                    enData = "data:application/...," + encodeURIComponent( dataToExport );
+                    location.replace( enData );
+                }
+                else {
+                    enData = "text/json;charset=utf-8," + encodeURIComponent( dataToExport );
+                    downloadLink = document.createElement( "a" );
+                    downloadLink.href = "data:" + enData;
+                    downloadLink.download = fileName;
+                    downloadLink.click();
+                }
+                cs.alert( "success", "Designer", data.Layout.title + " has been exported as "+ fileName +" to locak disk" );
             };
         }
     }
