@@ -71,7 +71,9 @@
                         record[ connection.sheets[ 0 ].fields[ col ].id ] = rawRecords[ row ][ col ];
                     }
                     connection.sheets[ 0 ].records.push( record );
-                } 
+                }
+                $scope.dashboardMap[ $scope.selectedDashboardId ]
+                    .DataProvider.Offline.connections[ 0 ] = connection;
             };
             $scope.addNewDataProvider = function() {
                 $("<input type='file' accept='.csv'>")

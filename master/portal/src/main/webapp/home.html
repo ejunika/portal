@@ -19,6 +19,79 @@
         <toaster-container></toaster-container>
         <cxt-menu-box></cxt-menu-box>
         <div class="selectHelper" ng-style="selectHelper"></div>
+        <div class="panel panel-info d-dataset-panel">
+		  <div class="panel-heading">
+		        <h3 class="panel-title">DataSet::Area</h3>
+		  </div>
+		  <div class="panel-body">
+		    <ul class="nav nav-tabs">
+                <li class="active"><a href="#general" data-toggle="tab" aria-expanded="true">General</a></li>
+                <li class=""><a href="#properties" data-toggle="tab" aria-expanded="false">Properties</a></li>
+            </ul>
+		    <div id="myTabContent" class="tab-content">
+		        <div class="tab-pane fade active in" id="general">
+                    <form class="form-horizontal">
+	                   <div class="form-group">
+	                      <label for="dataProvider" class="col-lg-5 control-label">Data Provider</label>
+	                      <div class="col-lg-5">
+	                        <select class="form-control input-md" id="dataProvider">
+	                           <option>Conn-1</option>
+	                           <option>Conn-2</option>
+	                           <option>Conn-3</option>
+	                        </select>
+	                      </div>
+<!-- 	                      <div class="col-lg-2"> -->
+<!-- 	                           <a href="javascript: void(0)" class="pull-right"><i class="glyphicon glyphicon-remove"></i></a> -->
+<!-- 	                      </div> -->
+	                   </div>
+	               </form>
+                   <div class="pull-left">
+                        <h6 class="d-dataset-item-header">Field</h6>
+                        <ul class="d-dataset-item-container d-fields-container">
+                            <li class="d-dataset-item">Name</li>
+                            <li class="d-dataset-item">Age</li>
+                            <li class="d-dataset-item">Sex</li>
+                        </ul>
+                   </div>
+                   <div class="pull-right">
+                       <h6 class="d-dataset-item-header">Dimension</h6>
+                       <ul class="d-dataset-item-container d-dim-container">
+                           <li class="d-dataset-item">Name<a href="javascript: void(0)" class="pull-right"><i class="glyphicon glyphicon-remove"></i></a></li>
+                           <li class="d-dataset-item">Age<a href="javascript: void(0)" class="pull-right"><i class="glyphicon glyphicon-remove"></i></a></li>
+                           <li class="d-dataset-item">Sex<a href="javascript: void(0)" class="pull-right"><i class="glyphicon glyphicon-remove"></i></a></li>
+                       </ul>
+                       <h6 class="d-dataset-item-header">Measures</h6>
+                       <ul class="d-dataset-item-container d-mes-container">
+                           <li class="d-dataset-item">Name<a href="javascript: void(0)" class="pull-right"><i class="glyphicon glyphicon-remove"></i></a></li>
+                           <li class="d-dataset-item">Age<a href="javascript: void(0)" class="pull-right"><i class="glyphicon glyphicon-remove"></i></a></li>
+                           <li class="d-dataset-item">Sex<a href="javascript: void(0)" class="pull-right"><i class="glyphicon glyphicon-remove"></i></a></li>
+                       </ul>
+                   </div>
+                   <div style="clear: both"></div>
+                </div>
+		        <div class="tab-pane fade" id="properties">
+                    <form class="form-horizontal">
+                       <div class="form-group">
+                          <label for="fieldName" class="col-lg-6 control-label input-md">Field Name</label>
+                          <div class="col-lg-6">
+                            <input class="form-control input-md" id="fieldName" />
+                          </div>
+                       </div>
+                       <div class="form-group">
+                          <label for="fieldColor" class="col-lg-6 control-label input-md">Field Color</label>
+                          <div class="col-lg-6">
+                            <input type="color" class="form-control input-md" id="fieldColor" />
+                          </div>
+                       </div>
+                    </form>
+                </div>
+		    </div>      
+		  </div>
+		  <div class="panel-footer">
+              <a href="javascript: void(0)" class="btn btn-primary btn-sm pull-right">Done</a>
+              <div style="clear: both"></div>
+          </div> 
+    </div>
     <script type="text/javascript" src="./node_modules/requirejs/require.js" data-main="./ngApp/app.main"></script>
     </body>
 </html>
