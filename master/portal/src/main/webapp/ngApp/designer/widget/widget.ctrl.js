@@ -19,6 +19,29 @@
                         se: ".r-handle-se", 
                         sw: ".r-handle-sw", 
                         nw: ".r-handle-nw" 
+                    },
+                    stop: function( e, ui ) {
+                        var wId = ui.element[ 0 ].id, 
+                        dashboard = $scope.getSelectedDashboard(),
+                        widget = dashboard.Info.WidgetMap[ wId ];
+                        
+                        widget.height = ui.size.height + "px";
+                        widget.width = ui.size.width + "px";
+                        
+                        widget.left = widget.left.split( "px" )[ 0 ] * 1 + ui.position.left + "px";
+                        widget.top = widget.top.split( "px" )[ 0 ] * 1 + ui.position.top + "px";
+                        $scope.$apply();
+                    }
+                };
+                $scope.wDragConfig = {
+                    stop: function( e, ui ) {
+                        var wId = ui.helper.find( ".widget" )[ 0 ].id, 
+                        dashboard = $scope.getSelectedDashboard(),
+                        widget = dashboard.Info.WidgetMap[ wId ];
+                        
+                        widget.left = ui.position.left + "px";
+                        widget.top = ui.position.top + "px";
+                        $scope.$apply();
                     }
                 };
             };
@@ -48,7 +71,7 @@
                     }
                 ],
                 opnClicked: function( e, opn ) {
-                    cs.alert( "info", "Designer", opn.label + " clicked" );
+                    $( ".d-dataset-panel" ).show();
                 }
             };
         }

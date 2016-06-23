@@ -1,10 +1,9 @@
 <div class="w-draggable" 
-    ng-init="init()" 
     ng-if="w.Options != undefined"
-    ng-style="{top: w.top, left: w.left}"
+    ng-style="{top: w.top, left: w.left, height: w.height, width: w.width}"
     ng-repeat="w in dashboardMap[ tab.id ].Layout.widgets track by w.id" 
-    jq-draggable="widgetDragConfig">
-    <div class="widget" 
+    jq-draggable="wDragConfig">
+    <div class="widget full-size" 
         nj-cxt-menu="cxtMenuWidCfg"
         id="{{w.id}}" 
         ng-init="initWidget( w )"

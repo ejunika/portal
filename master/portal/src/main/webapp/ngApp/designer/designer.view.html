@@ -90,7 +90,7 @@
 	            <div id="{{ tab.id }}" 
 	                class="d-dashboard-wrapper d-dashboard-wrapper-full tab-pane fade" 
 	                ng-repeat="tab in openTabs track by tab.id">
-	                <nj-dashboard ng-if="tab.type == 0"></nj-dashboard>
+	                <nj-dashboard ng-init="init()" ng-if="tab.type == 0"></nj-dashboard>
 	                <nj-special ng-if="tab.type == 1"></nj-special>
 	            </div>
             </div>

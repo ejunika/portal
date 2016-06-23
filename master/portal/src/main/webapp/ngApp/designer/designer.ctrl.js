@@ -30,6 +30,10 @@
                 } );
             };
             
+            $scope.getSelectedDashboard = function() {
+                return $scope.dashboardMap[ $scope.selectedDashboardId ];
+            };
+            
 //            WIDGET EXPLORER
             $scope.listWidget = function( e, g ) {
                 $scope.widgetList = g.widgets;
@@ -188,11 +192,11 @@
                     var index;
                     widget.Options = jsonData;
                     if( isOpen ) {
-                        index = $scope.dashboardMap[ $scope.selectedDashboardId ].Layout.widgets.indexOf( widget );
-                        $scope.dashboardMap[ $scope.selectedDashboardId ].Layout.widgets[ index ] = widget;
+                        index = $scope.getSelectedDashboard().Layout.widgets.indexOf( widget );
+                        $scope.getSelectedDashboard().Layout.widgets[ index ] = widget;
                     }
                     else {
-                        $scope.dashboardMap[ $scope.selectedDashboardId ].Layout.widgets.push( widget );
+                        $scope.getSelectedDashboard().Layout.widgets.push( widget );
                         $timeout( function() {
                             cs.alert( "success", "Designer", widget.wName + " Added" );
                         } );
@@ -202,7 +206,17 @@
                     }
                 }
             };
+            $scope.isDashboardOpen = function( dbId ) {
+                return $scope.dashboardMap.hasOwnProperty( dbId );
+            };
             $scope.openDashboard = function( dashboard ) {
+                if( $scope.isDashboardOpen( dashboard.id ) ) {
+                    $timeout( function() {
+                        cs.alert( "error", "Designer", "Dashboard is already opened" );
+                        $( "#TAB_" + dashboard.id ).click();
+                    }, 0 );
+                    return false;
+                };
                 var tab = {
                     type: 0,
                     id: dashboard.id,
@@ -242,7 +256,7 @@
                 } ).trigger( "click" );
             };
             $scope.exportToLocalDisk = function( e, dbId ) {
-                var data = angular.copy( $scope.dashboardMap[ $scope.selectedDashboardId ] ), 
+                var data = angular.copy( $scope.getSelectedDashboard() ), 
                 widgets = data.Layout.widgets,
                 fileName = data.Layout.title + ".njd",
                 dataToExport, enData, downloadLink, blob;

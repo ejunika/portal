@@ -4,8 +4,8 @@
     "dbId": "",
     "left": "",
     "top": "",
-    "height": "",
-    "width": "",
+    "height": "200px",
+    "width": "300px",
     "Options": {},
     "dataSets": [
         {

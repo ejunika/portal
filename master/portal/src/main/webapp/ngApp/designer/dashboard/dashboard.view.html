@@ -1,5 +1,4 @@
 <div class="d-resizable-area full-size" 
-    ng-init="init()" 
     jq-resizable="dashboardResizeConfig" >
     <div class="drag-selection-area full-size" 
         jq-selectable="dragSelectConfig">
@@ -8,7 +7,7 @@
             id="{{ 'MAIN_' + tab.id }}" 
             class="d-dashboard" 
             ng-style="getDashboardStyle( d )">
-            <nj-widget></nj-widget>
+            <nj-widget ng-init="init()"></nj-widget>
         </div>
     </div>
 </div>

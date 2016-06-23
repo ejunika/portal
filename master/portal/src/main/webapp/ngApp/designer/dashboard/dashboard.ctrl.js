@@ -28,10 +28,14 @@
                     filter: ".widget"
                 };
                 $scope.initWidget = function( widget ) {
+                    var dashboard = $scope.getSelectedDashboard();
                     $timeout( function() {
-                        widget.Info.chart = new CanvasJS.Chart( "CC_" + widget.id );
-                        widget.Info.chart.options = widget.Options;
-                        widget.Info.chart.render();
+                        dashboard.Info.ObjMap = dashboard.Info.ObjMap || {};
+                        dashboard.Info.WidgetMap = dashboard.Info.WidgetMap || {};
+                        dashboard.Info.WidgetMap[ widget.id ] = widget;
+                        dashboard.Info.ObjMap[ widget.id ] = new CanvasJS.Chart( "CC_" + widget.id );
+                        dashboard.Info.ObjMap[ widget.id ].options = widget.Options;
+                        dashboard.Info.ObjMap[ widget.id ].render();
                     }, 0 );
                 };
                 $scope.dashboardDropConfig = {
@@ -79,8 +83,7 @@
                     }
                     connection.sheets[ 0 ].records.push( record );
                 }
-                $scope.dashboardMap[ $scope.selectedDashboardId ]
-                    .DataProvider.Offline.connections[ 0 ] = connection;
+                $scope.getSelectedDashboard().DataProvider.Offline.connections[ 0 ] = connection;
             };
             $scope.addNewDataProvider = function() {
                 $("<input type='file' accept='.csv'>")
@@ -159,14 +162,14 @@
                 }
             };
             $scope.selectAllWidget = function() {
-                var selectedDashboard = $scope.dashboardMap[ $scope.selectedDashboardId ],
+                var selectedDashboard = $scope.getSelectedDashboard(),
                 widgets = selectedDashboard.Layout.widgets;
                 for( var i = 0; i < widgets.length; i++ ) {
                     $scope.selectWidget( widgets[ i ] );
                 }
             };
             $scope.deSelectAllWidget = function() {
-                var selectedDashboard = $scope.dashboardMap[ $scope.selectedDashboardId ],
+                var selectedDashboard = $scope.getSelectedDashboard(),
                 widgets = selectedDashboard.Layout.widgets;
                 for( var i = 0; i < widgets.length; i++ ) {
                     $scope.deSelectWidget( widgets[ i ] );
