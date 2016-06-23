@@ -6,11 +6,11 @@
             ac.ngVars.scope,
             "$timeout",
             ac.services.core,
+            ac.services.request,
             dashboardCtrlFn 
         ] );
-        function dashboardCtrlFn( $scope, $timeout, cs ) {
+        function dashboardCtrlFn( $scope, $timeout, cs, rs ) {
             $scope.init = function() {
-                $scope.selectedWidgetIds = [];
                 $scope.dragSelectConfig = {
                     selectHelper: ".selectHelper",
                     start: function( e, ui ) {
@@ -27,42 +27,27 @@
                     },
                     filter: ".widget"
                 };
-                $scope.initWidget = function( wObj ) {
+                $scope.initWidget = function( widget ) {
                     $timeout( function() {
-                        var chart = new CanvasJS.Chart( wObj.id, {
-                            title:{
-                                text: "My First Chart in CanvasJS"
-                            },
-                            data: [              
-                               {
-                                   type: "column",
-                                   dataPoints: [
-                                       { label: "apple",  y: 10  },
-                                       { label: "orange", y: 15  },
-                                       { label: "banana", y: 25  },
-                                       { label: "mango",  y: 30  },
-                                       { label: "grape",  y: 28  }
-                                   ]
-                               }
-                            ]
-                        } );
-                        chart.render();
-                        cs.alert( "success", "Designer", wObj.wName + " Added" );
+                        widget.Info.chart = new CanvasJS.Chart( "CC_" + widget.id );
+                        widget.Info.chart.options = widget.Options;
+                        widget.Info.chart.render();
                     }, 0 );
                 };
                 $scope.dashboardDropConfig = {
                     accept: ".d-w-list-item",
                     drop: function( e, ui ) {
-                        var dragData = ui.draggable.data("dragData"),
-                        widget = {
-                                id: cs.getUniqueId(),
-                                wName: dragData.label,
-                                selected: false,
-                                top: e.clientY - $( e.target ).offset().top - 3 + "px",
-                                left: e.clientX - $( e.target ).offset().left - 3 + "px"
-                            };
-                        $scope.dashboardMap[ $scope.selectedDashboardId ].Layout.widgets.push(widget);
-                        $scope.$apply();
+                        rs.getJson( "ngApp/designer/widget/widget.data.json", scb );
+                        function scb( jsonData ) {
+                            var dragData = ui.draggable.data("dragData"),
+                            widget = jsonData;
+                            widget.id = cs.getUniqueId();
+                            widget.wName = dragData.label;
+                            widget.selected = true;
+                            widget.top = e.clientY - $( e.target ).offset().top - 3 + "px";
+                            widget.left = e.clientX - $( e.target ).offset().left - 3 + "px";
+                            $scope.addWidget( widget );
+                        }
                     }
                 };
             };

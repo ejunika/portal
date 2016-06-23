@@ -13,6 +13,7 @@
             $scope.init = function() {
                 $scope.openTabs = [];
                 $scope.openDashboardIds = [];
+                $scope.selectedWidgetIds = [];
                 $scope.selectedDashboardId = "";
                 $scope.dashboardMap = {};
                 $scope.tabMap = {};
@@ -181,6 +182,26 @@
             $scope.openSettings = function( e ) {
                 
             };
+            $scope.addWidget = function( widget, isOpen ) {
+                rs.getJson( "ngApp/designer/widget/column-chart.data.json", scb );
+                function scb( jsonData ) {
+                    var index;
+                    widget.Options = jsonData;
+                    if( isOpen ) {
+                        index = $scope.dashboardMap[ $scope.selectedDashboardId ].Layout.widgets.indexOf( widget );
+                        $scope.dashboardMap[ $scope.selectedDashboardId ].Layout.widgets[ index ] = widget;
+                    }
+                    else {
+                        $scope.dashboardMap[ $scope.selectedDashboardId ].Layout.widgets.push( widget );
+                        $timeout( function() {
+                            cs.alert( "success", "Designer", widget.wName + " Added" );
+                        } );
+                    }
+                    if( widget.selected ) {
+                        $scope.selectedWidgetIds.push( widget.id );
+                    }
+                }
+            };
             $scope.openDashboard = function( dashboard ) {
                 var tab = {
                     type: 0,
@@ -188,9 +209,14 @@
                     title: dashboard.Layout.title
                 };
                 $scope.$apply( function() {
+                    var widgets = dashboard.Layout.widgets;
                     $scope.openTabs.push( tab );
                     $scope.openDashboardIds.push( dashboard.id );
                     $scope.dashboardMap[ dashboard.id ] = dashboard;
+                    $scope.selectedDashboardId = dashboard.id;
+                    for( var i = 0; i < widgets.length; i++ ) {
+                        $scope.addWidget( widgets[ i ], true );
+                    }
                 } );
                 $timeout( function() {
                     $('a[data-toggle="tab"]')
@@ -216,10 +242,15 @@
                 } ).trigger( "click" );
             };
             $scope.exportToLocalDisk = function( e, dbId ) {
-                var data = $scope.dashboardMap[ $scope.selectedDashboardId ], 
-                dataToExport = angular.toJson( data ),
+                var data = angular.copy( $scope.dashboardMap[ $scope.selectedDashboardId ] ), 
+                widgets = data.Layout.widgets,
                 fileName = data.Layout.title + ".njd",
-                enData, downloadLink, blob;
+                dataToExport, enData, downloadLink, blob;
+                for( var i = 0; i < widgets.length; i++ ) {
+                    delete widgets[ i ].Info.chart;
+                    delete widgets[ i ].Options;
+                }
+                dataToExport = angular.toJson( data ); 
                 /*Check for IE*/
                 if( /*@cc_on!@*/ false || !!document.documentMode ) {
                     blob = new Blob( [ dataToExport ] );

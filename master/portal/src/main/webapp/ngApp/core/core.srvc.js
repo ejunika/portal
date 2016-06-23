@@ -18,9 +18,17 @@
                 var getRandom = function() {
                     return Math.floor( ( 1 + Math.random() ) * 0x10000 )
                         .toString( 16 ).substring( 1 ).toUpperCase();
-                };
-                return getRandom() + "-" + getRandom() 
-                    + "-" + getRandom() + "-" + getRandom();
+                }, uniqueId = "";
+                x4Bits = x4Bits || 16;
+                if( typeof x4Bits == "number" ) {
+                    for( var i = 0; i < x4Bits; i++ ) {
+                        if( i > 0 ) {
+                            uniqueId += "-";
+                        }
+                        uniqueId += getRandom();
+                    }
+                }
+                return uniqueId;
             };
             cs.counter = function() {
                 var count = 0;

@@ -16,6 +16,7 @@
                 cs.cxtMenuPosition = {};
                 $scope.selectHelper = {
                     position: "absolute",
+                    zIndex: "1000",
                     border: "1px solid #2196f3",
                     background: "rgba(33, 150, 243, 0.1)"
                 };
