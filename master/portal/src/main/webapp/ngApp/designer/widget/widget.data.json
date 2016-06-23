@@ -1,0 +1,36 @@
+{
+    "Info": {},
+    "id": "",
+    "dbId": "",
+    "left": "",
+    "top": "",
+    "height": "",
+    "width": "",
+    "Object": {},
+    "dataSets": [
+        {
+            "id": "",
+            "label": "",
+            "DataProvider": {
+                "connection": "",
+                "sheet": ""
+            },
+            "dimensions": [
+                {
+                    "id": "FIELD_1",
+                    "label": "Label-1"
+                },
+                {
+                    "id": "FIELD_3",
+                    "label": "Label-3"
+                }
+            ],
+            "measures": [
+                {
+                    "id": "FIELD_2",
+                    "label": "Label-2"
+                }
+            ]
+        }
+    ]
+}

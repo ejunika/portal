@@ -50,7 +50,7 @@
                 connection = {
                     id: cs.getUniqueId(),
                     label: "csv1",
-                    type: "",
+                    type: "csv",
                     sheets: [ {
                         id: cs.getUniqueId(),
                         label: "",
@@ -71,14 +71,16 @@
                         record[ connection.sheets[ 0 ].fields[ col ].id ] = rawRecords[ row ][ col ];
                     }
                     connection.sheets[ 0 ].records.push( record );
-                } 
+                }
+                $scope.dashboardMap[ $scope.selectedDashboardId ]
+                    .DataProvider.Offline.connections[ 0 ] = connection;
             };
             $scope.addNewDataProvider = function() {
                 $("<input type='file' accept='.csv'>")
                 .on( "change", function( e ) {
                     var f = e.target.files[ 0 ];
                     Papa.parse( f, {
-                        delimiter: "",
+                        delimiter: ",",
                         newline: "",
                         header: false,
                         dynamicTyping: false,
