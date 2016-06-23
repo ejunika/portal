@@ -27,20 +27,42 @@
                     },
                     filter: ".widget"
                 };
+                $scope.initWidget = function( wObj ) {
+                    $timeout( function() {
+                        var chart = new CanvasJS.Chart( wObj.id, {
+                            title:{
+                                text: "My First Chart in CanvasJS"
+                            },
+                            data: [              
+                               {
+                                   type: "column",
+                                   dataPoints: [
+                                       { label: "apple",  y: 10  },
+                                       { label: "orange", y: 15  },
+                                       { label: "banana", y: 25  },
+                                       { label: "mango",  y: 30  },
+                                       { label: "grape",  y: 28  }
+                                   ]
+                               }
+                            ]
+                        } );
+                        chart.render();
+                        cs.alert( "success", "Designer", wObj.wName + " Added" );
+                    }, 0 );
+                };
                 $scope.dashboardDropConfig = {
                     accept: ".d-w-list-item",
                     drop: function( e, ui ) {
-                        var dragData = ui.draggable.data("dragData");
-                        $scope.dashboardMap[ $scope.selectedDashboardId ].Layout.widgets.push({
-                            id: cs.getUniqueId(),
-                            wName: dragData.label,
-                            selected: false,
-                            top: e.clientY - $( e.target ).offset().top - 3 + "px",
-                            left: e.clientX - $( e.target ).offset().left - 3 + "px"
-                        });
-                        $timeout( function() {
-                            cs.alert( "success", "Designer", dragData.label + " Added" );
-                        }, 0 );
+                        var dragData = ui.draggable.data("dragData"),
+                        widget = {
+                                id: cs.getUniqueId(),
+                                wName: dragData.label,
+                                selected: false,
+                                top: e.clientY - $( e.target ).offset().top - 3 + "px",
+                                left: e.clientX - $( e.target ).offset().left - 3 + "px"
+                            };
+                        $scope.dashboardMap[ $scope.selectedDashboardId ].Layout.widgets.push(widget);
+                        $scope.$apply();
                     }
                 };
             };

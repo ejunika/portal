@@ -287,8 +287,8 @@ a:hover, a:focus {
 }
 .widget {
     position: absolute;
-    width: 100px;
-    height: 100px;
+    width: 400px;
+    height: 350px;
     background: #b2dbfb;
 }
 .w-s-border {

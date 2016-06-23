@@ -7,7 +7,7 @@
             jqueryui : "../node_modules/jquery-ui/jquery-ui",
             uijquery: "utility/ui.jquery",
             njutil: "utility/nj.util",
-            canvasjs : "../node_modules/canvasjs/dist/jquery.canvasjs.min",
+            canvasjs : "../src/canvasjs/source/canvasjs",
             angular : "../node_modules/angular/angular",
             alstorage: "../node_modules/angular-local-storage/dist/angular-local-storage",
             angularroute: "../node_modules/angular-route/angular-route",
@@ -49,6 +49,9 @@
                 exports: "jQuery"
             },
             jqueryui: {
+                deps: [ "jquery" ]
+            },
+            canvasjs: {
                 deps: [ "jquery" ]
             },
             uijquery: {

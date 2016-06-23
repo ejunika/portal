@@ -14,6 +14,7 @@
         "uijquery",
         "njutil",
         "bootstrap",
+        "canvasjs",
         "cm",
         "cc",
         "cs",

@@ -5,7 +5,8 @@
     jq-draggable="widgetDragConfig">
     <div class="widget" 
         nj-cxt-menu="cxtMenuWidCfg"
-        id="{{w.id}}"
+        id="{{w.id}}" 
+        ng-init="initWidget( w )"
         jq-resizable="widgetResizeConfig" 
         ng-click="onClickWidget( $event, w )" >
         <span>{{ w.wName }}</span>
