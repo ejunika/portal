@@ -27,17 +27,6 @@
                     },
                     filter: ".widget"
                 };
-                $scope.initWidget = function( widget ) {
-                    var dashboard = $scope.getSelectedDashboard();
-                    $timeout( function() {
-                        dashboard.Info.ObjMap = dashboard.Info.ObjMap || {};
-                        dashboard.Info.WidgetMap = dashboard.Info.WidgetMap || {};
-                        dashboard.Info.WidgetMap[ widget.id ] = widget;
-                        dashboard.Info.ObjMap[ widget.id ] = new CanvasJS.Chart( "CC_" + widget.id );
-                        dashboard.Info.ObjMap[ widget.id ].options = widget.Options;
-                        dashboard.Info.ObjMap[ widget.id ].render();
-                    }, 0 );
-                };
                 $scope.dashboardDropConfig = {
                     accept: ".d-w-list-item",
                     drop: function( e, ui ) {
@@ -50,10 +39,21 @@
                             widget.selected = true;
                             widget.top = e.clientY - $( e.target ).offset().top - 3 + "px";
                             widget.left = e.clientX - $( e.target ).offset().left - 3 + "px";
-                            $scope.addWidget( widget );
+                            $scope.addWidget( widget, true );
                         }
                     }
                 };
+            };
+            $scope.initWidget = function( widget ) {
+                var dashboard = $scope.getSelectedDashboard();
+                $timeout( function() {
+                    dashboard.Info.ObjMap = dashboard.Info.ObjMap || {};
+                    dashboard.Info.WidgetMap = dashboard.Info.WidgetMap || {};
+                    dashboard.Info.WidgetMap[ widget.id ] = widget;
+                    dashboard.Info.ObjMap[ widget.id ] = new CanvasJS.Chart( "CC_" + widget.id );
+                    dashboard.Info.ObjMap[ widget.id ].options = widget.Options;
+                    dashboard.Info.ObjMap[ widget.id ].render();
+                }, 0 );
             };
             $scope.createConnection = function( data ) {
                 var rawFields = data.splice( 0, 1 ),

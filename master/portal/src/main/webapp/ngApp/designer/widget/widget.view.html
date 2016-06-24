@@ -2,12 +2,12 @@
     ng-if="w.Options != undefined"
     ng-style="{top: w.top, left: w.left, height: w.height, width: w.width}"
     ng-repeat="w in dashboardMap[ tab.id ].Layout.widgets track by w.id" 
+    jq-resizable="widgetResizeConfig" 
     jq-draggable="wDragConfig">
     <div class="widget full-size" 
         nj-cxt-menu="cxtMenuWidCfg"
         id="{{w.id}}" 
-        ng-init="initWidget( w )"
-        jq-resizable="widgetResizeConfig" 
+        ng-init="initWidget( w )" 
         ng-click="onClickWidget( $event, w )" >
         <div id="{{ 'CC_' + w.id }}" class="chart-container full-size"></div>
         <div class="w-s-border" ng-show="w.selected">

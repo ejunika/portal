@@ -13,23 +13,28 @@
         function jqDraggableFn( $parse ) {
             return {
                 restrict: "A",
-                scope: {
-                    jqDraggable: "=",
-                    dragData: "="
-                },
+//                scope: {
+//                    jqDraggable: "=",
+//                    dragData: "="
+//                },
                 link: function( $scope, el, attrs, ctrl ) {
-                    el.draggable( $scope.jqDraggable ).data("dragData", $scope.dragData);
+                    var dragCfg = $parse( attrs.jqDraggable )( $scope ),
+                    dragData = $parse( attrs.dragData )( $scope );
+//                    el.draggable( $scope.jqDraggable ).data("dragData", $scope.dragData);
+                    el.draggable( dragCfg ).data("dragData", dragData);
                 }  
            };
         }
         function jqDroppableFn( $parse ) {
             return {
                 restrict: "A",
-                scope: {
-                    jqDroppable: "="
-                },
+//                scope: {
+//                    jqDroppable: "="
+//                },
                 link: function( $scope, el, attrs, ctrl ) {
-                    el.droppable( $scope.jqDroppable );
+                    var dropCfg = $parse( attrs.jqDroppable )( $scope );
+//                    el.droppable( $scope.jqDroppable );
+                    el.droppable( dropCfg );
                 }  
             };
         }
@@ -49,22 +54,26 @@
         function jqSortableFn( $parse ) {
             return {
                 restrict: "A",
-                scope: {
-                    jqSortable: "="
-                },
+//                scope: {
+//                    jqSortable: "="
+//                },
                 link: function( $scope, el, attrs, ctrl ) {
-                    el.sortable( $scope.jqSortable );
+                    var sortCfg = $parse( attrs.jqSortable )( $scope );
+//                    el.sortable( $scope.jqSortable );
+                    el.sortable( sortCfg );
                 }  
            };
         }
         function jqSelectableFn( $parse ) {
             return {
                 restrict: "A",
-                scope: {
-                    jqSelectable: "="
-                },
+//                scope: {
+//                    jqSelectable: "="
+//                },
                 link: function( $scope, el, attrs, ctrl ) {
-                    el.selectable( $scope.jqSelectable );
+                    var selectCfg = $parse( attrs.jqSelectable )( $scope );
+//                    el.selectable( $scope.jqSelectable );
+                    el.selectable( selectCfg );
                 }  
            };
         }

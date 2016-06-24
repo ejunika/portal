@@ -1,29 +1,34 @@
 {
+    "interactivityEnabled": false,
+    "animationEnabled": false,
     "title": {
-        "text": "Fruit sails"
+        "text": "Fruit sales in 2016"
+    },
+    "toolTip": {
+        "enabled": false
     },
     "data": [
         {
-            "type": "column",
+            "type": "line",
             "dataPoints": [
                 {
-                    "label": "apple",
+                    "label": "Apple",
                     "y": 10
                 },
                 {
-                    "label": "orange",
+                    "label": "Orange",
                     "y": 15
                 },
                 {
-                    "label": "banana",
+                    "label": "Banana",
                     "y": 25
                 },
                 {
-                    "label": "mango",
+                    "label": "Mango",
                     "y": 30
                 },
                 {
-                    "label": "grape",
+                    "label": "Grapes",
                     "y": 28
                 }
             ]

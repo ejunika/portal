@@ -29,9 +29,18 @@
                     }, 0 );
                 } );
             };
-            
+//            commonly used utility functions
+            $scope.getDashboard = function( dbId ) {
+                return $scope.dashboardMap[ dbId ];
+            };
             $scope.getSelectedDashboard = function() {
                 return $scope.dashboardMap[ $scope.selectedDashboardId ];
+            };
+            $scope.getWidgetsOfSelectedDashboard = function() {
+                return $scope.getSelectedDashboard().Layout.widgets;
+            };
+            $scope.isDashboardOpen = function( dbId ) {
+                return $scope.dashboardMap.hasOwnProperty( dbId );
             };
             
 //            WIDGET EXPLORER
@@ -186,17 +195,12 @@
             $scope.openSettings = function( e ) {
                 
             };
-            $scope.addWidget = function( widget, isOpen ) {
+            $scope.addWidget = function( widget, isNew ) {
                 rs.getJson( "ngApp/designer/widget/column-chart.data.json", scb );
                 function scb( jsonData ) {
-                    var index;
                     widget.Options = jsonData;
-                    if( isOpen ) {
-                        index = $scope.getSelectedDashboard().Layout.widgets.indexOf( widget );
-                        $scope.getSelectedDashboard().Layout.widgets[ index ] = widget;
-                    }
-                    else {
-                        $scope.getSelectedDashboard().Layout.widgets.push( widget );
+                    if( isNew ) {
+                        $scope.getWidgetsOfSelectedDashboard().push( widget );
                         $timeout( function() {
                             cs.alert( "success", "Designer", widget.wName + " Added" );
                         } );
@@ -205,9 +209,6 @@
                         $scope.selectedWidgetIds.push( widget.id );
                     }
                 }
-            };
-            $scope.isDashboardOpen = function( dbId ) {
-                return $scope.dashboardMap.hasOwnProperty( dbId );
             };
             $scope.openDashboard = function( dashboard ) {
                 if( $scope.isDashboardOpen( dashboard.id ) ) {
@@ -229,7 +230,7 @@
                     $scope.dashboardMap[ dashboard.id ] = dashboard;
                     $scope.selectedDashboardId = dashboard.id;
                     for( var i = 0; i < widgets.length; i++ ) {
-                        $scope.addWidget( widgets[ i ], true );
+                        $scope.addWidget( widgets[ i ] );
                     }
                 } );
                 $timeout( function() {
@@ -245,23 +246,27 @@
             };
             $scope.openFromLocal = function( e ) {
                 $("<input type='file' accept='.njd'>")
-                .on( "change", function( e ) {
-                    var f = e.target.files[ 0 ];
-                    var fileReader = new FileReader();
-                    fileReader.onload = function( result ) {
+                .on( "change", onChangeFileBrowser )
+                .trigger( "click" );
+                function onChangeFileBrowser( e ) {
+                    var f = e.target.files[ 0 ],
+                    fileReader = new FileReader();
+                    fileReader.onload = onFileReadSuccess;
+                    fileReader.readAsText( f );
+                    function onFileReadSuccess( result ) {
                         var dashboard = angular.fromJson(result.currentTarget.result);
                         $scope.openDashboard( dashboard );
-                    };
-                    fileReader.readAsText(f);
-                } ).trigger( "click" );
+                    }
+                }
             };
             $scope.exportToLocalDisk = function( e, dbId ) {
                 var data = angular.copy( $scope.getSelectedDashboard() ), 
                 widgets = data.Layout.widgets,
                 fileName = data.Layout.title + ".njd",
                 dataToExport, enData, downloadLink, blob;
+                delete data.Info.ObjMap;
+                delete data.Info.WidgetMap;
                 for( var i = 0; i < widgets.length; i++ ) {
-                    delete widgets[ i ].Info.chart;
                     delete widgets[ i ].Options;
                 }
                 dataToExport = angular.toJson( data ); 
@@ -280,7 +285,9 @@
                     downloadLink = document.createElement( "a" );
                     downloadLink.href = "data:" + enData;
                     downloadLink.download = fileName;
+                    document.body.appendChild( downloadLink );
                     downloadLink.click();
+                    document.body.removeChild( downloadLink );
                 }
                 cs.alert( "success", "Designer", data.Layout.title + " has been exported as "+ fileName +" to locak disk" );
             };

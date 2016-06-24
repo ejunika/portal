@@ -21,20 +21,25 @@
                         nw: ".r-handle-nw" 
                     },
                     stop: function( e, ui ) {
-                        var wId = ui.element[ 0 ].id, 
+                        e.stopPropagation();
+                        var wId = ui.element.find( ".widget" )[ 0 ].id, 
                         dashboard = $scope.getSelectedDashboard(),
-                        widget = dashboard.Info.WidgetMap[ wId ];
+                        widget = dashboard.Info.WidgetMap[ wId ],
+                        canvasObj = dashboard.Info.ObjMap[ wId ];
                         
                         widget.height = ui.size.height + "px";
                         widget.width = ui.size.width + "px";
                         
-                        widget.left = widget.left.split( "px" )[ 0 ] * 1 + ui.position.left + "px";
-                        widget.top = widget.top.split( "px" )[ 0 ] * 1 + ui.position.top + "px";
+                        widget.left = ui.position.left + "px";
+                        widget.top = ui.position.top + "px";
                         $scope.$apply();
+                        
+                        canvasObj.render();
                     }
                 };
                 $scope.wDragConfig = {
                     stop: function( e, ui ) {
+                        e.stopPropagation();
                         var wId = ui.helper.find( ".widget" )[ 0 ].id, 
                         dashboard = $scope.getSelectedDashboard(),
                         widget = dashboard.Info.WidgetMap[ wId ];
