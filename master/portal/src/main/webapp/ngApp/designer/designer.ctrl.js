@@ -195,10 +195,14 @@
             $scope.openSettings = function( e ) {
                 
             };
+            $scope.updateOptions = function( widget ) {
+                widget.Options.data[ 0 ].type = widget.cjsObjName;
+            };
             $scope.addWidget = function( widget, isNew ) {
                 rs.getJson( "ngApp/designer/widget/column-chart.data.json", scb );
                 function scb( jsonData ) {
                     widget.Options = jsonData;
+                    $scope.updateOptions( widget );
                     if( isNew ) {
                         $scope.getWidgetsOfSelectedDashboard().push( widget );
                         $timeout( function() {

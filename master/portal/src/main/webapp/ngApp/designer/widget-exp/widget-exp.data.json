@@ -9,39 +9,28 @@
             "widgets": [
                 {
                     "id": "AREA_CHART",
+                    "cjsObjName": "area",
                     "info": {},
                     "active": true,
                     "label": "Area"
                 },
                 {
-                    "id": "",
-                    "info": "",
-                    "label": "Line Chart"
-                },
-                {
                     "id": "BAR_CHART",
+                    "cjsObjName": "bar",
                     "info": {},
                     "active": true,
                     "label": "Bar"
                 },
                 {
-                    "id": "",
-                    "info": "",
-                    "label": "Area Chart"
-                },
-                {
                     "id": "BUBBLE_CHART",
+                    "cjsObjName": "bubble",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Bubble"
                 },
                 {
-                    "id": "",
-                    "info": "",
-                    "label": "Pie chart"
-                },
-                {
                     "id": "COLUMN_CHART",
+                    "cjsObjName": "column",
                     "info": {},
                     "active": true,
                     "label": "Column"
@@ -49,17 +38,18 @@
                 {
                     "id": "FUNNEL_CHART",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Funnel"
                 },
                 {
                     "id": "IN_FUNNEL_CHART",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Inverted Funnel"
                 },
                 {
                     "id": "LINE_CHART",
+                    "cjsObjName": "line",
                     "info": {},
                     "active": true,
                     "label": "Line"
@@ -67,17 +57,18 @@
                 {
                     "id": "MAP_CHART",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Map"
                 },
                 {
                     "id": "MIXED_CHART",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Mixed"
                 },
                 {
                     "id": "PIE_CHART",
+                    "cjsObjName": "pie",
                     "info": {},
                     "active": true,
                     "label": "Pie"
@@ -85,31 +76,26 @@
                 {
                     "id": "PROG_PIE_CHART",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Progress Pie"
                 },
                 {
                     "id": "PYRAMID_CHART",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Pyramid"
                 },
                 {
                     "id": "SCAT_PLOT_CHART",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Scattered Plot"
                 },
                 {
                     "id": "SPIDER_CHART",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Spider"
-                },
-                {
-                    "id": "",
-                    "info": "",
-                    "label": "Spider chart"
                 }
             ]
         },
