@@ -5,12 +5,12 @@
         angular
             .module( "ui.jquery", [] )
             .controller( "ui.jquery.ctrl", [] )
-            .directive( "jqDraggable", [ jqDraggableFn ] )
-            .directive( "jqDroppable", [ jqDroppableFn ] )
-            .directive( "jqResizable", [ jqResizableFn ] )
-            .directive( "jqSortable", [ jqSortableFn ] )
-            .directive( "jqSelectable", [ jqSelectableFn ] );
-        function jqDraggableFn() {
+            .directive( "jqDraggable", [ "$parse", jqDraggableFn ] )
+            .directive( "jqDroppable", [ "$parse", jqDroppableFn ] )
+            .directive( "jqResizable", [ "$parse", jqResizableFn ] )
+            .directive( "jqSortable", [ "$parse", jqSortableFn ] )
+            .directive( "jqSelectable", [ "$parse", jqSelectableFn ] );
+        function jqDraggableFn( $parse ) {
             return {
                 restrict: "A",
                 scope: {
@@ -22,7 +22,7 @@
                 }  
            };
         }
-        function jqDroppableFn() {
+        function jqDroppableFn( $parse ) {
             return {
                 restrict: "A",
                 scope: {
@@ -33,18 +33,20 @@
                 }  
             };
         }
-        function jqResizableFn() {
+        function jqResizableFn( $parse ) {
             return {
                 restrict: "A",
-                scope: {
-                    jqResizable: "="
-                },
+//                scope: {
+//                    jqResizable: "="
+//                },
                 link: function( $scope, el, attrs, ctrl ) {
-                    el.resizable( $scope.jqResizable );
+                    var resizeCfg = $parse( attrs.jqResizable )( $scope );
+                    el.resizable( resizeCfg );
+//                    el.resizable( $scope.jqResizable );
                 }  
            };
         }
-        function jqSortableFn() {
+        function jqSortableFn( $parse ) {
             return {
                 restrict: "A",
                 scope: {
@@ -55,7 +57,7 @@
                 }  
            };
         }
-        function jqSelectableFn() {
+        function jqSelectableFn( $parse ) {
             return {
                 restrict: "A",
                 scope: {
