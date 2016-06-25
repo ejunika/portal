@@ -302,6 +302,9 @@ a:hover, a:focus {
     height: calc( 100% + 6px );
     border: 1px solid #727272;
 }
+.w-s-border.ref-widget {
+    border-style: dashed !important;
+}
 .d-dataset-panel {
 	position: absolute;
     width: 400px;

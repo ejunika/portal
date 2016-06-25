@@ -19,6 +19,7 @@
                     stop: function( e, ui ) {
                         var sdId = $scope.selectedDashboardId;
                         var $uiWidgests = $( "#" + sdId ).find( ".ui-selected" );
+                        $scope.deSelectAllWidget();
                         $.each( $uiWidgests, function( k, v ) {
                             var wObj = angular.element($(this)).scope().w;
                             $scope.selectWidget( wObj );
@@ -54,7 +55,7 @@
                     dashboard.Info.ObjMap[ widget.id ] = new CanvasJS.Chart( "CC_" + widget.id );
                     dashboard.Info.ObjMap[ widget.id ].options = widget.Options;
                     dashboard.Info.ObjMap[ widget.id ].render();
-                }, 0 );
+                }, 0, true, dashboard );
             };
             $scope.createConnection = function( data ) {
                 var rawFields = data.splice( 0, 1 ),
@@ -145,54 +146,6 @@
                     width: 'calc( 100% - 5px )',
                     border: '2px solid #E0E0E0'
                 };
-            };
-            $scope.isSelectedWidget = function( w ) {
-                return $scope.selectedWidgetIds.indexOf( w.id ) != -1;
-            };
-            $scope.selectWidget = function( w ) {
-                if( !w.selected ) {
-                    $scope.selectedWidgetIds.push( w.id );
-                    w.selected = true;
-                }
-            };
-            $scope.deSelectWidget = function( w ) {
-                var index = $scope.selectedWidgetIds.indexOf( w.id );
-                if( index != -1 ) {
-                    $scope.selectedWidgetIds.splice( index, 1 );
-                    w.selected = false;
-                }
-            };
-            $scope.selectAllWidget = function() {
-                var selectedDashboard = $scope.getSelectedDashboard(),
-                widgets = selectedDashboard.Layout.widgets;
-                for( var i = 0; i < widgets.length; i++ ) {
-                    $scope.selectWidget( widgets[ i ] );
-                }
-            };
-            $scope.deSelectAllWidget = function() {
-                var selectedDashboard = $scope.getSelectedDashboard(),
-                widgets = selectedDashboard.Layout.widgets;
-                for( var i = 0; i < widgets.length; i++ ) {
-                    $scope.deSelectWidget( widgets[ i ] );
-                }
-            };
-            $scope.handleWidgetSelection = function( e, w ) {
-                var ctrlKey = e ? e.ctrlKey: false;
-                if( ctrlKey ) {
-                    if( $scope.isSelectedWidget( w ) ) {
-                        $scope.deSelectWidget( w );
-                    }
-                    else {
-                        $scope.selectWidget( w );
-                    }
-                }
-                else {
-                    var wasSelected = w.selected;
-                    $scope.deSelectAllWidget();
-                    if( !wasSelected ) {
-                        $scope.selectWidget( w );
-                    }
-                }
             };
         }
     }

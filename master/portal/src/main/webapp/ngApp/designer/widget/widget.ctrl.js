@@ -56,27 +56,67 @@
             $scope.cxtMenuWidCfg = {
                 opnList: [
                     {
-                        id: "",
-                        label: "Data Set"
+                        id: "ALIGN_TOP",
+                        label: "Align Top"
                     },
                     {
-                        id: "",
-                        label: "Scripts"
+                        id: "ALIGN_RIGHT",
+                        label: "Align Right"
+                    },
+                    {
+                        id: "ALIGN_BOTTOM",
+                        label: "Align Bottom"
+                    },
+                    {
+                        id: "ALIGN_LEFT",
+                        label: "Align Left"
                     },
                     {
                         divider: true
                     },
                     {
-                        id: "",
-                        label: "Delete"
+                        id: "EQUAL_HEIGHT",
+                        label: "Equal Height"
                     },
                     {
-                        id: "",
-                        label: "Properties"
+                        id: "EQUAL_WIDTH",
+                        label: "Equal Width"
+                    },
+                    {
+                        divider: true
+                    },
+                    {
+                        id: "EQUAL_DISTANCE_H",
+                        label: "Equal Distance(H)"
                     }
                 ],
                 opnClicked: function( e, opn ) {
-                    $( ".d-dataset-panel" ).show();
+//                    $( ".d-dataset-panel" ).show();
+                    switch( opn.id ) {
+                        case "ALIGN_LEFT":
+                            $scope.alignLeft();
+                            break;
+                        case "ALIGN_TOP":
+                            $scope.alignTop();
+                            break;
+                        case "ALIGN_RIGHT":
+                            $scope.alignRight();
+                            break;
+                        case "ALIGN_BOTTOM":
+                            $scope.alignBottom();
+                            break;
+                        case "EQUAL_HEIGHT":
+                            $scope.equalHeight();
+                            break;
+                        case "EQUAL_WIDTH":
+                            $scope.equalWidth();
+                            break;
+                        case "EQUAL_DISTANCE_H":
+                            $scope.equalDisanceH();
+                            break;
+                        default:
+                            break;
+                    }
                 }
             };
         }

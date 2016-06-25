@@ -2124,12 +2124,12 @@
 			this._creditLink.innerHTML = this.creditText;
 		}
 
-		if (this.creditHref && this.creditText) {
-			if (!this._creditLink.parentElement)
-				this._canvasJSContainer.appendChild(this._creditLink);
-		}
-		else if (this._creditLink.parentElement)
-			this._canvasJSContainer.removeChild(this._creditLink);
+//		if (this.creditHref && this.creditText) {
+//			if (!this._creditLink.parentElement)
+//				this._canvasJSContainer.appendChild(this._creditLink);
+//		}
+//		else if (this._creditLink.parentElement)
+//			this._canvasJSContainer.removeChild(this._creditLink);
 
 		if (this._options.toolTip && this._toolTip._options !== this._options.toolTip)
 			this._toolTip._options = this._options.toolTip

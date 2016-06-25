@@ -7,7 +7,9 @@
             id="{{ 'MAIN_' + tab.id }}" 
             class="d-dashboard" 
             ng-style="getDashboardStyle( d )">
-            <nj-widget ng-init="init()"></nj-widget>
+            <nj-widget ng-init="init();initWidget(w)" 
+                ng-repeat="w in dashboardMap[ tab.id ].Layout.widgets track by w.id" >
+            </nj-widget>
         </div>
     </div>
 </div>

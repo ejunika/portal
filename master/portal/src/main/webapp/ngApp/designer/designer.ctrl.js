@@ -13,7 +13,6 @@
             $scope.init = function() {
                 $scope.openTabs = [];
                 $scope.openDashboardIds = [];
-                $scope.selectedWidgetIds = [];
                 $scope.selectedDashboardId = "";
                 $scope.dashboardMap = {};
                 $scope.tabMap = {};
@@ -28,6 +27,7 @@
                         angular.element( $(".d-w-group-wrapper .active") ).click();
                     }, 0 );
                 } );
+                $scope.registerHotkeys();
             };
 //            commonly used utility functions
             $scope.getDashboard = function( dbId ) {
@@ -39,8 +39,80 @@
             $scope.getWidgetsOfSelectedDashboard = function() {
                 return $scope.getSelectedDashboard().Layout.widgets;
             };
+            $scope.getSelectedWidgetsFromSelectedDashboard = function() {
+                var widgets = $scope.getWidgetsOfSelectedDashboard(), sWidgets = [];
+                for( var i = 0; i < widgets.length; i++ ) {
+                    if( widgets[ i ].selected ) {
+                        sWidgets.push( widgets[ i ] );
+                    }
+                }
+                return sWidgets;
+            };
             $scope.isDashboardOpen = function( dbId ) {
                 return $scope.dashboardMap.hasOwnProperty( dbId );
+            };
+            $scope.isRefWidget = function( widget ) {
+                return $scope.getSelectedDashboard().sWidgetIds.length > 1 && 
+                $scope.getSelectedDashboard().sWidgetIds[ 0 ] == widget.id;  
+            };
+            
+            $scope.registerHotkeys = function() {
+                cs.addHotkeys( {
+                    combo: "ctrl+a",
+                    description: "Select all widgets",
+                    callback: function( e, hKeys ) {
+                        e.preventDefault();
+                        $scope.selectAllWidget();
+                    }
+                } );
+                cs.addHotkeys( {
+                    combo: "ctrl+up",
+                    description: "Align Top",
+                    callback: function( e, hKeys ) {
+                        e.preventDefault();
+                        $scope.alignTop();
+                    }
+                } );
+                cs.addHotkeys( {
+                    combo: "ctrl+right",
+                    description: "Align Right",
+                    callback: function( e, hKeys ) {
+                        e.preventDefault();
+                        $scope.alignRight();
+                    }
+                } );
+                cs.addHotkeys( {
+                    combo: "ctrl+down",
+                    description: "Align Bottom",
+                    callback: function( e, hKeys ) {
+                        e.preventDefault();
+                        $scope.alignBottom();
+                    }
+                } );
+                cs.addHotkeys( {
+                    combo: "ctrl+left",
+                    description: "Align Left",
+                    callback: function( e, hKeys ) {
+                        e.preventDefault();
+                        $scope.alignLeft();
+                    }
+                } );
+                cs.addHotkeys( {
+                    combo: "=+h",
+                    description: "Equal Height",
+                    callback: function( e, hKeys ) {
+                        e.preventDefault();
+                        $scope.equalHeight();
+                    }
+                } );
+                cs.addHotkeys( {
+                    combo: "=+w",
+                    description: "Equal Width",
+                    callback: function( e, hKeys ) {
+                        e.preventDefault();
+                        $scope.equalWidth();
+                    }
+                } );  
             };
             
 //            WIDGET EXPLORER
@@ -197,20 +269,21 @@
             };
             $scope.updateOptions = function( widget ) {
                 widget.Options.data[ 0 ].type = widget.cjsObjName;
+                return widget;
             };
             $scope.addWidget = function( widget, isNew ) {
                 rs.getJson( "ngApp/designer/widget/column-chart.data.json", scb );
                 function scb( jsonData ) {
                     widget.Options = jsonData;
-                    $scope.updateOptions( widget );
+                    widget = $scope.updateOptions( widget );
                     if( isNew ) {
                         $scope.getWidgetsOfSelectedDashboard().push( widget );
                         $timeout( function() {
                             cs.alert( "success", "Designer", widget.wName + " Added" );
-                        } );
+                        }, 0, true, widget );
                     }
                     if( widget.selected ) {
-                        $scope.selectedWidgetIds.push( widget.id );
+                        $scope.getSelectedDashboard().sWidgetIds.push( widget.id );
                     }
                 }
             };
@@ -294,6 +367,182 @@
                     document.body.removeChild( downloadLink );
                 }
                 cs.alert( "success", "Designer", data.Layout.title + " has been exported as "+ fileName +" to locak disk" );
+            };
+//            Selection Operations
+            $scope.isSelectedWidget = function( w ) {
+                return $scope.getSelectedDashboard().sWidgetIds.indexOf( w.id ) != -1;
+            };
+            $scope.selectWidget = function( w ) {
+                if( !w.selected ) {
+                    w.selected = true;
+                    $scope.getSelectedDashboard().sWidgetIds.push( w.id );
+                }
+            };
+            $scope.deSelectWidget = function( w ) {
+                var index = $scope.getSelectedDashboard().sWidgetIds.indexOf( w.id );
+                if( index != -1 ) {
+                    w.selected = false;
+                    $scope.getSelectedDashboard().sWidgetIds.splice( index, 1 );
+                }
+            };
+            $scope.selectAllWidget = function() {
+                var widgets = $scope.getWidgetsOfSelectedDashboard();
+                for( var i = 0; i < widgets.length; i++ ) {
+                    $scope.selectWidget( widgets[ i ] );
+                }
+            };
+            $scope.deSelectAllWidget = function() {
+                var widgets = $scope.getWidgetsOfSelectedDashboard();
+                for( var i = 0; i < widgets.length; i++ ) {
+                    $scope.deSelectWidget( widgets[ i ] );
+                }
+            };
+            $scope.handleWidgetSelection = function( e, w ) {
+                var ctrlKey = e ? e.ctrlKey: false;
+                if( ctrlKey ) {
+                    if( $scope.isSelectedWidget( w ) ) {
+                        $scope.deSelectWidget( w );
+                    }
+                    else {
+                        $scope.selectWidget( w );
+                    }
+                }
+                else {
+                    var wasSelected = w.selected;
+                    $scope.deSelectAllWidget();
+                    if( !wasSelected ) {
+                        $scope.selectWidget( w );
+                    }
+                }
+            };
+//            Alignment Operations
+            $scope.alignLeft = function() {
+                var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
+                dashboard = $scope.getSelectedDashboard(),
+                widget, refWidgetLeft, canvasObj;
+                for( var i = 0; i < sWidgetIds.length; i++ ) {
+                    widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
+                    if( i == 0 ) {
+                        refWidgetLeft = widget.left;
+                    }
+                    else {
+                        widget.left = refWidgetLeft;
+                    }
+                }
+            };
+            $scope.alignRight = function() {
+                var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
+                dashboard = $scope.getSelectedDashboard(),
+                widget, refWidgetRightEdge;
+                for( var i = 0; i < sWidgetIds.length; i++ ) {
+                    widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
+                    if( i == 0 ) {
+                        refWidgetRightEdge = widget.left.split( "px" )[ 0 ] * 1 + widget.width.split( "px" )[ 0 ] * 1;
+                    }
+                    else {
+                        widget.left = ( refWidgetRightEdge - widget.width.split( "px" )[ 0 ] * 1 ) + "px";
+                    }
+                }
+            };
+            $scope.alignTop = function() {
+                var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
+                dashboard = $scope.getSelectedDashboard(),
+                widget, refWidgetTop, canvasObj;
+                for( var i = 0; i < sWidgetIds.length; i++ ) {
+                    widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
+                    if( i == 0 ) {
+                        refWidgetTop = widget.top;
+                    }
+                    else {
+                        widget.top = refWidgetTop;
+                    }
+                }
+            };
+            $scope.alignBottom = function() {
+                var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
+                dashboard = $scope.getSelectedDashboard(),
+                widget, refWidgetBottomEdge, canvasObj;
+                for( var i = 0; i < sWidgetIds.length; i++ ) {
+                    widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
+                    if( i == 0 ) {
+                        refWidgetBottomEdge = widget.top.split( "px" )[ 0 ] * 1 + widget.height.split( "px" )[ 0 ] * 1;
+                    }
+                    else {
+                        widget.top = refWidgetBottomEdge - widget.height.split( "px" )[ 0 ] * 1;
+                    }
+                }
+            };
+            $scope.alignCenterH = function() {};
+            $scope.alignCenterV = function() {};
+            $scope.equalDisanceH = function() {
+                var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
+                dashboard, rWidget, tWidget, hDiff ;
+                if( sWidgetIds.length > 2 ) {
+                    dashboard = $scope.getSelectedDashboard();
+                    rWidget = dashboard.Info.WidgetMap[ sWidgetIds[ 0 ] ];
+                    tWidget = dashboard.Info.WidgetMap[ sWidgetIds[ 1 ] ];
+                    hDiff = tWidget.left.split( "px" )[ 0 ] * 1 - 
+                        ( rWidget.left.split( "px" )[ 0 ] * 1 + rWidget.width.split( "px" )[ 0 ] * 1 );
+                    for( var i = 2; i < sWidgetIds.length; i++ ) {
+                        rWidget = tWidget;
+                        tWidget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
+                        tWidget.left = rWidget.left.split( "px" )[ 0 ] * 1 +
+                            rWidget.width.split( "px" )[ 0 ] * 1 + hDiff + "px";
+                    }
+                }
+            };
+            $scope.equalDisanceV = function() {
+                var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
+                dashboard, rWidget, tWidget, vDiff ;
+                if( sWidgetIds.length > 2 ) {
+                    dashboard = $scope.getSelectedDashboard();
+                    rWidget = dashboard.Info.WidgetMap[ sWidgetIds[ 0 ] ];
+                    tWidget = dashboard.Info.WidgetMap[ sWidgetIds[ 1 ] ];
+                    hDiff = tWidget.top.split( "px" )[ 0 ] * 1 - 
+                        ( rWidget.top.split( "px" )[ 0 ] * 1 + rWidget.height.split( "px" )[ 0 ] * 1 );
+                    for( var i = 2; i < sWidgetIds.length; i++ ) {
+                        rWidget = tWidget;
+                        tWidget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
+                        tWidget.top = rWidget.top.split( "px" )[ 0 ] * 1 +
+                            rWidget.height.split( "px" )[ 0 ] * 1 + vDiff + "px";
+                    }
+                }
+            };
+            $scope.equalHeight = function() {
+                var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
+                dashboard = $scope.getSelectedDashboard(),
+                widget, refWidgetHeight, canvasObj;
+                for( var i = 0; i < sWidgetIds.length; i++ ) {
+                    widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
+                    if( i == 0 ) {
+                        refWidgetHeight = widget.height;
+                    }
+                    else {
+                        widget.height = refWidgetHeight;
+                        $timeout( function( wId ) {
+                            canvasObj = dashboard.Info.ObjMap[ wId ];
+                            canvasObj.render();
+                        }, 0, true, widget.id );
+                    }
+                }
+            };
+            $scope.equalWidth = function() {
+                var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
+                dashboard = $scope.getSelectedDashboard(),
+                widget, refWidgetWidth, canvasObj;
+                for( var i = 0; i < sWidgetIds.length; i++ ) {
+                    widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
+                    if( i == 0 ) {
+                        refWidgetWidth = widget.width;
+                    }
+                    else {
+                        widget.width = refWidgetWidth;
+                        $timeout( function( wId ) {
+                            canvasObj = dashboard.Info.ObjMap[ wId ];
+                            canvasObj.render();
+                        }, 0, true, widget.id );
+                    }
+                }
             };
         }
     }

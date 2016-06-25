@@ -2,13 +2,35 @@ package com.nj.common.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
+@Table( name = "DIRECTORY_INFO" )
+@XmlRootElement
 public class DirectoryInfo implements Serializable {
     private static final long serialVersionUID = 1L;
+    
+    @Id
+    @Column( name = "ID" )
+    @GeneratedValue( strategy = GenerationType.AUTO )
     private Long id;
-    private String jsonData;
+    
+    @Column( name = "DATA" )
+    @Lob
+    private String data;
+    
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    private Directory directory;
 
     public Long getId() {
         return id;
@@ -18,11 +40,19 @@ public class DirectoryInfo implements Serializable {
         this.id = id;
     }
 
-    public String getJsonData() {
-        return jsonData;
+    public String getData() {
+        return data;
     }
 
-    public void setJsonData(String jsonData) {
-        this.jsonData = jsonData;
+    public void setData(String data) {
+        this.data = data;
     }
+
+	public Directory getDirectory() {
+		return directory;
+	}
+
+	public void setDirectory(Directory directory) {
+		this.directory = directory;
+	}
 }

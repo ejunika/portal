@@ -11,6 +11,7 @@
         "angularroute",
         "angularanimate",
         "angularjstoster",
+        "hotkeys",
         "uijquery",
         "njutil",
         "bootstrap",

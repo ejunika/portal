@@ -8,6 +8,7 @@
             "ui.jquery",
             "nj.util",
             "toaster",
+            "cfp.hotkeys",
             ac.modules.header,
             ac.modules.breadcrumb,
             ac.modules.mainMenu,

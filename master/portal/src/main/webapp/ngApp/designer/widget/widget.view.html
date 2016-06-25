@@ -1,16 +1,16 @@
 <div class="w-draggable" 
     ng-if="w.Options != undefined"
     ng-style="{top: w.top, left: w.left, height: w.height, width: w.width}"
-    ng-repeat="w in dashboardMap[ tab.id ].Layout.widgets track by w.id" 
+    
     jq-resizable="widgetResizeConfig" 
     jq-draggable="wDragConfig">
     <div class="widget full-size" 
         nj-cxt-menu="cxtMenuWidCfg"
         id="{{w.id}}" 
-        ng-init="initWidget( w )" 
         ng-click="onClickWidget( $event, w )" >
         <div id="{{ 'CC_' + w.id }}" class="chart-container full-size"></div>
-        <div class="w-s-border" ng-show="w.selected">
+        <div class="w-s-border" 
+            ng-class="{ 'ref-widget': isRefWidget( w ) }" ng-show="w.selected">
             <div class="ui-resizable-handle ui-resizable-n r-handle r-handle-n"></div>
             <div class="ui-resizable-handle ui-resizable-ne r-handle r-handle-corner r-handle-ne"></div>
             <div class="ui-resizable-handle ui-resizable-e r-handle r-handle-e"></div>

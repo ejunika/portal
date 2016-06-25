@@ -12,6 +12,7 @@
             alstorage: "../node_modules/angular-local-storage/dist/angular-local-storage",
             angularroute: "../node_modules/angular-route/angular-route",
             angularjstoster: "../node_modules/angularjs-toaster/toaster",
+            hotkeys: "../node_modules/angular-hotkeys/build/hotkeys",
             angularanimate: "../node_modules/angular-animate/angular-animate",
             bootstrap : "../node_modules/bootstrap/dist/js/bootstrap.min",
             jstree : "../node_modules/jstree/dist/jstree",
@@ -62,6 +63,9 @@
                 deps: [ "jquery" ]
             },
             angularroute: {
+                deps: [ "angular" ]
+            },
+            hotkeys: {
                 deps: [ "angular" ]
             },
             njutil: {

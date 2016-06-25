@@ -4,10 +4,14 @@
     function rcb( cm, ac ) {
         cm.service( ac.services.core, [ 
             "toaster",
+            "hotkeys",
             coreSrvcFn
         ] );
-        function coreSrvcFn( toaster ) {
+        function coreSrvcFn( toaster, hotkeys ) {
             var cs = this;
+            cs.addHotkeys = function( cfg ) {
+                hotkeys.add( cfg );
+            };
             cs.alert = function( type, title, msg ) {
                 toaster.pop( type, title, msg );
             };
