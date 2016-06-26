@@ -10,6 +10,7 @@
             <nj-widget ng-init="init();initWidget(w)" 
                 ng-repeat="w in dashboardMap[ tab.id ].Layout.widgets track by w.id" >
             </nj-widget>
+            <div class="selectHelper" ng-style="selectHelper"></div>
         </div>
     </div>
 </div>

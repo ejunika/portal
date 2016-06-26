@@ -71,6 +71,8 @@ a:hover, a:focus {
 }
 .d-unsaved {
 	color: red;
+	font-size: 15px;
+    top: 0px;
 }
 .d-dashboard {
 	position: relative;

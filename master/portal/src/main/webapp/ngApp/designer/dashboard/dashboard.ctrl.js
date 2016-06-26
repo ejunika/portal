@@ -13,6 +13,7 @@
             $scope.init = function() {
                 $scope.dragSelectConfig = {
                     selectHelper: ".selectHelper",
+//                    appendTo: ".drag-selection-area",
                     start: function( e, ui ) {
                         $( ".dropdown-menu" ).parent().removeClass( "open" );
                     },

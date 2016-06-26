@@ -113,6 +113,14 @@
                         $scope.equalWidth();
                     }
                 } );  
+                cs.addHotkeys( {
+                    combo: "del",
+                    description: "Remove all selected widgets",
+                    callback: function( e, hKeys ) {
+                        e.preventDefault();
+                        $scope.removeAllSelectedWidgets();
+                    }
+                } );  
             };
             
 //            WIDGET EXPLORER
@@ -278,6 +286,7 @@
                     widget = $scope.updateOptions( widget );
                     if( isNew ) {
                         $scope.getWidgetsOfSelectedDashboard().push( widget );
+                        debugger
                         $timeout( function() {
                             cs.alert( "success", "Designer", widget.wName + " Added" );
                         }, 0, true, widget );
@@ -286,6 +295,23 @@
                         $scope.getSelectedDashboard().sWidgetIds.push( widget.id );
                     }
                 }
+            };
+            $scope.removeWidget = function( widget ) {
+                var wIndex = $scope.getWidgetsOfSelectedDashboard().indexOf( widget ), 
+                wName = widget.wName;
+                if( wIndex != -1 ) {
+                    $scope.getWidgetsOfSelectedDashboard().splice( wIndex, 1 );
+                    $timeout( function() {
+                        cs.alert( "success", "Designer", wName + " Removed" );
+                    }, 0 );
+                }
+            };
+            $scope.removeAllSelectedWidgets = function() {
+                var widgets = $scope.getSelectedWidgetsFromSelectedDashboard();
+                for( var i = 0; i < widgets.length; i++ ) {
+                    $scope.removeWidget( widgets[ i ] );
+                }
+                cs.alert( "success", "Designer", "Removed" );
             };
             $scope.openDashboard = function( dashboard ) {
                 if( $scope.isDashboardOpen( dashboard.id ) ) {
