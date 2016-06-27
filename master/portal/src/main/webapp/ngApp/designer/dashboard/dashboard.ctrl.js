@@ -40,8 +40,8 @@
                             widget.wName = dragData.label;
                             widget.cjsObjName = dragData.cjsObjName;
                             widget.selected = true;
-                            widget.top = e.clientY - $( e.target ).offset().top - 3 + "px";
-                            widget.left = e.clientX - $( e.target ).offset().left - 3 + "px";
+                            widget.top = e.clientY - $( e.target ).offset().top - 3;
+                            widget.left = e.clientX - $( e.target ).offset().left - 3;
                             $scope.addWidget( widget, true );
                         }
                     }

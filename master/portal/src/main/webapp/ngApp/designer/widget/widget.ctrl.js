@@ -27,11 +27,11 @@
                         widget = dashboard.Info.WidgetMap[ wId ],
                         canvasObj = dashboard.Info.ObjMap[ wId ];
                         
-                        widget.height = ui.size.height + "px";
-                        widget.width = ui.size.width + "px";
+                        widget.height = ui.size.height;
+                        widget.width = ui.size.width;
                         
-                        widget.left = ui.position.left + "px";
-                        widget.top = ui.position.top + "px";
+                        widget.left = ui.position.left;
+                        widget.top = ui.position.top;
                         $scope.$apply();
                         
                         canvasObj.render();
@@ -44,14 +44,22 @@
                         dashboard = $scope.getSelectedDashboard(),
                         widget = dashboard.Info.WidgetMap[ wId ];
                         
-                        widget.left = ui.position.left + "px";
-                        widget.top = ui.position.top + "px";
+                        widget.left = ui.position.left;
+                        widget.top = ui.position.top;
                         $scope.$apply();
                     }
                 };
             };
             $scope.onClickWidget = function( e, w ) {
                $scope.handleWidgetSelection( e, w );
+            };
+            $scope.getWidgetContainerStyle = function( w ) {
+                return {
+                    top: w.top + 'px', 
+                    left: w.left + 'px', 
+                    height: w.height + 'px', 
+                    width: w.width + 'px'
+                };
             };
             $scope.cxtMenuWidCfg = {
                 opnList: [
@@ -88,6 +96,18 @@
                     {
                         id: "EQUAL_DISTANCE_H",
                         label: "Equal Distance(H)"
+                    },
+                    {
+                        id: "EQUAL_DISTANCE_V",
+                        label: "Equal Distance(V)"
+                    },
+                    {
+                        id: "CENTER_H",
+                        label: "Center(H)"
+                    },
+                    {
+                        id: "CENTER_V",
+                        label: "Center(V)"
                     }
                 ],
                 opnClicked: function( e, opn ) {
@@ -113,6 +133,12 @@
                             break;
                         case "EQUAL_DISTANCE_H":
                             $scope.equalDisanceH();
+                            break;
+                        case "CENTER_H":
+                            $scope.alignCenterH();
+                            break;
+                        case "CENTER_V":
+                            $scope.alignCenterV();
                             break;
                         default:
                             break;

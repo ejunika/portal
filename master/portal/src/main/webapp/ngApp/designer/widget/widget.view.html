@@ -1,7 +1,6 @@
 <div class="w-draggable" 
     ng-if="w.Options != undefined"
-    ng-style="{top: w.top, left: w.left, height: w.height, width: w.width}"
-    
+    ng-style="$parent.getWidgetContainerStyle( $parent.w )"
     jq-resizable="widgetResizeConfig" 
     jq-draggable="wDragConfig">
     <div class="widget full-size" 
