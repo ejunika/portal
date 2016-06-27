@@ -74,10 +74,20 @@
                             .css( "position", "initial");
                         } );
                         function getAdjustableLeft( e ) {
-                            return e.clientX;
+                            if( e.clientX + $( ".cxt-menu" ).width() > $( "body" ).width() ) {
+                                return $( "body" ).width() - $( ".cxt-menu" ).width() - 10;
+                            }
+                            else {
+                                return e.clientX;
+                            }
                         }
                         function getAdjustableTop( e ) {
-                            return e.clientY;
+                            if( e.clientY + $( ".cxt-menu" ).height() > $( "body" ).height() ) {
+                                return $( "body" ).height() - $( ".cxt-menu" ).height() - 20;
+                            }
+                            else {
+                                return e.clientY;
+                            }
                         }
                     } );
                 }

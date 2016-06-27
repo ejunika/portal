@@ -142,7 +142,7 @@
                                 <ul class="d-w-list-group full-height">
 	                                <li class="d-w-list-item" 
 	                                    ng-if="w.active" 
-	                                    ng-repeat="w in widgetList | search :searchTxt : 'label'" 
+	                                    ng-repeat="w in fWidgetList = ( widgetList | search :searchTxt : 'label' )" 
 	                                    drag-data="w"
 	                                    jq-draggable="wExpItemDragCfg">
 	                                    <a href="">
@@ -150,6 +150,7 @@
 	                                    </a>
 	                                    {{ w.label }}
 	                                </li>
+	                                <li ng-show="fWidgetList.length == 0">No Item found</li>
 	                            </ul>
                             </div>
                         </div>

@@ -131,7 +131,39 @@
                      e.preventDefault();
                      $scope.removeAllSelectedWidgets();
                  }
-             } );  
+             } );
+             cs.addHotkeys( {
+                 combo: "right",
+                 description: "Move Right",
+                 callback: function( e, hKeys ) {
+                     e.preventDefault();
+                     $scope.moveRight();
+                 }
+             } );
+             cs.addHotkeys( {
+                 combo: "left",
+                 description: "Move Left",
+                 callback: function( e, hKeys ) {
+                     e.preventDefault();
+                     $scope.moveLeft();
+                 }
+             } );
+             cs.addHotkeys( {
+                 combo: "up",
+                 description: "Move Up",
+                 callback: function( e, hKeys ) {
+                     e.preventDefault();
+                     $scope.moveUp();
+                 }
+             } );
+             cs.addHotkeys( {
+                 combo: "down",
+                 description: "Move Down",
+                 callback: function( e, hKeys ) {
+                     e.preventDefault();
+                     $scope.moveDown();
+                 }
+             } );
          };
          
 //       TODO WIDGET EXPLORER
@@ -602,5 +634,54 @@
                  }
              }
          };
+//         MOVE
+         $scope.moveRight = function() {
+             var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
+             dashboard = $scope.getSelectedDashboard(), widget;
+             for( var i = 0; i < sWidgetIds.length; i++ ) {
+                 widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
+                 widget.left++;
+             }
+         };
+         $scope.moveLeft = function() {
+             var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
+             dashboard = $scope.getSelectedDashboard(), widget;
+             for( var i = 0; i < sWidgetIds.length; i++ ) {
+                 widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
+                 widget.left--;
+             }
+         };
+         $scope.moveUp = function() {
+             var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
+             dashboard = $scope.getSelectedDashboard(), widget;
+             for( var i = 0; i < sWidgetIds.length; i++ ) {
+                 widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
+                 widget.top--;
+             }
+         };
+         $scope.moveDown = function() {
+             var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
+             dashboard = $scope.getSelectedDashboard(), widget;
+             for( var i = 0; i < sWidgetIds.length; i++ ) {
+                 widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
+                 widget.top++;
+             }
+         };
+         $scope.reachedToEdge = function( top, left ) {
+             var dbId = $scope.getSelectedDashboard().id, $dashboard = $( "#MAIN_" + dbId );
+             if( top < 5 || top > $dashboard.height() || left < 5 || left > $dashboard.width() ) {
+                 return true;
+             }
+             else {
+                 return false;
+             }
+         };
+//         LAYER
+         $scope.sendToBack = function() {
+             
+         };
+         $scope.sendBackward = function() {};
+         $scope.bringToFront = function() {};
+         $scope.bringForward = function() {};
      }
 } );

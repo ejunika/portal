@@ -66,6 +66,9 @@ a:hover, a:focus {
 	overflow: auto;
 	transition: 0.2s;
 }
+.selectHelper {
+	//display: none;
+}
 .d-dashboard-wrapper-full {
 	width: 100% !important;
 }
