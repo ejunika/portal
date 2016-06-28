@@ -63,7 +63,7 @@
                         $scope.$apply( function() {
                             var optionBuilder = $scope.$root.cxtMenuList[ cmi ].setOptionList;
                             if( typeof optionBuilder == "function" ) {
-                                $scope.$root.opnList = optionBuilder.call();
+                                $scope.$root.opnList = optionBuilder.call( this, e );
                             }
                             $scope.$root.opnClicked = $scope.$root.cxtMenuList[ cmi ].opnClicked;
                             $scope.$root.menuPos = {

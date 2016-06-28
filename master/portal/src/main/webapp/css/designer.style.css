@@ -81,6 +81,7 @@ a:hover, a:focus {
 	position: relative;
     overflow: hidden;
     box-shadow: 5px 5px 5px;
+    padding: 5px;
 }
 .d-resizable-area {
 	width: calc( 100% - 5px );

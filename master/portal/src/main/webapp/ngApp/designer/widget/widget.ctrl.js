@@ -21,21 +21,27 @@
                         sw: ".r-handle-sw", 
                         nw: ".r-handle-nw" 
                     },
+                    start: function( e, ui ) {
+                        $timeout( function() {
+                            $scope.preventClick = true;
+                        }, 0 );
+                    },
                     stop: function( e, ui ) {
                         e.stopPropagation();
-                        var wId = ui.element.find( ".widget" )[ 0 ].id, 
-                        dashboard = $scope.getSelectedDashboard(),
-                        widget = dashboard.Info.WidgetMap[ wId ],
-                        canvasObj = dashboard.Info.ObjMap[ wId ];
-                        
-                        widget.height = ui.size.height;
-                        widget.width = ui.size.width;
-                        
-                        widget.left = ui.position.left;
-                        widget.top = ui.position.top;
-                        $scope.$apply();
-                        
-                        canvasObj.render();
+                        $timeout( function() {
+                            var wId = ui.element.find( ".widget" )[ 0 ].id, 
+                            dashboard = $scope.getSelectedDashboard(),
+                            widget = dashboard.Info.WidgetMap[ wId ],
+                            canvasObj = dashboard.Info.ObjMap[ wId ];
+                            
+                            widget.height = ui.size.height;
+                            widget.width = ui.size.width;
+                            
+                            widget.left = ui.position.left;
+                            widget.top = ui.position.top;
+                            $scope.preventClick = false;
+                            canvasObj.render();
+                        }, 0 );
                     }
                 };
                 $scope.wDragConfig = {
@@ -69,8 +75,8 @@
                 };
             };
             $scope.cxtMenuWidCfg = {
-                setOptionList: function() {
-                    var opnList = [];
+                setOptionList: function( e ) {
+                    var opnList = [], widget;
                     if( $scope.getSelectedWidgetsFromSelectedDashboard().length > 1 ) {
                        opnList = [
                            { id: "ALIGN_TOP", label: "Align Top" },
@@ -90,6 +96,9 @@
                        ];
                     }
                     else {
+                        $scope.deSelectAllWidget();
+                        widget = angular.element( e.target.closest( ".widget" ) ).scope().w;
+                        $scope.selectWidget( widget );
                         opnList = [
                            { id: "PROPERTIES", label: "Properties" },
                            { divider: true },

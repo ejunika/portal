@@ -475,9 +475,11 @@
              }
          };
          $scope.handleWidgetSelection = function( e, w ) {
-             var ctrlKey = e ? e.ctrlKey: false;
+             var ctrlKey = e ? e.ctrlKey: false, 
+             isSelected = w.selected, 
+             multiSelected = $scope.getSelectedWidgetsFromSelectedDashboard().length > 1 ? true: false;
              if( ctrlKey ) {
-                 if( $scope.isSelectedWidget( w ) ) {
+                 if( isSelected ) {
                      $scope.deSelectWidget( w );
                  }
                  else {
@@ -485,14 +487,16 @@
                  }
              }
              else {
-                 var wasSelected = w.selected;
                  $scope.deSelectAllWidget();
-                 if( !wasSelected ) {
+                 if( multiSelected ) {
+                     $scope.selectWidget( w );
+                 }
+                 else if( !isSelected ) {
                      $scope.selectWidget( w );
                  }
              }
          };
-    //                                           TODO  Alignment Operations
+//       TODO  Alignment Operations
          $scope.alignLeft = function() {
              var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
              dashboard = $scope.getSelectedDashboard(),
