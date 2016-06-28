@@ -1,15 +1,25 @@
-( function() {
+( function( cxt, fn ) {
     "use strict";
-    define( [ "hm", "ac" ], rcb );
-    function rcb( hm, ac ) {
-        hm.controller( ac.controllers.header, [ 
-            ac.ngVars.scope, 
-            headerCtrlFn 
-        ] );
-        function headerCtrlFn( $scope ) {
-            $scope.init = function() {
-                
-            };
-        }
+    if( typeof define == "function" && define.amd ) {
+        define( [ "ac", "hm" ], fn );
     }
-} )();
+    else if( typeof module == "object" && module.exports ) {
+        fn( require( "ac" ), require( "hm" ) );
+    }
+    else {
+        cxt.portal = cxt.portal || {};
+        if( !cxt.portal.ac || !cxt.portal.hm ) 
+            throw "app-config or header module not found";
+        fn( cxt.portal.ac, cxt.portal.hm );
+    }
+} )( this, function( ac, hm ) {
+    hm.controller( ac.controllers.header, [ 
+        ac.ngVars.scope,
+        headerCtrlFn 
+    ] );
+    function headerCtrlFn( $scope ) {
+        $scope.init = function() {
+            
+        };
+    }
+} );
