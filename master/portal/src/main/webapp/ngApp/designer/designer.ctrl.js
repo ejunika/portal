@@ -348,12 +348,21 @@
                  }, 0 );
              }
          };
+         $scope.removeFromSWidgets = function( wId ) {
+             var dashboard = $scope.getSelectedDashboard(),
+             sWidgetIds = dashboard.sWidgetIds,
+             index = sWidgetIds.indexOf( wId );
+             if( index != -1 ) {
+                 sWidgetIds.splice( index, 1 );
+             }
+         };
          $scope.removeAllSelectedWidgets = function() {
              var widgets = $scope.getSelectedWidgetsFromSelectedDashboard();
              for( var i = 0; i < widgets.length; i++ ) {
                  $scope.removeWidget( widgets[ i ] );
+                 $scope.removeFromSWidgets( widgets[ i ].id );
              }
-             cs.alert( "success", "Designer", "Removed" );
+//             cs.alert( "success", "Designer", "Removed" );
          };
          $scope.openDashboard = function( dashboard ) {
              if( $scope.isDashboardOpen( dashboard.id ) ) {

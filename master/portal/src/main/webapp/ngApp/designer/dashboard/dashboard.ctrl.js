@@ -11,21 +11,32 @@
         ] );
         function dashboardCtrlFn( $scope, $timeout, cs, rs ) {
             $scope.init = function() {
+                $scope.aboutToSelectList = [];
                 $scope.dragSelectConfig = {
                     selectHelper: ".selectHelper",
-//                    appendTo: ".drag-selection-area",
                     start: function( e, ui ) {
                         $( ".dropdown-menu" ).parent().removeClass( "open" );
+                        $timeout( function() {
+                            $scope.deSelectAllWidget();
+                        }, 0 );
+                    },
+                    selecting: function( e, ui ) {
+                        $scope.aboutToSelectList.push( ui.selecting.id );
+                    },
+                    unselecting: function( e, ui ) {
+                        var id = ui.unselecting.id, index = $scope.aboutToSelectList.indexOf( id );
+                        $scope.aboutToSelectList.splice( index, 1 );
                     },
                     stop: function( e, ui ) {
-                        var sdId = $scope.selectedDashboardId;
-                        var $uiWidgests = $( "#" + sdId ).find( ".ui-selected" );
+                        var widget, wId;
+                        $timeout( function() {
                         $scope.deSelectAllWidget();
-                        $.each( $uiWidgests, function( k, v ) {
-                            var wObj = angular.element($(this)).scope().w;
-                            $scope.selectWidget( wObj );
-                            $scope.$apply();
-                        } );
+                            for( var i = 0; i < $scope.aboutToSelectList.length; i++ ) {
+                                wId = $scope.aboutToSelectList[ i ];
+                                widget = $scope.getSelectedDashboard().Info.WidgetMap[ wId ];
+                                $scope.selectWidget( widget );
+                            }
+                        }, 0 );
                     },
                     filter: ".widget"
                 };

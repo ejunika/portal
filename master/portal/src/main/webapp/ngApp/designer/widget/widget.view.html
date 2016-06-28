@@ -6,7 +6,7 @@
     <div class="widget full-size" 
         nj-cxt-menu="cxtMenuWidCfg" 
         id="{{w.id}}" 
-        ng-click="onClickWidget( $event, w )" >
+        ng-click="preventClick || onClickWidget( $event, w, dontClick )" >
         <div id="{{ 'CC_' + w.id }}" class="chart-container full-size"></div>
         <div class="w-s-border" 
             ng-class="{ 'ref-widget': isRefWidget( w ) }" ng-show="w.selected">

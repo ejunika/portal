@@ -4,10 +4,11 @@
     function rcb( wm, ac ) {
         wm.controller( ac.controllers.widget, [ 
             ac.ngVars.scope,
+            ac.ngVars.timeout,
             ac.services.core,
             widgetCtrlFn 
         ] );
-        function widgetCtrlFn( $scope, cs ) {
+        function widgetCtrlFn( $scope, $timeout, cs ) {
             $scope.init = function() {
                 $scope.widgetResizeConfig = {
                     handles: { 
@@ -38,15 +39,21 @@
                     }
                 };
                 $scope.wDragConfig = {
+                    containment: "parent",
+                    start: function( e, ui ) {
+                        $timeout( function() {
+                            $scope.preventClick = true;
+                        }, 0 );
+                    },
                     stop: function( e, ui ) {
-                        e.stopPropagation();
-                        var wId = ui.helper.find( ".widget" )[ 0 ].id, 
-                        dashboard = $scope.getSelectedDashboard(),
-                        widget = dashboard.Info.WidgetMap[ wId ];
-                        
-                        widget.left = ui.position.left;
-                        widget.top = ui.position.top;
-                        $scope.$apply();
+                        $timeout( function() {
+                            var wId = ui.helper.find( ".widget" )[ 0 ].id, 
+                            dashboard = $scope.getSelectedDashboard(),
+                            widget = dashboard.Info.WidgetMap[ wId ];
+                            widget.left = ui.position.left;
+                            widget.top = ui.position.top;
+                            $scope.preventClick = false;
+                        }, 0 );
                     }
                 };
             };
@@ -77,12 +84,18 @@
                            { id: "EQUAL_DISTANCE_H", label: "Equal Distance(H)" },
                            { id: "EQUAL_DISTANCE_V", label: "Equal Distance(V)" },
                            { id: "CENTER_H", label: "Center(H)" },
-                           { id: "CENTER_V", label: "Center(V)" }
+                           { id: "CENTER_V", label: "Center(V)" },
+                           { divider: true },
+                           { id: "DELETE", label: "Delete" }
                        ];
                     }
                     else {
                         opnList = [
                            { id: "PROPERTIES", label: "Properties" },
+                           { divider: true },
+                           { id: "DATA_SET", label: "Data Set" },
+                           { id: "SCRIPTS", label: "Scripts" },
+                           { divider: true },
                            { id: "DELETE", label: "Delete" }
                        ];
                     }
@@ -99,6 +112,7 @@
                         case "EQUAL_DISTANCE_H": $scope.equalDisanceH(); break;
                         case "CENTER_H": $scope.alignCenterH(); break;
                         case "CENTER_V": $scope.alignCenterV(); break;
+                        case "DELETE": $scope.removeAllSelectedWidgets(); break;
                         default: break;
                     }
                 }
