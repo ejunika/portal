@@ -61,7 +61,10 @@
                         e.stopPropagation();
                         var cmi = $( e.target ).closest( "[ nj-cxt-menu ]" ).data( "cmi" );
                         $scope.$apply( function() {
-                            $scope.$root.opnList = $scope.$root.cxtMenuList[ cmi ].opnList;
+                            var optionBuilder = $scope.$root.cxtMenuList[ cmi ].setOptionList;
+                            if( typeof optionBuilder == "function" ) {
+                                $scope.$root.opnList = optionBuilder.call();
+                            }
                             $scope.$root.opnClicked = $scope.$root.cxtMenuList[ cmi ].opnClicked;
                             $scope.$root.menuPos = {
                                 left: getAdjustableLeft( e ),
