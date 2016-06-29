@@ -331,9 +331,13 @@ a:hover, a:focus {
     height: 30px;
     line-height: 3;
 }
+.f-header {
+    border-bottom: 1px solid #666;
+}
 .f-item-container {
     padding: 0;
     margin: 0;
+    min-height: 100px;
 }
 .f-item-container li {
     list-style: none;

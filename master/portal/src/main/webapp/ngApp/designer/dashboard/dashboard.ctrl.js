@@ -75,7 +75,7 @@
                 rawRecords = data, 
                 connection = {
                     id: cs.getUniqueId(),
-                    label: "CSV-DP-" + $scope.getSelectedDashboard().DataProvider.Offline.connections.length++,
+                    label: "CSV-DP-" + ( $scope.getSelectedDashboard().DataProvider.Offline.connections.length + 1 ),
                     type: "csv",
                     sheets: [ { id: cs.getUniqueId(), label: "CSV", fields: [], records: [] } ]
                 }, field, record;
