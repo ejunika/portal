@@ -40,6 +40,12 @@
                  }, 0 );
              }
          };
+         $scope.fDragConfig = {
+             helper: "clone"
+         };
+         fDropConfig = {
+             
+         };
 //       TODO commonly used utility functions
          $scope.getDashboard = function( dbId ) {
              return $scope.dashboardMap[ dbId ];
@@ -48,7 +54,11 @@
              return $scope.dashboardMap[ $scope.selectedDashboardId ];
          };
          $scope.getWidgetsOfSelectedDashboard = function() {
-             return $scope.getSelectedDashboard().Layout.widgets;
+             var dashboard = $scope.getSelectedDashboard(), widgets = [];
+             if( typeof dashboard == "object" ) {
+                 widgets = $scope.getSelectedDashboard().Layout.widgets;
+             }
+             return widgets;
          };
          $scope.getSelectedWidgetsFromSelectedDashboard = function() {
              var widgets = $scope.getWidgetsOfSelectedDashboard(), sWidgets = [];
@@ -66,7 +76,12 @@
              return $scope.getSelectedDashboard().sWidgetIds.length > 1 && 
              $scope.getSelectedDashboard().sWidgetIds[ 0 ] == widget.id;  
          };
-         
+         $scope.openDatasetPanel = function() {
+             $( ".d-dataset-panel" ).show();
+         };
+         $scope.closeDatasetPanel = function() {
+             $( ".d-dataset-panel" ).hide();
+         };
          $scope.registerHotkeys = function() {
              cs.addHotkeys( {
                  combo: "ctrl+a",

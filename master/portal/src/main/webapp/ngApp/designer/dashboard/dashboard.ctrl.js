@@ -4,7 +4,7 @@
     function rcb( dbm, ac ) {
         dbm.controller( ac.controllers.dashboard, [ 
             ac.ngVars.scope,
-            "$timeout",
+            ac.ngVars.timeout,
             ac.services.core,
             ac.services.request,
             dashboardCtrlFn 
@@ -69,19 +69,15 @@
                     dashboard.Info.ObjMap[ widget.id ].render();
                 }, 0, true, dashboard );
             };
+//          TODO  CONNECTIONS need to improve
             $scope.createConnection = function( data ) {
                 var rawFields = data.splice( 0, 1 ),
                 rawRecords = data, 
                 connection = {
                     id: cs.getUniqueId(),
-                    label: "csv1",
+                    label: "CSV-DP-" + $scope.getSelectedDashboard().DataProvider.Offline.connections.length++,
                     type: "csv",
-                    sheets: [ {
-                        id: cs.getUniqueId(),
-                        label: "",
-                        fields: [],
-                        records: []
-                    } ]
+                    sheets: [ { id: cs.getUniqueId(), label: "CSV", fields: [], records: [] } ]
                 }, field, record;
                 for( var fCnt = 0; fCnt < rawFields[ 0 ].length; fCnt++ ) {
                     field = {
@@ -97,7 +93,11 @@
                     }
                     connection.sheets[ 0 ].records.push( record );
                 }
-                $scope.getSelectedDashboard().DataProvider.Offline.connections[ 0 ] = connection;
+//              TODO  duplicate condition check should implement
+                $timeout( function( connection ) {
+                    $scope.getSelectedDashboard().DataProvider.Offline.connections.push( connection );
+                    cs.alert( "success", "Designer", connection.label + " created" );
+                }, 0, true, connection );
             };
             $scope.addNewDataProvider = function() {
                 $("<input type='file' accept='.csv'>")
@@ -127,26 +127,37 @@
                 } ).trigger( "click" );
             };
             $scope.cxtMenuCfg = {
-                opnClicked: function( e, opn ) {
-                    if( opn.id == "NEW_CONN" ) {
-                        $scope.addNewDataProvider();
-//                        cs.alert( "info", "Designer", opn.label + " clicked" );
+                    setOptionList: function( e ) {
+                        return [
+                            { id: "PREVIEW", label: "Preview" },
+                            { divider: true },
+                            { id: "DATA_SOURCE", label: "Data Provider" },
+                            { id: "WIDGET_EXP", label: "Widgets Explorer" },
+                            { id: "WIDGET_BROWSER", label: "Widget Browser" },
+                            { divider: true },
+                            { id: "COPY", label: "Copy" },
+                            { id: "PASTE", label: "Paste" },
+                            { id: "SELECT_ALL", label: "Select All" },
+                            { divider: true },
+                            { id: "PROPS", label: "Properties" },
+                            { id: "CLOSE", label: "Close" }
+                        ];
+                    },
+                    opnClicked: function( e, opn ) {
+                        switch( opn.id ) {
+                            case "PREVIEW": break;
+                            case "DATA_SOURCE": $scope.addNewDataProvider(); break;
+                            case "WIDGET_EXP":  break;
+                            case "WIDGET_BROWSER": break;
+                            case "COPY": break;
+                            case "PASTE": break;
+                            case "SELECT_ALL": break;
+                            case "PROPS": break;
+                            case "CLOSE": break;
+                            case "DELETE": break;
+                            default: break;
+                        }
                     }
-                },
-                opnList: [
-                     {
-                         id: "NEW_CONN",
-                         label: "Create Connection"
-                     },
-                     {
-                         id: "2",
-                         divider: true,
-                     },
-                     {
-                         id: "3",
-                         label: "Properties"
-                     }
-                ]
             };
             $scope.getDashboardStyle = function( dashboard ) {
                 return {

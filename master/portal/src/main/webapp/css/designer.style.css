@@ -311,46 +311,52 @@ a:hover, a:focus {
 .w-s-border.ref-widget {
     border-style: dashed !important;
 }
+/*DATASET*/
 .d-dataset-panel {
 	position: absolute;
     width: 400px;
-    min-height: 505px;
+/*     min-height: 505px; */
     left: calc( 50% - 200px );
-    top: calc( 50% - 300px );
+    top: calc( 50% - 250px );
     box-shadow: 0px 0px 15px;
 }
-.d-dataset-item-container {
+.pull-clear {
+    clear: both;
+}
+.d-form-group {
+    margin-bottom: 5px;
+}
+.d-input-md {
+    font-size: 13px !important;
+    height: 30px;
+    line-height: 3;
+}
+.f-item-container {
     padding: 0;
     margin: 0;
-    width: 176px;
 }
-.d-dataset-item-container li {
+.f-item-container li {
     list-style: none;
-}
-.d-dataset-item-header {
-    font-weight: bold;
-    border-bottom: 1px solid;
-}
-.d-dataset-item {
-    border: 1px solid #dddddd;
+    width: 100%;
+    border: 1px solid #DDDDDD;
     border-radius: 2px;
-    margin: 2px;
+    margin: 1px;
+    padding-left: 5px;
+    position: relative;
+}
+.f-item-container li a {
     padding: 0px 5px;
-    width: 174px;
 }
-.d-fields-container {
-    height: 224px;
-    overflow: auto;
+.f-item-container li a:hover {
+    padding: 0px 5px;
+    background: #9E9E9E;
+    color: #F44336;
 }
-.d-dim-container {
-    height: 112px;
-    overflow: auto;
-}
-.d-mes-container {
-    height: 112px;
-    overflow: auto;
-}
-.d-dataset-footer {
-    margin: 0 auto;
-    width: 99%;
+.f-highlighter {
+    width: 3px;
+    height: 100%;
+    background: red;
+    position: absolute;
+    top: 0;
+    left: 0;
 }

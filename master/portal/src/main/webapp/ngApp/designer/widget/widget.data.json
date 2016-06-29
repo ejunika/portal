@@ -11,6 +11,7 @@
         {
             "id": "",
             "label": "",
+            "selected": false,
             "DataProvider": {
                 "connection": "",
                 "sheet": ""
@@ -18,17 +19,20 @@
             "dimensions": [
                 {
                     "id": "FIELD_1",
-                    "label": "Label-1"
+                    "label": "Label-1",
+                    "selected": false
                 },
                 {
                     "id": "FIELD_3",
-                    "label": "Label-3"
+                    "label": "Label-3",
+                    "selected": false
                 }
             ],
             "measures": [
                 {
                     "id": "FIELD_2",
-                    "label": "Label-2"
+                    "label": "Label-2",
+                    "selected": false
                 }
             ]
         }
