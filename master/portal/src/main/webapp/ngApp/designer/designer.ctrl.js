@@ -43,8 +43,19 @@
          $scope.fDragConfig = {
              helper: "clone"
          };
-         fDropConfig = {
-             
+         $scope.fDropConfig = {
+             drop: function( e, ui ) {
+                 var dropRegion = e.target.id, field = ui.draggable.data( "dragData" ), 
+                 dataSets = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets;
+                 $timeout( function( dataSets ) {
+                     if( dropRegion == "DIMS" ) {
+                         dataSets[ 0 ].dimensions.push( field );
+                     }
+                     else {
+                         dataSets[ 0 ].measures.push( field );
+                     }
+                 }, 0, true, dataSets );
+             }
          };
 //       TODO commonly used utility functions
          $scope.getDashboard = function( dbId ) {
@@ -76,10 +87,10 @@
              return $scope.getSelectedDashboard().sWidgetIds.length > 1 && 
              $scope.getSelectedDashboard().sWidgetIds[ 0 ] == widget.id;  
          };
-         $scope.openDatasetPanel = function() {
+         $scope.openDatasetBuilder = function() {
              $( ".d-dataset-panel" ).show();
          };
-         $scope.closeDatasetPanel = function() {
+         $scope.closeDatasetBuilder = function() {
              $( ".d-dataset-panel" ).hide();
          };
          $scope.registerHotkeys = function() {

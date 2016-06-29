@@ -14,34 +14,14 @@
             "selected": false,
             "DataProvider": {
                 "Connection": {
-                    "id": "",
+                    "id": ""
                 },
                 "Sheet": {
                     "id": ""
                 }
             },
-            "dimensions": [
-                {
-                    "id": "FIELD_1",
-                    "label": "Label-1",
-                    "selected": false,
-                    "color": ""
-                },
-                {
-                    "id": "FIELD_3",
-                    "label": "Label-3",
-                    "selected": false,
-                    "color": ""
-                }
-            ],
-            "measures": [
-                {
-                    "id": "FIELD_2",
-                    "label": "Label-2",
-                    "selected": false,
-                    "color": ""
-                }
-            ]
+            "dimensions": [],
+            "measures": []
         }
     ]
 }
