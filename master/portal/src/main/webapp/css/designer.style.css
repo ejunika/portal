@@ -364,3 +364,8 @@ a:hover, a:focus {
     top: 0;
     left: 0;
 }
+#FIELDS {
+    max-height: 239px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
