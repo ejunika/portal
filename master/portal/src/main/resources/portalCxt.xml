@@ -35,13 +35,14 @@
 			<list>
 				<value>com.nj.common.entity.Login</value>
 				<value>com.nj.common.entity.Directory</value>
+				<value>com.nj.common.entity.DirectoryInfo</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
 				<prop key="hibernate.format_sql">true</prop>
 				<prop key="use_sql_comments">true</prop>
 			</props>
@@ -52,6 +53,15 @@
 	<jaxrs:server id="dirService" address="/directory">
 		<jaxrs:serviceBeans>
 			<ref bean="directoryService" />
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<ref bean="jsonProvider" />
+		</jaxrs:providers>
+	</jaxrs:server>
+	
+	<jaxrs:server id="dirInfoService" address="/directoryInfo">
+		<jaxrs:serviceBeans>
+			<ref bean="directoryInfoService" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<ref bean="jsonProvider" />
@@ -82,5 +92,9 @@
 	<bean id="directoryManager" class="com.nj.common.manager.DirectoryManager" autowire="byName" />
 	<bean id="directoryService" class="com.nj.common.service.DirectoryService" autowire="byName" />
 	
+	<bean id="directoryInfo" class="com.nj.common.entity.DirectoryInfo" autowire="byName" />
+	<bean id="directoryInfoDAO" class="com.nj.common.dao.DirectoryInfoDAO" autowire="byName" />
+	<bean id="directoryInfoManager" class="com.nj.common.manager.DirectoryInfoManager" autowire="byName" />
+	<bean id="directoryInfoService" class="com.nj.common.service.DirectoryInfoService" autowire="byName" />
 	
 </beans>

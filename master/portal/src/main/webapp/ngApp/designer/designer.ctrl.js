@@ -41,7 +41,9 @@
              }
          };
          $scope.fDragConfig = {
-             helper: "clone"
+             helper: function() {
+               return "<img style='height: 20px; width: 20px' src='images/field.png' />";  
+             }
          };
          $scope.fDropConfig = {
              drop: function( e, ui ) {
@@ -232,16 +234,16 @@
                  case "ADD_DASHBOARD":
                      $scope.openDashboardIds.push( obj.id );
                      $scope.dashboardMap[ obj.id ] = obj;
-                     $timeout( function() {
                          $('a[data-toggle="tab"]')
                              .off('shown.bs.tab')
                              .on('shown.bs.tab', function (e) {
                                  var dbId = $(e.target)[ 0 ].id.split( "_" )[ 1 ];
-                                 $scope.selectedDashboardId = dbId;
+                                 $timeout( function() {
+                                     $scope.selectedDashboardId = dbId;
+                                 }, 0 )
                              });
                          $( "#TAB_" + obj.id ).click();
                          cs.alert( "success", "Designer", obj.Layout.title + " Added" );
-                     }, 0 );
                      break;
                  case "REMOVE_DASHBOARD":
                      var indexInOpenDashboardIds = $scope.openDashboardIds.indexOf( obj.id );
@@ -403,7 +405,7 @@
                  id: dashboard.id,
                  title: dashboard.Layout.title
              };
-             $scope.$apply( function() {
+             $scope.$timeout( function() {
                  var widgets = dashboard.Layout.widgets;
                  $scope.openTabs.push( tab );
                  $scope.openDashboardIds.push( dashboard.id );
@@ -412,17 +414,17 @@
                  for( var i = 0; i < widgets.length; i++ ) {
                      $scope.addWidget( widgets[ i ] );
                  }
-             } );
-             $timeout( function() {
-                 $('a[data-toggle="tab"]')
-                     .off('shown.bs.tab')
-                     .on('shown.bs.tab', function (e) {
-                         var dbId = $(e.target)[ 0 ].id.split( "_" )[ 1 ];
-                         $scope.selectedDashboardId = dbId;
-                     });
-                 $( "#TAB_" + dashboard.id ).click();
-                 cs.alert( "success", "Designer", dashboard.Layout.title + " has been loaded" );
              }, 0 );
+             $('a[data-toggle="tab"]')
+                 .off('shown.bs.tab')
+                 .on('shown.bs.tab', function (e) {
+                     var dbId = $(e.target)[ 0 ].id.split( "_" )[ 1 ];
+                     $timeout( function() {
+                         $scope.selectedDashboardId = dbId;
+                     }, 0 );
+                 });
+             $( "#TAB_" + dashboard.id ).click();
+             cs.alert( "success", "Designer", dashboard.Layout.title + " has been loaded" );
          };
          $scope.openFromLocal = function( e ) {
              $("<input type='file' accept='.njd'>")

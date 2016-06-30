@@ -100,7 +100,7 @@
                             <div class="form-group d-form-group">
                                 <label for="dProvider" class="col-sm-4 control-label">Data Provider</label>
                                 <div class="col-sm-6">
-                                    <select id="dProvider" 
+                                    <select id="dProvider" class="form-control input-md full-width"
                                         ng-options="dProvider as dProvider.label for dProvider in getSelectedDashboard().DataProvider.Offline.connections track by dProvider.id" 
                                         ng-model="sDataProvider">
                                     </select>
@@ -109,19 +109,21 @@
                         </form>
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#fields" data-toggle="tab">Fields</a></li>
-                            <li><a href="#fProps" data-toggle="tab">Properties</a></li>
+                            <li class="disabled"><a href="#fProps" data-toggle="tab">Properties</a></li>
                         </ul>
                         <div id="dataSetContent" class="tab-content">
                             <div class="tab-pane fade active in" id="fields">
                                 <div class="col-sm-6 f-drag-container">
                                     <h6 class="f-header">Fields</h6>
-                                    <ul class="f-item-container" id="FIELDS">
-                                        <li jq-draggable="fDragConfig"
-                                            drag-data="field" 
-                                            ng-repeat="field in sDataProvider.sheets[ 0 ].fields">
-                                            {{ field.label }}
-                                        </li>
-                                    </ul>
+                                    <div class="scroller">
+                                        <ul class="f-item-container" id="FIELDS">
+	                                        <li jq-draggable="fDragConfig"
+	                                            drag-data="field" 
+	                                            ng-repeat="field in sDataProvider.sheets[ 0 ].fields">
+	                                            {{ field.label }}
+	                                        </li>
+	                                    </ul>
+                                    </div>
                                 </div>
                                 <div class="col-sm-6 f-drop-container">
                                     <h6 class="f-header">Dimensions</h6>
@@ -136,7 +138,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                    <h6>Measures</h6>
+                                    <h6 class="f-header">Measures</h6>
                                     <ul class="f-item-container" 
                                         id="MES"
                                         jq-droppable="fDropConfig">
