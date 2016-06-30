@@ -93,7 +93,8 @@
                     <nj-dashboard ng-init="init()" ng-if="tab.type == 0"></nj-dashboard>
                     <nj-special ng-if="tab.type == 1"></nj-special>
                 </div>
-                <div class="panel panel-default d-dataset-panel" style="display: none">
+                <!-- DATASET BUILDER -->
+                <div class="panel panel-default d-dataset-panel" ng-show="dsBuilderVisible">
                     <div class="panel-heading">Data Set::{{ getSelectedWidgetsFromSelectedDashboard()[ 0 ].wName }}</div>
                     <div class="panel-body">
                         <form class="form-horizontal">
@@ -103,7 +104,13 @@
                                     <select id="dProvider" class="form-control input-md full-width"
                                         ng-options="dProvider as dProvider.label for dProvider in getSelectedDashboard().DataProvider.Offline.connections track by dProvider.id" 
                                         ng-model="sDataProvider">
+                                        <option value="">--Data Provider--</option>
                                     </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <a id="dProviderRefresh" href="javascript: void( 0 )">
+                                        <i class="glyphicon glyphicon-refresh"></i>
+                                    </a>
                                 </div>
                             </div>
                         </form>
@@ -113,43 +120,62 @@
                         </ul>
                         <div id="dataSetContent" class="tab-content">
                             <div class="tab-pane fade active in" id="fields">
+                                <form class="form-vertical">
+	                                <div class="col-sm-12">
+	                                    <input type="text" 
+	                                        class="form-control d-input-md" 
+	                                        id="fSearch" 
+	                                        ng-model="fSearch" 
+	                                        placeholder="Search available fields" />
+	                                </div>
+	                            </form>
                                 <div class="col-sm-6 f-drag-container">
                                     <h6 class="f-header">Fields</h6>
-                                    <div class="scroller">
+                                    <div class="f-i-scroller f-scroller">
                                         <ul class="f-item-container" id="FIELDS">
 	                                        <li jq-draggable="fDragConfig"
 	                                            drag-data="field" 
-	                                            ng-repeat="field in sDataProvider.sheets[ 0 ].fields">
-	                                            {{ field.label }}
+	                                            ng-repeat="field in sDataProvider.sheets[ 0 ].fields | search :fSearch :'label'">
+	                                            <label class="f-i-label">
+	                                               {{ field.label }}
+	                                            </label>
 	                                        </li>
 	                                    </ul>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 f-drop-container">
                                     <h6 class="f-header">Dimensions</h6>
-                                    <ul class="f-item-container" 
-                                        id="DIMS"
-                                        jq-droppable="fDropConfig">
-                                        <li ng-repeat="dim in getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].dimensions track by dim.id">
-                                            {{ dim.label }}
-                                            <div class="f-highlighter" ng-show="dim.selected"></div>
-                                            <a class="pull-right" ng-click="removeDimension( $event, dim )">
-                                                <i class="glyphicon glyphicon-remove"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
+                                    <div class="f-i-scroller dim-scroller">
+                                        <ul class="f-item-container" 
+	                                        id="DIMS"
+	                                        jq-droppable="fDropConfig">
+	                                        <li ng-repeat="dim in getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].dimensions track by dim.id">
+	                                            <label class="f-i-label">
+	                                               {{ dim.label }}
+	                                            </label>
+	                                            <div class="f-highlighter" ng-show="dim.selected"></div>
+	                                            <a class="pull-right" ng-click="removeDimension( $event, dim )">
+	                                                <i class="glyphicon glyphicon-remove"></i>
+	                                            </a>
+	                                        </li>
+	                                    </ul>
+                                    </div>
                                     <h6 class="f-header">Measures</h6>
-                                    <ul class="f-item-container" 
-                                        id="MES"
-                                        jq-droppable="fDropConfig">
-                                        <li ng-repeat="mes in getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].measures track by mes.id">
-                                            {{ mes.label }}
-                                            <div class="f-highlighter" ng-show="mes.selected"></div>
-                                            <a class="pull-right" ng-click="removeMeasure( $event, mes )">
-                                                <i class="glyphicon glyphicon-remove"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
+                                    <div class="f-i-scroller mes-scroller">
+                                        <ul class="f-item-container" 
+	                                        id="MES"
+	                                        jq-droppable="fDropConfig">
+	                                        <li ng-repeat="mes in getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].measures track by mes.id">
+	                                            <label class="f-i-label">
+	                                               {{ mes.label }}
+	                                            </label>
+	                                            <div class="f-highlighter" ng-show="mes.selected"></div>
+	                                            <a class="pull-right" ng-click="removeMeasure( $event, mes )">
+	                                                <i class="glyphicon glyphicon-remove"></i>
+	                                            </a>
+	                                        </li>
+	                                    </ul>
+                                    </div>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="fProps">

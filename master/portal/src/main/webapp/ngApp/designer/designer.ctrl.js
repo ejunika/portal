@@ -27,6 +27,7 @@
              $scope.dashboardMap = {};
              $scope.tabMap = {};
              $scope.wExpGrLastClicked = {};
+             $scope.dsBuilderVisible = false;
              $scope.wExpItemDragCfg = {
                  helper: "clone",
                  appendTo: "body"
@@ -41,20 +42,30 @@
              }
          };
          $scope.fDragConfig = {
-             helper: function() {
-               return "<img style='height: 20px; width: 20px' src='images/field.png' />";  
-             }
+//             helper: function() {
+//               return "<img style='height: 20px; width: 20px' src='images/field.png' />";  
+//             }
+             helper: "clone"
          };
          $scope.fDropConfig = {
              drop: function( e, ui ) {
                  var dropRegion = e.target.id, field = ui.draggable.data( "dragData" ), 
+                 cloneField = angular.copy( field );
                  dataSets = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets;
                  $timeout( function( dataSets ) {
                      if( dropRegion == "DIMS" ) {
-                         dataSets[ 0 ].dimensions.push( field );
+                         if( dataSets[ 0 ].dimensions.length == 0 
+                                 && !cs.isDuplicateInArray( dataSets[ 0 ].dimensions, cloneField, 'id' ) ) {
+                             dataSets[ 0 ].dimensions.push( cloneField );
+                         }
                      }
                      else {
-                         dataSets[ 0 ].measures.push( field );
+                         if( !cs.isDuplicateInArray( dataSets[ 0 ].measures, cloneField, 'id' ) ) {
+                             dataSets[ 0 ].measures.push( cloneField );
+                         }
+                         else {
+                             console.info( "Duplicate field!!" );
+                         }
                      }
                  }, 0, true, dataSets );
              }
@@ -90,10 +101,10 @@
              $scope.getSelectedDashboard().sWidgetIds[ 0 ] == widget.id;  
          };
          $scope.openDatasetBuilder = function() {
-             $( ".d-dataset-panel" ).show();
+             $scope.dsBuilderVisible = true;
          };
          $scope.closeDatasetBuilder = function() {
-             $( ".d-dataset-panel" ).hide();
+             $scope.dsBuilderVisible = false;
          };
          $scope.registerHotkeys = function() {
              cs.addHotkeys( {
@@ -331,16 +342,13 @@
              
          };
          $scope.closeTab = function( e, tab ) {
-             var indexInOpenTabs = $scope.openTabs.indexOf( tab ),
-             dashboard = $scope.dashboardMap[ tab.id ];
-             if( indexInOpenTabs != -1 ) {
-                 $scope.openTabs.splice( indexInOpenTabs, 1 );
-                 if( tab.type != 1 ) {
-                     $scope.notify( "REMOVE_DASHBOARD", dashboard );
-                 }
-                 else {
-                     $scope.notify( "REMOVE_SPECIAL_TAB", tab );
-                 }
+             var dashboard = $scope.dashboardMap[ tab.id ];
+             cs.removeFromArray( $scope.openTabs, tab );
+             if( tab.type != 1 ) {
+                 $scope.notify( "REMOVE_DASHBOARD", dashboard );
+             }
+             else {
+                 $scope.notify( "REMOVE_SPECIAL_TAB", tab );
              }
          };
          $scope.openSettings = function( e ) {
@@ -473,7 +481,7 @@
              }
              cs.alert( "success", "Designer", data.Layout.title + " has been exported as "+ fileName +" to locak disk" );
          };
-    //                                             Selection Operations
+//       Selection Operations
          $scope.isSelectedWidget = function( w ) {
              return $scope.getSelectedDashboard().sWidgetIds.indexOf( w.id ) != -1;
          };
@@ -600,7 +608,7 @@
              dashboard = $scope.getSelectedDashboard(),
              widget, rHorizontalCenter;
              for( var i = 0; i < sWidgetIds.length; i++ ) {
-                 widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
+                 widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];
                  if( i == 0 ) {
                      rHorizontalCenter = widget.left + ( widget.width / 2 );
                  }
@@ -619,7 +627,7 @@
                  hDiff = tWidget.left - ( rWidget.left + rWidget.width );
                  for( var i = 2; i < sWidgetIds.length; i++ ) {
                      rWidget = tWidget;
-                     tWidget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
+                     tWidget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];
                      tWidget.left = rWidget.left + rWidget.width + hDiff;
                  }
              }
@@ -634,7 +642,7 @@
                  hDiff = tWidget.top - ( rWidget.top + rWidget.height );
                  for( var i = 2; i < sWidgetIds.length; i++ ) {
                      rWidget = tWidget;
-                     tWidget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
+                     tWidget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];
                      tWidget.top = rWidget.top + rWidget.height + vDiff;
                  }
              }
@@ -644,7 +652,7 @@
              dashboard = $scope.getSelectedDashboard(),
              widget, refWidgetHeight, canvasObj;
              for( var i = 0; i < sWidgetIds.length; i++ ) {
-                 widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
+                 widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];
                  if( i == 0 ) {
                      refWidgetHeight = widget.height;
                  }
@@ -662,7 +670,7 @@
              dashboard = $scope.getSelectedDashboard(),
              widget, refWidgetWidth, canvasObj;
              for( var i = 0; i < sWidgetIds.length; i++ ) {
-                 widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
+                 widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];
                  if( i == 0 ) {
                      refWidgetWidth = widget.width;
                  }
@@ -680,7 +688,7 @@
              var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
              dashboard = $scope.getSelectedDashboard(), widget;
              for( var i = 0; i < sWidgetIds.length; i++ ) {
-                 widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
+                 widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];
                  widget.left++;
              }
          };
@@ -688,7 +696,7 @@
              var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
              dashboard = $scope.getSelectedDashboard(), widget;
              for( var i = 0; i < sWidgetIds.length; i++ ) {
-                 widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
+                 widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];
                  widget.left--;
              }
          };
@@ -696,7 +704,7 @@
              var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
              dashboard = $scope.getSelectedDashboard(), widget;
              for( var i = 0; i < sWidgetIds.length; i++ ) {
-                 widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
+                 widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];
                  widget.top--;
              }
          };
@@ -704,7 +712,7 @@
              var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
              dashboard = $scope.getSelectedDashboard(), widget;
              for( var i = 0; i < sWidgetIds.length; i++ ) {
-                 widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
+                 widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];
                  widget.top++;
              }
          };

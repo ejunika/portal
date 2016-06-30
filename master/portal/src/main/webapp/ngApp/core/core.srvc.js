@@ -26,6 +26,31 @@
         cs.getPouchDbInstance = function( dbName ) {
             return new pDb( dbName );
         };
+        cs.removeFromArray = function( arr, item ) {
+            var itemIndex;
+            if( Array.isArray( arr ) ) {
+                itemIndex = arr.indexOf( item );
+                if( itemIndex != -1 ) {
+                    arr.splice( itemIndex, 1 );
+                }
+                else {
+                    console.info( "cs.removeFromArray( arr, item ): Item not found!!" );
+                }
+            }
+        };
+        cs.isDuplicateInArray = function( arr, item, criteria ) {
+            if( Array.isArray( arr ) && 
+                    typeof item == "object" && 
+                    typeof criteria == "string" &&
+                    item.hasOwnProperty( criteria ) ) {
+                for( var i = 0; i < arr.length; i++ ) {
+                    if( arr[ i ][ criteria ] == item[ criteria ] ) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        };
         cs.getUniqueId = function( x4Bits ) {
             var getRandom = function() {
                 return Math.floor( ( 1 + Math.random() ) * 0x10000 )

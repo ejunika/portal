@@ -312,6 +312,14 @@ a:hover, a:focus {
     border-style: dashed !important;
 }
 /*DATASET*/
+#dProviderRefresh {
+    padding: 3px 10px;
+    display: inline-block;
+}
+#dProviderRefresh:hover {
+    background: #9E9E9E;
+    color: #FFEB3B;
+}
 .d-dataset-panel {
 	position: absolute;
     width: 400px;
@@ -352,7 +360,6 @@ a:hover, a:focus {
     padding: 0px 5px;
 }
 .f-item-container li a:hover {
-    padding: 0px 5px;
     background: #9E9E9E;
     color: #F44336;
 }
