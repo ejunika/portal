@@ -323,9 +323,8 @@ a:hover, a:focus {
 .d-dataset-panel {
 	position: absolute;
     width: 400px;
-/*     min-height: 505px; */
     left: calc( 50% - 200px );
-    top: calc( 50% - 250px );
+    top: calc( 50% - 290px );
     box-shadow: 0px 0px 15px;
 }
 .pull-clear {
@@ -345,7 +344,8 @@ a:hover, a:focus {
 .f-item-container {
     padding: 0;
     margin: 0;
-    min-height: 100px;
+    height: calc( 100% - 2px );
+    max-width: 155px;
 }
 .f-item-container li {
     list-style: none;
@@ -372,7 +372,33 @@ a:hover, a:focus {
     left: 0;
 }
 #FIELDS {
-    max-height: 239px;
-    overflow-y: auto;
+    
+}
+#DIMS {
+    
+}
+#MES {
+    
+}
+.f-i-label {
+    margin: 0;
+    width: calc( 100% - 25px );
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: middle;
+}
+.f-i-scroller {
+    height: 238px;
+}
+.dim-scroller {
+	height: 30px;
+}
+.mes-scroller {
+	height: 169px;
+}
+.f-scroller {
     overflow-x: hidden;
+    overflow-y: auto;
+    width: calc( 100% + 18px );
 }

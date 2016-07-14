@@ -55,12 +55,12 @@
                  $timeout( function( dataSets ) {
                      if( dropRegion == "DIMS" ) {
                          if( dataSets[ 0 ].dimensions.length == 0 
-                                 && !cs.isDuplicateInArray( dataSets[ 0 ].dimensions, cloneField, 'id' ) ) {
+                                 && !cs.isDuplicateInArray( dataSets[ 0 ].dimensions, cloneField, "id" ) ) {
                              dataSets[ 0 ].dimensions.push( cloneField );
                          }
                      }
                      else {
-                         if( !cs.isDuplicateInArray( dataSets[ 0 ].measures, cloneField, 'id' ) ) {
+                         if( !cs.isDuplicateInArray( dataSets[ 0 ].measures, cloneField, "id" ) ) {
                              dataSets[ 0 ].measures.push( cloneField );
                          }
                          else {
@@ -248,6 +248,7 @@
                          $('a[data-toggle="tab"]')
                              .off('shown.bs.tab')
                              .on('shown.bs.tab', function (e) {
+                                 if( !e.target.id ) return false;
                                  var dbId = $(e.target)[ 0 ].id.split( "_" )[ 1 ];
                                  $timeout( function() {
                                      $scope.selectedDashboardId = dbId;
@@ -413,25 +414,26 @@
                  id: dashboard.id,
                  title: dashboard.Layout.title
              };
-             $scope.$timeout( function() {
+             $scope.openTabs.push( tab );
+             $timeout( function( dashboard ) {
                  var widgets = dashboard.Layout.widgets;
-                 $scope.openTabs.push( tab );
                  $scope.openDashboardIds.push( dashboard.id );
                  $scope.dashboardMap[ dashboard.id ] = dashboard;
                  $scope.selectedDashboardId = dashboard.id;
                  for( var i = 0; i < widgets.length; i++ ) {
                      $scope.addWidget( widgets[ i ] );
                  }
-             }, 0 );
+                 $( "#TAB_" + dashboard.id ).click();
+             }, 500, true, dashboard );
              $('a[data-toggle="tab"]')
                  .off('shown.bs.tab')
                  .on('shown.bs.tab', function (e) {
+                     if( !e.target.id ) return false;
                      var dbId = $(e.target)[ 0 ].id.split( "_" )[ 1 ];
                      $timeout( function() {
                          $scope.selectedDashboardId = dbId;
                      }, 0 );
                  });
-             $( "#TAB_" + dashboard.id ).click();
              cs.alert( "success", "Designer", dashboard.Layout.title + " has been loaded" );
          };
          $scope.openFromLocal = function( e ) {

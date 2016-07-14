@@ -34,6 +34,7 @@
                  templateUrl: "ngApp/designer/designer.view.html",
                  controller: "designer.ctrl"
              } )
+             .when( "/fProps", {} )
              .otherwise( {
                  redirectTo: "/designer"
              } );
