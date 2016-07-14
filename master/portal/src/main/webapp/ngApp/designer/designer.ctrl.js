@@ -320,7 +320,7 @@
                          break;
                      case "SETTINGS":
                          tab = {
-                             type: 1,
+                             type: 2,
                              id: cs.getUniqueId(),
                              title: "Settings"
                          };
@@ -414,9 +414,10 @@
                  id: dashboard.id,
                  title: dashboard.Layout.title
              };
-             $scope.$timeout( function() {
+             $scope.openTabs.push( tab );
+             $scope.$apply();
+             $timeout( function() {
                  var widgets = dashboard.Layout.widgets;
-                 $scope.openTabs.push( tab );
                  $scope.openDashboardIds.push( dashboard.id );
                  $scope.dashboardMap[ dashboard.id ] = dashboard;
                  $scope.selectedDashboardId = dashboard.id;
@@ -472,9 +473,9 @@
                  location.replace( enData );
              }
              else {
-                 enData = "text/json;charset=utf-8," + encodeURIComponent( dataToExport );
+                 blob = new Blob( [ dataToExport ], { type: "text/plain" } );
                  downloadLink = document.createElement( "a" );
-                 downloadLink.href = "data:" + enData;
+                 downloadLink.href = URL.createObjectURL( blob );
                  downloadLink.download = fileName;
                  document.body.appendChild( downloadLink );
                  downloadLink.click();

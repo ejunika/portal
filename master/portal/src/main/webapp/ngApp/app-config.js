@@ -24,6 +24,7 @@
             mainArea: { module: { name: "main-area.module" } },
             designer: { module: { name: "designer.module" } },
             dashboard: { module: { name: "dashboard.module" } },
+            specialPage: { module: { name: "special-page.module" } },
             widget: { module: { name: "widget.module" } }
         },
         controllers: {
@@ -34,6 +35,7 @@
             mainArea: "main-area.ctrl",
             designer: "designer.ctrl",
             dashboard: "dashboard.ctrl",
+            specialPage: "special-page.ctrl",
             widget: "widget.ctrl"
         },
         directives: {
@@ -57,6 +59,10 @@
             dashboard: {
                 name: "njDashboard",
                 tUrl: "ngApp/designer/dashboard/dashboard.view.html"
+            },
+            specialPage: {
+                name: "njSpecialPage",
+                tUrl: "ngApp/designer/special-page/special-page.view.html"
             },
             widget: {
                 name: "njWidget",

@@ -14,7 +14,7 @@
 } )( this, function( ac, dbm ) {
     dbm.directive( ac.directives.dashboard.name, [
         dashboardDirFn
-        ] );
+    ] );
     function dashboardDirFn() {
         return {
             restrict: "E",

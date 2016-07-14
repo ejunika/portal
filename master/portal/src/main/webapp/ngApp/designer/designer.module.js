@@ -13,6 +13,7 @@
     }
 } )( this, function( ac, ng ) {
     return ng.module( ac.modules.designer.module.name, [
-        ac.modules.dashboard.module.name
+        ac.modules.dashboard.module.name,
+        ac.modules.specialPage.module.name
     ] );
 } );
