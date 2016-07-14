@@ -424,7 +424,7 @@
                  for( var i = 0; i < widgets.length; i++ ) {
                      $scope.addWidget( widgets[ i ] );
                  }
-             }, 0 );
+             }, 0, true, dashboard );
              $('a[data-toggle="tab"]')
                  .off('shown.bs.tab')
                  .on('shown.bs.tab', function (e) {

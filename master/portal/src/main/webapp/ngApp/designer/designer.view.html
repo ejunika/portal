@@ -149,7 +149,7 @@
                                         <ul class="f-item-container" 
 	                                        id="DIMS"
 	                                        jq-droppable="fDropConfig">
-	                                        <li ng-repeat="dim in getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].dimensions track by dim.id">
+	                                        <li ng-repeat="dim in getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].dimensions track by $index">
 	                                            <label class="f-i-label">
 	                                               {{ dim.label }}
 	                                            </label>
@@ -165,7 +165,7 @@
                                         <ul class="f-item-container" 
 	                                        id="MES"
 	                                        jq-droppable="fDropConfig">
-	                                        <li ng-repeat="mes in getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].measures track by mes.id">
+	                                        <li ng-repeat="mes in getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].measures track by $index">
 	                                            <label class="f-i-label">
 	                                               {{ mes.label }}
 	                                            </label>

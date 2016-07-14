@@ -77,7 +77,7 @@
                 dashboard.Info.ObjMap[ widget.id ] = new CanvasJS.Chart( "CC_" + widget.id );
                 dashboard.Info.ObjMap[ widget.id ].options = widget.Options;
                 dashboard.Info.ObjMap[ widget.id ].render();
-            }, 0, true, dashboard );
+            }, 100, true, dashboard );
         };
 //                                                 TODO  CONNECTIONS need to improve
         $scope.createConnection = function( data ) {
