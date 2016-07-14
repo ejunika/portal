@@ -1,5 +1,14 @@
-( function() {
+( function( ctx, fn ) {
     "use strict";
-    define( [], rcb );
-    function rcb() {}
-} )();
+    if( typeof define == "function" && define.amd ) {
+        
+    }
+    else if( typeof module == "object" && module.exports ) {
+        
+    }
+    else {
+        
+    }
+} )( this, function() {
+    
+} );

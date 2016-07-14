@@ -1,17 +1,16 @@
-( function( cxt, fn ) {
+( function( ctx, fn ) {
     "use strict";
     if( typeof define == "function" && define.amd ) {
         define( [ "ac", "angular" ], fn );
     }
     else if( typeof module == "object" && module.exports ) {
-        module.exports = fn( require( "ac" ), require( "angular" ) );
+//        module.exports = fn( require( "ac" ), require( "angular" ) );
     }
     else {
-        cxt.portal = cxt.portal || {};
-        if( !cxt.portal.ac ) 
-            throw "app-config module not found";
-        cxt.portal.bcm = fn( cxt.portal.ac, cxt.portal.bcm );
+        ctx.portal = ctx.portal || {};
+        if( !ctx.portal.ac ) throw "app-config not found";
+        ctx.portal.ac.modules.breadcrumb.module = fn( ctx.portal.ac, ctx.angular );
     }
 } )( this, function( ac, ng ) {
-    return ng.module( ac.modules.breadcrumb, [] );
+    return ng.module( ac.modules.breadcrumb.module.name, [] );
 } );

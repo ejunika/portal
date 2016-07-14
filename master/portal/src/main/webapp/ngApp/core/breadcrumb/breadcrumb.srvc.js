@@ -4,13 +4,12 @@
         define( [ "ac", "bcm" ], fn );
     }
     else if( typeof module == "object" && module.exports ) {
-        fn( require( "ac" ), require( "bcm" ) );
+//        fn( require( "ac" ), require( "bcm" ) );
     }
     else {
         cxt.portal = cxt.portal || {};
-        if( !cxt.portal.ac || !cxt.portal.bcm ) 
-            throw "app-config or breadcrumb module not found";
-        fn( cxt.portal.ac, cxt.portal.bcm );
+        if( !cxt.portal.ac ) throw "app-config not found";
+        fn( cxt.portal.ac, cxt.portal.ac.modules.breadcrumb.module );
     }
 } )( this, function( ac, bcm ) {
     bcm.service( ac.services.breadcrumb, [

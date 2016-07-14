@@ -1,14 +1,15 @@
-( function( cxt, fn ) {
+( function( ctx, fn ) {
     "use strict";
     if( typeof define === "function" && define.amd ) {
         define( [ "ac", "dm" ], fn );
     }
     else if( typeof module === "object" && module.exports ) {
-        module.exports = fn( require( "ac" ), require( "dm" ) );
+//        module.exports = fn( require( "ac" ), require( "dm" ) );
     }
     else {
-        cxt.portal = cxt.portal || {};
-        fn( cxt.portal.ac, cxt.portal.dm );
+        ctx.portal = ctx.portal || {};
+        if( !ctx.portal.ac ) throw "app-config not found";
+        fn( ctx.portal.ac, ctx.portal.ac.modules.designer.module );
     }    
 } )( this, function( ac, dm ) {
      dm.controller( ac.controllers.designer, [ 

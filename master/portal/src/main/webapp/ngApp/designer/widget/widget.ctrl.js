@@ -1,16 +1,26 @@
-( function() {
+( function( ctx, fn ) {
     "use strict";
-    define( [ "wm", "ac" ], rcb );
-    function rcb( wm, ac ) {
-        wm.controller( ac.controllers.widget, [ 
-            ac.ngVars.scope,
-            ac.ngVars.timeout,
-            ac.services.core,
-            widgetCtrlFn 
-        ] );
-        function widgetCtrlFn( $scope, $timeout, cs ) {
-            $scope.init = function() {
-                $scope.widgetResizeConfig = {
+    if( typeof define === "function" && define.amd ) {
+        define( [ "ac", "wm" ], fn );
+    }
+    else if( typeof module === "object" && module.exports ) {
+//        module.exports = fn( require( "ac"), require( "angular" ) );
+    }
+    else {
+        ctx.portal = ctx.portal || {};
+        if( !ctx.portal.ac ) throw "app-config not found";
+        fn( ctx.portal.ac, ctx.portal.ac.modules.widget.module );
+    }
+} )( this, function( ac, wm ) {
+    wm.controller( ac.controllers.widget, [ 
+        ac.ngVars.scope,
+        ac.ngVars.timeout,
+        ac.services.core,
+        widgetCtrlFn 
+    ] );
+    function widgetCtrlFn( $scope, $timeout, cs ) {
+        $scope.init = function() {
+            $scope.widgetResizeConfig = {
                     handles: { 
                         n: ".r-handle-n", 
                         e: ".r-handle-e", 
@@ -43,8 +53,8 @@
                             canvasObj.render();
                         }, 0 );
                     }
-                };
-                $scope.wDragConfig = {
+            };
+            $scope.wDragConfig = {
                     containment: "parent",
                     start: function( e, ui ) {
                         $timeout( function() {
@@ -61,52 +71,52 @@
                             $scope.preventClick = false;
                         }, 0 );
                     }
-                };
             };
-            $scope.onClickWidget = function( e, w ) {
-               $scope.handleWidgetSelection( e, w );
+        };
+        $scope.onClickWidget = function( e, w ) {
+            $scope.handleWidgetSelection( e, w );
+        };
+        $scope.getWidgetContainerStyle = function( w ) {
+            return {
+                top: w.top + 'px', 
+                left: w.left + 'px', 
+                height: w.height + 'px', 
+                width: w.width + 'px'
             };
-            $scope.getWidgetContainerStyle = function( w ) {
-                return {
-                    top: w.top + 'px', 
-                    left: w.left + 'px', 
-                    height: w.height + 'px', 
-                    width: w.width + 'px'
-                };
-            };
-            $scope.cxtMenuWidCfg = {
+        };
+        $scope.cxtMenuWidCfg = {
                 setOptionList: function( e ) {
                     var opnList = [], widget;
                     if( $scope.getSelectedWidgetsFromSelectedDashboard().length > 1 ) {
-                       opnList = [
-                           { id: "ALIGN_TOP", label: "Align Top" },
-                           { id: "ALIGN_RIGHT", label: "Align Right" },
-                           { id: "ALIGN_BOTTOM", label: "Align Bottom" },
-                           { id: "ALIGN_LEFT", label: "Align Left" },
-                           { divider: true },
-                           { id: "EQUAL_HEIGHT", label: "Equal Height" },
-                           { id: "EQUAL_WIDTH", label: "Equal Width" },
-                           { divider: true },
-                           { id: "EQUAL_DISTANCE_H", label: "Equal Distance(H)" },
-                           { id: "EQUAL_DISTANCE_V", label: "Equal Distance(V)" },
-                           { id: "CENTER_H", label: "Center(H)" },
-                           { id: "CENTER_V", label: "Center(V)" },
-                           { divider: true },
-                           { id: "DELETE", label: "Delete" }
-                       ];
+                        opnList = [
+                                   { id: "ALIGN_TOP", label: "Align Top" },
+                                   { id: "ALIGN_RIGHT", label: "Align Right" },
+                                   { id: "ALIGN_BOTTOM", label: "Align Bottom" },
+                                   { id: "ALIGN_LEFT", label: "Align Left" },
+                                   { divider: true },
+                                   { id: "EQUAL_HEIGHT", label: "Equal Height" },
+                                   { id: "EQUAL_WIDTH", label: "Equal Width" },
+                                   { divider: true },
+                                   { id: "EQUAL_DISTANCE_H", label: "Equal Distance(H)" },
+                                   { id: "EQUAL_DISTANCE_V", label: "Equal Distance(V)" },
+                                   { id: "CENTER_H", label: "Center(H)" },
+                                   { id: "CENTER_V", label: "Center(V)" },
+                                   { divider: true },
+                                   { id: "DELETE", label: "Delete" }
+                                   ];
                     }
                     else {
                         $scope.deSelectAllWidget();
                         widget = angular.element( e.target.closest( ".widget" ) ).scope().w;
                         $scope.selectWidget( widget );
                         opnList = [
-                           { id: "PROPERTIES", label: "Properties" },
-                           { divider: true },
-                           { id: "DATA_SET", label: "Data Set" },
-                           { id: "SCRIPTS", label: "Scripts" },
-                           { divider: true },
-                           { id: "DELETE", label: "Delete" }
-                       ];
+                                   { id: "PROPERTIES", label: "Properties" },
+                                   { divider: true },
+                                   { id: "DATA_SET", label: "Data Set" },
+                                   { id: "SCRIPTS", label: "Scripts" },
+                                   { divider: true },
+                                   { id: "DELETE", label: "Delete" }
+                                   ];
                     }
                     return opnList;
                 },
@@ -126,7 +136,6 @@
                         default: break;
                     }
                 }
-            };
-        }
+        };
     }
-} )();
+} );

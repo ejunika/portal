@@ -1,4 +1,4 @@
-( function( cxt, fn ) {
+( function( ctx, fn ) {
     "use strict";
     if( typeof define == "function" && define.amd ) {
         define( [ "ac", "cm" ], fn );
@@ -7,10 +7,9 @@
         
     }
     else {
-        cxt.portal = cxt.portal || {};
-        if( !cxt.portal.ac || !cxt.portal.cm )
-            throw "app-config or core module not found";
-        fn( cxt.portal.ac, cxt.portal.cm );
+        ctx.portal = ctx.portal || {};
+        if( !ctx.portal.ac ) throw "app-config not found";
+        fn( ctx.portal.ac, ctx.portal.ac.modules.core.module );
     }
 } )( this, function( ac, cm ) {
     cm.service( ac.services.request, [
