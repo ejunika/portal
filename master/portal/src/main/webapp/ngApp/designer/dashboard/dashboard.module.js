@@ -1,9 +1,18 @@
-( function() {
+( function( ctx, fn ) {
     "use strict";
-    define( [ "angular", "ac" ], rcb );
-    function rcb( ng, ac ) {
-        return ng.module( ac.modules.dashboard, [
-            ac.modules.widget
-        ] );
+    if( typeof define === "function" && define.amd ) {
+        define( [ "ac", "angular" ], fn );
     }
-} )();
+    else if( typeof module === "object" && module.exports ) {
+//        module.exports = fn( require( "ac"), require( "angular" ) );
+    }
+    else {
+        ctx.portal = ctx.portal || {};
+        if( !ctx.portal.ac ) throw "app-config not found";
+        ctx.portal.ac.modules.dashboard.module = fn( ctx.portal.ac, ctx.angular );
+    }
+} )( this, function( ac, ng ) {
+    return ng.module( ac.modules.dashboard.module.name, [
+        ac.modules.widget.module.name
+    ] );
+} );

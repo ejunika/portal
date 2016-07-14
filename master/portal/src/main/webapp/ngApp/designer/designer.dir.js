@@ -1,25 +1,34 @@
-( function() {
+( function( ctx, fn ) {
     "use strict";
-    define( [ "hm", "ac" ], rcb );
-    function rcb( hm, ac ) {
-        hm.directive( ac.directives.header.name, [
-            headerDirFn
-        ] );
-        function headerDirFn() {
-            return {
-                restrict: "E",
-                replace: true,
-                templateUrl: ac.directives.header.tUrl,
-                controller: ac.controllers.header,
-                controllerAs: "hvm",
-                compile: compileFn
-            }
-        }
-        function compileFn() {
-            return linkFn;
-        }
-        function linkFn() {
-            
-        }
+    if( typeof define === "function" && define.amd ) {
+        define( [ "ac", "dm" ], fn );
     }
-} )();
+    else if( typeof module === "object" && module.exports ) {
+//        module.exports = fn( require( "ac" ), require( "dm" ) );
+    }
+    else {
+        ctx.portal = ctx.portal || {};
+        if( !ctx.portal.ac ) throw "app-config not found";
+        fn( ctx.portal.ac, ctx.portal.ac.modules.designer.module );
+    }    
+} )( this, function( ac, dm ) {
+    dm.directive( ac.directives.header.name, [
+        headerDirFn
+    ] );
+    function headerDirFn() {
+        return {
+            restrict: "E",
+            replace: true,
+            templateUrl: ac.directives.header.tUrl,
+            controller: ac.controllers.header,
+            controllerAs: "hvm",
+            compile: compileFn
+        };
+    }
+    function compileFn() {
+        return linkFn;
+        }
+    function linkFn() {
+        
+    }
+} );

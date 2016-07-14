@@ -37,6 +37,9 @@
         "dbm",
         "dbc",
         "dbd",
+        "spm",
+        "spc",
+        "spd",
         "wm",
         "wc",
         "wd"

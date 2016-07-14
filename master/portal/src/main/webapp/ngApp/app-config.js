@@ -11,20 +11,21 @@
         module.exports = fn();
     }
     else {
-        cxt.portal = cxt.portal || {};
-        cxt.portal.ac = fn();
+        ctx.portal = ctx.portal || {};
+        ctx.portal.ac = fn();
     }
 } )( this, function() {
     return {
         modules: {
-            core: "core.module",
-            header: "header.module",
-            breadcrumb: "breadcrumb.module",
-            mainMenu: "main-menu.module",
-            mainArea: "main-area.module",
-            designer: "designer.module",
-            dashboard: "dashboard.module",
-            widget: "widget.module"
+            core: { module: { name: "core.module" } },
+            header: { module: { name: "header.module" } },
+            breadcrumb: { module: { name: "breadcrumb.module" } },
+            mainMenu: { module: { name: "main-menu.module" } },
+            mainArea: { module: { name: "main-area.module" } },
+            designer: { module: { name: "designer.module" } },
+            dashboard: { module: { name: "dashboard.module" } },
+            specialPage: { module: { name: "special-page.module" } },
+            widget: { module: { name: "widget.module" } }
         },
         controllers: {
             core: "core.ctrl",
@@ -34,6 +35,7 @@
             mainArea: "main-area.ctrl",
             designer: "designer.ctrl",
             dashboard: "dashboard.ctrl",
+            specialPage: "special-page.ctrl",
             widget: "widget.ctrl"
         },
         directives: {
@@ -57,6 +59,10 @@
             dashboard: {
                 name: "njDashboard",
                 tUrl: "ngApp/designer/dashboard/dashboard.view.html"
+            },
+            specialPage: {
+                name: "njSpecialPage",
+                tUrl: "ngApp/designer/special-page/special-page.view.html"
             },
             widget: {
                 name: "njWidget",

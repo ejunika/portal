@@ -4,13 +4,12 @@
         define( [ "ac", "hm" ], fn );
     }
     else if( typeof module == "object" && module.exports ) {
-        fn( require( "ac" ), require( "hm" ) );
+//        fn( require( "ac" ), require( "hm" ) );
     }
     else {
         cxt.portal = cxt.portal || {};
-        if( !cxt.portal.ac || !cxt.portal.hm ) 
-            throw "app-config or header module not found";
-        fn( cxt.portal.ac, cxt.portal.hm );
+        if( !cxt.portal.ac ) throw "app-config not found";
+        fn( cxt.portal.ac, cxt.portal.ac.modules.header.module );
     }
 } )( this, function( ac, hm ) {
     hm.controller( ac.controllers.header, [ 

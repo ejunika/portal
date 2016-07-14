@@ -7,7 +7,9 @@
 
     }
     else {
-
+        cxt.portal = cxt.portal || {};
+        if( !cxt.portal.ac ) throw "app-config not found";
+        fn( cxt.portal.ac, cxt.portal.ac.modules.header.module );
     }
 } )( this, function( ac, hm ) {
     

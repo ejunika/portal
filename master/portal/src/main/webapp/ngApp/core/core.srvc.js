@@ -1,13 +1,15 @@
-( function( cxt, fn ) {
+( function( ctx, fn ) {
     "use strict";
     if( typeof define == "function" && define.amd ) {
         define( [ "ac", "cm" ], fn );
     }
     else if( typeof module == "object" && module.exports ) {
-        module.exports = fn( require( "ac" ), require( "cm" ) );
+//        module.exports = fn( require( "ac" ), require( "cm" ) );
     }
     else {
-        fn( cxt.portal.ac, cxt.portal.cm );
+        ctx.portal = ctx.portal || {};
+        if( !ctx.portal.ac ) throw "app-config not found";
+        fn( ctx.portal.ac, ctx.portal.ac.modules.core.module );
     }
 } )( this, function( ac, cm ) {
     cm.service( ac.services.core, [ 

@@ -8,9 +8,8 @@
     }
     else {
         cxt.portal = cxt.portal || {};
-        if( !cxt.portal.ac || !cxt.portal.mam )
-            throw "app-config or core module not found";
-        fn( cxt.portal.ac, cxt.portal.mam );
+        if( !cxt.portal.ac ) throw "app-config not found";
+        fn( cxt.portal.ac, cxt.portal.ac.modules.mainArea.module );
     }
 } )( this, function( ac, mam ) {
     mam.controller( ac.controllers.mainArea, [ 

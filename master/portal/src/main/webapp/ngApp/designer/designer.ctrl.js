@@ -1,14 +1,15 @@
-( function( cxt, fn ) {
+( function( ctx, fn ) {
     "use strict";
     if( typeof define === "function" && define.amd ) {
         define( [ "ac", "dm" ], fn );
     }
     else if( typeof module === "object" && module.exports ) {
-        module.exports = fn( require( "ac" ), require( "dm" ) );
+//        module.exports = fn( require( "ac" ), require( "dm" ) );
     }
     else {
-        cxt.portal = cxt.portal || {};
-        fn( cxt.portal.ac, cxt.portal.dm );
+        ctx.portal = ctx.portal || {};
+        if( !ctx.portal.ac ) throw "app-config not found";
+        fn( ctx.portal.ac, ctx.portal.ac.modules.designer.module );
     }    
 } )( this, function( ac, dm ) {
      dm.controller( ac.controllers.designer, [ 
@@ -320,7 +321,7 @@
                          break;
                      case "SETTINGS":
                          tab = {
-                             type: 1,
+                             type: 2,
                              id: cs.getUniqueId(),
                              title: "Settings"
                          };
@@ -415,7 +416,8 @@
                  title: dashboard.Layout.title
              };
              $scope.openTabs.push( tab );
-             $timeout( function( dashboard ) {
+             $scope.$apply();
+             $timeout( function() {
                  var widgets = dashboard.Layout.widgets;
                  $scope.openDashboardIds.push( dashboard.id );
                  $scope.dashboardMap[ dashboard.id ] = dashboard;
@@ -424,7 +426,7 @@
                      $scope.addWidget( widgets[ i ] );
                  }
                  $( "#TAB_" + dashboard.id ).click();
-             }, 500, true, dashboard );
+             }, 0, true, dashboard );
              $('a[data-toggle="tab"]')
                  .off('shown.bs.tab')
                  .on('shown.bs.tab', function (e) {
@@ -473,9 +475,9 @@
                  location.replace( enData );
              }
              else {
-                 enData = "text/json;charset=utf-8," + encodeURIComponent( dataToExport );
+                 blob = new Blob( [ dataToExport ], { type: "text/plain" } );
                  downloadLink = document.createElement( "a" );
-                 downloadLink.href = "data:" + enData;
+                 downloadLink.href = URL.createObjectURL( blob );
                  downloadLink.download = fileName;
                  document.body.appendChild( downloadLink );
                  downloadLink.click();
