@@ -24,6 +24,7 @@
              $scope.fullMainMenu = false;
              $scope.mouseOverCnt = 0;
              cs.cxtMenuPosition = {};
+             $scope.preview = false;
              $scope.selectHelper = {
                  position: "absolute",
                  zIndex: "1000",

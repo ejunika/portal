@@ -16,6 +16,7 @@
         "njutil",
         "bootstrap",
         "canvasjs",
+        "codemirror",
         "cm",
         "cc",
         "cs",

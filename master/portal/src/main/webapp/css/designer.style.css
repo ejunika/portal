@@ -67,7 +67,8 @@ a:hover, a:focus {
 	transition: 0.2s;
 }
 .selectHelper {
-	//display: none;
+    left: -10px;
+    top: -10px;
 }
 .d-dashboard-wrapper-full {
 	width: 100% !important;
@@ -401,4 +402,20 @@ a:hover, a:focus {
     overflow-x: hidden;
     overflow-y: auto;
     width: calc( 100% + 18px );
+}
+.d-preview-wrapper {
+	background: rgba(0, 0, 0, 0.64);
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1000;
+}
+.d-preview-wrapper iframe {
+	height: calc( 100% - 54px );
+    width: calc( 100% - 50px );
+    margin: 25px;
+    border: 5px solid #DDD;
+    border-radius: 2px;
 }

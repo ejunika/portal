@@ -25,6 +25,7 @@
             $scope.dragSelectConfig = {
                     selectHelper: ".selectHelper",
                     start: function( e, ui ) {
+                        $scope.dragging = true;
                         $( ".dropdown-menu" ).parent().removeClass( "open" );
                         $timeout( function() {
                             $scope.deSelectAllWidget();

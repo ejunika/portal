@@ -214,7 +214,8 @@
                             <div class="form-group d-form-group">
                                 <label for="dProvider" class="col-sm-4 control-label">Data Provider</label>
                                 <div class="col-sm-6">
-                                    <select id="dProvider" class="form-control input-md full-width"
+                                    <select id="dProvider" class="form-control input-md full-width" 
+                                        ng-change="onChangeDataProvider( $event, sDataProvider )" 
                                         ng-options="dProvider as dProvider.label for dProvider in getSelectedDashboard().DataProvider.Offline.connections track by dProvider.id" 
                                         ng-model="sDataProvider">
                                         <option value="">--Data Provider--</option>

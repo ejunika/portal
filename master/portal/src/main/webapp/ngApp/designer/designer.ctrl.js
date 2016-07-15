@@ -29,6 +29,7 @@
              $scope.tabMap = {};
              $scope.wExpGrLastClicked = {};
              $scope.dsBuilderVisible = false;
+//             $scope.dragging = false;
              $scope.wExpItemDragCfg = {
                  helper: "clone",
                  appendTo: "body"
@@ -205,6 +206,24 @@
                  }
              } );
          };
+//       TODO DATA PROVIDER
+         $scope.onChangeDataProvider = function( e, sDataProvider ) {
+             var dataSet = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ];
+             dataSet.DataProvider.Connection.id = sDataProvider.id;
+             dataSet.DataProvider.Sheet.id = sDataProvider.id;
+         };
+         $scope.setSelectedDataProvider = function() {
+             var widget = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ], 
+             dataSet = widget.dataSets[ 0 ],
+             cId = dataSet.DataProvider.Connection.id,
+             offLineConns = $scope.getSelectedDashboard().DataProvider.Offline.connections;
+             for( var i = 0; i < offLineConns.length; i++ ) {
+                 if( offLineConns[ i ].id = dataSet.DataProvider.Connection.id ) {
+                     $scope.sDataProvider = offLineConns[ i ];
+                 }
+             }
+             
+         };
          
 //       TODO WIDGET EXPLORER
          $scope.listWidget = function( e, g ) {
@@ -225,6 +244,7 @@
              cs.alert( "error", "Designer", "Service Error!!" );
          };
          $scope.previewDashboard = function( e ) {
+             $scope.preview = true;
              cs.alert( "info", "Designer", "Preview enabled!!" );
          };
          $scope.toggleRightPane = function( e ) {
@@ -305,7 +325,7 @@
                  tab = {
                      type: 0,
                      id: cs.getUniqueId(),
-                     title: "Untitled_" + $scope.openTabs.length
+                     title: "Untitled_" + ( $scope.openTabs.length + 1 )
                  };
                  $scope.openTabs.push( tab );
                  $scope.addDashboard( tab );
@@ -370,9 +390,9 @@
                      $timeout( function() {
                          cs.alert( "success", "Designer", widget.wName + " Added" );
                      }, 0, true, widget );
-                 }
-                 if( widget.selected ) {
-                     $scope.getSelectedDashboard().sWidgetIds.push( widget.id );
+                     if( widget.selected ) {
+                         $scope.getSelectedDashboard().sWidgetIds.push( widget.id );
+                     }
                  }
              }
          };
@@ -432,9 +452,9 @@
                  .on('shown.bs.tab', function (e) {
                      if( !e.target.id ) return false;
                      var dbId = $(e.target)[ 0 ].id.split( "_" )[ 1 ];
-                     $timeout( function() {
+                     $timeout( function( dbId ) {
                          $scope.selectedDashboardId = dbId;
-                     }, 0 );
+                     }, 0, true, dbId );
                  });
              cs.alert( "success", "Designer", dashboard.Layout.title + " has been loaded" );
          };
@@ -493,6 +513,7 @@
              if( !w.selected ) {
                  w.selected = true;
                  $scope.getSelectedDashboard().sWidgetIds.push( w.id );
+                 $scope.setSelectedDataProvider();
              }
          };
          $scope.deSelectWidget = function( w ) {
