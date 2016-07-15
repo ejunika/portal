@@ -52,18 +52,36 @@
          $scope.fDropConfig = {
              drop: function( e, ui ) {
                  var dropRegion = e.target.id, field = ui.draggable.data( "dragData" ), 
-                 cloneField = angular.copy( field );
+                 cloneField = angular.copy( field ), 
+                 dim = {
+                     label: cloneField.label,
+                     id: cloneField.id,
+                     isVisible: true
+                 }, 
+                 mes = {
+                     label: cloneField.label,
+                     id: cloneField.id,
+                     isVisible: true,
+                     color: "#9d0bfa",
+                     opacity: 1
+                 };
                  dataSets = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets;
                  $timeout( function( dataSets ) {
                      if( dropRegion == "DIMS" ) {
                          if( dataSets[ 0 ].dimensions.length == 0 
                                  && !cs.isDuplicateInArray( dataSets[ 0 ].dimensions, cloneField, "id" ) ) {
-                             dataSets[ 0 ].dimensions.push( cloneField );
+//                             $scope.selectField( false, cloneField );
+                             $scope.selectField( false, dim );
+//                             dataSets[ 0 ].dimensions.push( cloneField );
+                             dataSets[ 0 ].dimensions.push( dim );
                          }
                      }
                      else {
                          if( !cs.isDuplicateInArray( dataSets[ 0 ].measures, cloneField, "id" ) ) {
-                             dataSets[ 0 ].measures.push( cloneField );
+//                             $scope.selectField( false, cloneField );
+                             $scope.selectField( false, mes );
+//                             dataSets[ 0 ].measures.push( cloneField );
+                             dataSets[ 0 ].measures.push( mes );
                          }
                          else {
                              console.info( "Duplicate field!!" );
@@ -207,12 +225,24 @@
              } );
          };
 //       TODO DATA PROVIDER
+         $scope.selectField = function( e, field ) {
+             var sField = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].sField;
+             sField.selected = false;
+             field.selected = true;
+             $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].sField = field;
+         };
          $scope.removeDimension = function( e, dim ) {
              var dims = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].dimensions;
+             if( dim.selected ) {
+                 $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].sField = { selected: false };
+             }
              cs.removeFromArray( dims, dim );
          };
          $scope.removeMeasure = function( e, mes ) {
              var mesz = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].measures;
+             if( mes.selected ) {
+                 $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].sField = { selected: false };
+             }
              cs.removeFromArray( mesz, mes );
          };
          $scope.onChangeDataProvider = function( e, sDataProvider ) {
@@ -277,6 +307,12 @@
                                  $timeout( function( dbId ) {
                                      $scope.selectedDashboardId = dbId;
                                  }, 0, true, dbId );
+                             })
+                             .off('show.bs.tab')
+                             .on('show.bs.tab', function (e) {
+                                 if( $( e.target ).parent().hasClass( "disabled" ) ) {
+                                     return false;
+                                 }
                              });
                          $( "#TAB_" + obj.id ).click();
                          cs.alert( "success", "Designer", obj.Layout.title + " Added" );
@@ -457,6 +493,12 @@
                      $timeout( function( dbId ) {
                          $scope.selectedDashboardId = dbId;
                      }, 0, true, dbId );
+                 })
+                 .off('show.bs.tab')
+                 .on('show.bs.tab', function (e) {
+                     if( $( e.target ).parent().hasClass( "disabled" ) ) {
+                         return false;
+                     }
                  });
              cs.alert( "success", "Designer", dashboard.Layout.title + " has been loaded" );
          };
