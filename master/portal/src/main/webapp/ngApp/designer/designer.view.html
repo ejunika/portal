@@ -93,153 +93,8 @@
                     <nj-dashboard ng-init="init()" ng-if="tab.type == 0"></nj-dashboard>
                     <nj-special-page ng-if="tab.type != 0"></nj-special-page>
                 </div>
-                <!-- DATASET BUILDER -->
-                <div class="panel panel-default d-dataset-panel" ng-show="dsBuilderVisible">
-                    <div class="panel-heading">Data Set::{{ getSelectedWidgetsFromSelectedDashboard()[ 0 ].wName }}</div>
-                    <div class="panel-body">
-                        <form class="form-horizontal">
-                            <div class="form-group d-form-group">
-                                <label for="dProvider" class="col-sm-4 control-label">Data Provider</label>
-                                <div class="col-sm-6">
-                                    <select id="dProvider" class="form-control input-md full-width"
-                                        ng-options="dProvider as dProvider.label for dProvider in getSelectedDashboard().DataProvider.Offline.connections track by dProvider.id" 
-                                        ng-model="sDataProvider">
-                                        <option value="">--Data Provider--</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-2">
-                                    <a id="dProviderRefresh" href="javascript: void( 0 )">
-                                        <i class="glyphicon glyphicon-refresh"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </form>
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#fields" data-toggle="tab">Fields</a></li>
-                            <li class="disabled"><a href="#fProps" data-toggle="tab">Properties</a></li>
-                        </ul>
-                        <div id="dataSetContent" class="tab-content">
-                            <div class="tab-pane fade active in" id="fields">
-                                <form class="form-vertical">
-	                                <div class="col-sm-12">
-	                                    <input type="text" 
-	                                        class="form-control d-input-md" 
-	                                        id="fSearch" 
-	                                        ng-model="fSearch" 
-	                                        placeholder="Search available fields" />
-	                                </div>
-	                            </form>
-                                <div class="col-sm-6 f-drag-container">
-                                    <h6 class="f-header">Fields</h6>
-                                    <div class="f-i-scroller f-scroller">
-                                        <ul class="f-item-container" id="FIELDS">
-	                                        <li jq-draggable="fDragConfig"
-	                                            drag-data="field" 
-	                                            ng-repeat="field in sDataProvider.sheets[ 0 ].fields | search :fSearch :'label'">
-	                                            <label class="f-i-label">
-	                                               {{ field.label }}
-	                                            </label>
-	                                        </li>
-	                                    </ul>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 f-drop-container">
-                                    <h6 class="f-header">Dimensions</h6>
-                                    <div class="f-i-scroller dim-scroller">
-                                        <ul class="f-item-container" 
-	                                        id="DIMS"
-	                                        jq-droppable="fDropConfig">
-	                                        <li ng-repeat="dim in getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].dimensions track by $index">
-	                                            <label class="f-i-label">
-	                                               {{ dim.label }}
-	                                            </label>
-	                                            <div class="f-highlighter" ng-show="dim.selected"></div>
-	                                            <a class="pull-right" ng-click="removeDimension( $event, dim )">
-	                                                <i class="glyphicon glyphicon-remove"></i>
-	                                            </a>
-	                                        </li>
-	                                    </ul>
-                                    </div>
-                                    <h6 class="f-header">Measures</h6>
-                                    <div class="f-i-scroller mes-scroller">
-                                        <ul class="f-item-container" 
-	                                        id="MES"
-	                                        jq-droppable="fDropConfig">
-	                                        <li ng-repeat="mes in getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].measures track by $index">
-	                                            <label class="f-i-label">
-	                                               {{ mes.label }}
-	                                            </label>
-	                                            <div class="f-highlighter" ng-show="mes.selected"></div>
-	                                            <a class="pull-right" ng-click="removeMeasure( $event, mes )">
-	                                                <i class="glyphicon glyphicon-remove"></i>
-	                                            </a>
-	                                        </li>
-	                                    </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="fProps">
-                                <form class="form-horizontal">
-                                    <div class="form-group d-form-group">
-                                        <label for="fName" class="col-sm-4 control-label">Field Name</label>
-                                        <div class="col-sm-6">
-                                            <input type="text" class="form-control d-input-md" id="fName" placeholder="Name">
-                                        </div>
-                                    </div>
-                                    <div class="form-group d-form-group">
-                                        <label for="dName" class="col-sm-4 control-label">Display Name</label>
-                                        <div class="col-sm-6">
-                                            <input type="text" class="form-control d-input-md" id="dName" placeholder="Display Name">
-                                        </div>
-                                    </div>
-                                    <div class="form-group d-form-group">
-                                        <label for="fVisible" class="col-sm-4 control-label">Visible</label>
-                                        <div class="checkbox col-sm-6">
-                                              <label>
-                                                    <input type="checkbox" id="fVisible">
-                                              </label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group d-form-group">
-                                        <label for="fColor" class="col-sm-4 control-label">Color</label>
-                                        <div class="col-sm-6">
-                                            <input type="color" class="form-control d-input-md" id="fColor">
-                                        </div>
-                                    </div>
-                                    <div class="form-group d-form-group">
-                                        <label for="fOpacity" class="col-sm-4 control-label">Opacity</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" class="form-control d-input-md" id="fOpacity">
-                                        </div>
-                                    </div>
-                                    <div class="form-group d-form-group">
-                                        <label for="pShape" class="col-sm-4 control-label">Point Shape</label>
-                                        <div class="col-sm-6">
-                                            <input type="text" class="form-control d-input-md" id="pShape">
-                                        </div>
-                                    </div>
-                                    <div class="form-group d-form-group">
-                                        <label for="pRadius" class="col-sm-4 control-label">Point Radius</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" class="form-control d-input-md" id="pRadius">
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel-footer">
-                        <div class="btn-group pull-right">
-                            <a href="javascript: void( 0 )" 
-                              class="btn btn-default btn-sm" 
-                              ng-click="closeDatasetBuilder()">
-                              Done
-                            </a>
-                        </div>
-                        <div class="pull-clear"></div>
-                    </div>
-                </div>
             </div>
+            <!-- DATASET BUILDER -->
             <div class="full-height d-right-pane d-right-pane-hide">
                  <div class="d-right-pane-body">
                     <div class="row">
@@ -352,4 +207,150 @@
             </li>
         </ul>
     </div>
+    <div jq-draggable class="panel panel-default d-dataset-panel" ng-show="dsBuilderVisible">
+                    <div class="panel-heading">Data Set::{{ getSelectedWidgetsFromSelectedDashboard()[ 0 ].wName }}</div>
+                    <div class="panel-body">
+                        <form class="form-horizontal">
+                            <div class="form-group d-form-group">
+                                <label for="dProvider" class="col-sm-4 control-label">Data Provider</label>
+                                <div class="col-sm-6">
+                                    <select id="dProvider" class="form-control input-md full-width" 
+                                        ng-change="onChangeDataProvider( $event, sDataProvider )" 
+                                        ng-options="dProvider as dProvider.label for dProvider in getSelectedDashboard().DataProvider.Offline.connections track by dProvider.id" 
+                                        ng-model="sDataProvider">
+                                        <option value="">--Data Provider--</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <a id="dProviderRefresh" href="javascript: void( 0 )">
+                                        <i class="glyphicon glyphicon-refresh"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#fields" data-toggle="tab">Fields</a></li>
+                            <li class="disabled"><a href="#fProps" data-toggle="tab">Properties</a></li>
+                        </ul>
+                        <div id="dataSetContent" class="tab-content">
+                            <div class="tab-pane fade active in" id="fields">
+                                <form class="form-vertical">
+                                    <div class="col-sm-12">
+                                        <input type="text" 
+                                            class="form-control d-input-md" 
+                                            id="fSearch" 
+                                            ng-model="fSearch" 
+                                            placeholder="Search available fields" />
+                                    </div>
+                                </form>
+                                <div class="col-sm-6 f-drag-container">
+                                    <h6 class="f-header">Fields</h6>
+                                    <div class="f-i-scroller f-scroller">
+                                        <ul class="f-item-container" id="FIELDS">
+                                            <li jq-draggable="fDragConfig"
+                                                drag-data="field" 
+                                                ng-repeat="field in sDataProvider.sheets[ 0 ].fields | search :fSearch :'label'">
+                                                <label class="f-i-label">
+                                                   {{ field.label }}
+                                                </label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 f-drop-container">
+                                    <h6 class="f-header">Dimensions</h6>
+                                    <div class="f-scroller dim-scroller">
+                                        <ul class="f-item-container" 
+                                            id="DIMS"
+                                            jq-droppable="fDropConfig">
+                                            <li ng-repeat="dim in getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].dimensions track by dim.id">
+                                                <label class="f-i-label">
+                                                   {{ dim.label }}
+                                                </label>
+                                                <div class="f-highlighter" ng-show="dim.selected"></div>
+                                                <a class="pull-right" ng-click="removeDimension( $event, dim )">
+                                                    <i class="glyphicon glyphicon-remove"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <h6 class="f-header">Measures</h6>
+                                    <div class="f-scroller mes-scroller">
+                                        <ul class="f-item-container" 
+                                            id="MES"
+                                            jq-droppable="fDropConfig">
+                                            <li ng-repeat="mes in getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].measures track by mes.id">
+                                                <label class="f-i-label">
+                                                   {{ mes.label }}
+                                                </label>
+                                                <div class="f-highlighter" ng-show="mes.selected"></div>
+                                                <a class="pull-right" ng-click="removeMeasure( $event, mes )">
+                                                    <i class="glyphicon glyphicon-remove"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="fProps">
+                                <form class="form-horizontal">
+                                    <div class="form-group d-form-group">
+                                        <label for="fName" class="col-sm-4 control-label">Field Name</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control d-input-md" id="fName" placeholder="Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group d-form-group">
+                                        <label for="dName" class="col-sm-4 control-label">Display Name</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control d-input-md" id="dName" placeholder="Display Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group d-form-group">
+                                        <label for="fVisible" class="col-sm-4 control-label">Visible</label>
+                                        <div class="checkbox col-sm-6">
+                                              <label>
+                                                    <input type="checkbox" id="fVisible">
+                                              </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group d-form-group">
+                                        <label for="fColor" class="col-sm-4 control-label">Color</label>
+                                        <div class="col-sm-6">
+                                            <input type="color" class="form-control d-input-md" id="fColor">
+                                        </div>
+                                    </div>
+                                    <div class="form-group d-form-group">
+                                        <label for="fOpacity" class="col-sm-4 control-label">Opacity</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" class="form-control d-input-md" id="fOpacity">
+                                        </div>
+                                    </div>
+                                    <div class="form-group d-form-group">
+                                        <label for="pShape" class="col-sm-4 control-label">Point Shape</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control d-input-md" id="pShape">
+                                        </div>
+                                    </div>
+                                    <div class="form-group d-form-group">
+                                        <label for="pRadius" class="col-sm-4 control-label">Point Radius</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" class="form-control d-input-md" id="pRadius">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="btn-group pull-right">
+                            <a href="javascript: void( 0 )" 
+                              class="btn btn-default btn-sm" 
+                              ng-click="closeDatasetBuilder()">
+                              Done
+                            </a>
+                        </div>
+                        <div class="pull-clear"></div>
+                    </div>
+                </div>
 </div>

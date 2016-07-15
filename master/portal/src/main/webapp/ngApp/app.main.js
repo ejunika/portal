@@ -8,6 +8,8 @@
             uijquery: "utility/ui.jquery",
             njutil: "utility/nj.util",
             canvasjs : "../src/canvasjs/source/canvasjs",
+            codemirror: "../node_modules/codemirror/lib/codemirror",
+            uicodemirror: "",
             angular : "../node_modules/angular/angular",
             alstorage: "../node_modules/angular-local-storage/dist/angular-local-storage",
             angularroute: "../node_modules/angular-route/angular-route",

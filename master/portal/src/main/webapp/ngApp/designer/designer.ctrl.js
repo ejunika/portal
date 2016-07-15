@@ -29,6 +29,7 @@
              $scope.tabMap = {};
              $scope.wExpGrLastClicked = {};
              $scope.dsBuilderVisible = false;
+//             $scope.dragging = false;
              $scope.wExpItemDragCfg = {
                  helper: "clone",
                  appendTo: "body"
@@ -56,12 +57,12 @@
                  $timeout( function( dataSets ) {
                      if( dropRegion == "DIMS" ) {
                          if( dataSets[ 0 ].dimensions.length == 0 
-                                 && !cs.isDuplicateInArray( dataSets[ 0 ].dimensions, cloneField, 'id' ) ) {
+                                 && !cs.isDuplicateInArray( dataSets[ 0 ].dimensions, cloneField, "id" ) ) {
                              dataSets[ 0 ].dimensions.push( cloneField );
                          }
                      }
                      else {
-                         if( !cs.isDuplicateInArray( dataSets[ 0 ].measures, cloneField, 'id' ) ) {
+                         if( !cs.isDuplicateInArray( dataSets[ 0 ].measures, cloneField, "id" ) ) {
                              dataSets[ 0 ].measures.push( cloneField );
                          }
                          else {
@@ -205,6 +206,24 @@
                  }
              } );
          };
+//       TODO DATA PROVIDER
+         $scope.onChangeDataProvider = function( e, sDataProvider ) {
+             var dataSet = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ];
+             dataSet.DataProvider.Connection.id = sDataProvider.id;
+             dataSet.DataProvider.Sheet.id = sDataProvider.id;
+         };
+         $scope.setSelectedDataProvider = function() {
+             var widget = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ], 
+             dataSet = widget.dataSets[ 0 ],
+             cId = dataSet.DataProvider.Connection.id,
+             offLineConns = $scope.getSelectedDashboard().DataProvider.Offline.connections;
+             for( var i = 0; i < offLineConns.length; i++ ) {
+                 if( offLineConns[ i ].id = dataSet.DataProvider.Connection.id ) {
+                     $scope.sDataProvider = offLineConns[ i ];
+                 }
+             }
+             
+         };
          
 //       TODO WIDGET EXPLORER
          $scope.listWidget = function( e, g ) {
@@ -225,6 +244,7 @@
              cs.alert( "error", "Designer", "Service Error!!" );
          };
          $scope.previewDashboard = function( e ) {
+             $scope.preview = true;
              cs.alert( "info", "Designer", "Preview enabled!!" );
          };
          $scope.toggleRightPane = function( e ) {
@@ -249,6 +269,7 @@
                          $('a[data-toggle="tab"]')
                              .off('shown.bs.tab')
                              .on('shown.bs.tab', function (e) {
+                                 if( !e.target.id ) return false;
                                  var dbId = $(e.target)[ 0 ].id.split( "_" )[ 1 ];
                                  $timeout( function() {
                                      $scope.selectedDashboardId = dbId;
@@ -304,7 +325,7 @@
                  tab = {
                      type: 0,
                      id: cs.getUniqueId(),
-                     title: "Untitled_" + $scope.openTabs.length
+                     title: "Untitled_" + ( $scope.openTabs.length + 1 )
                  };
                  $scope.openTabs.push( tab );
                  $scope.addDashboard( tab );
@@ -369,9 +390,9 @@
                      $timeout( function() {
                          cs.alert( "success", "Designer", widget.wName + " Added" );
                      }, 0, true, widget );
-                 }
-                 if( widget.selected ) {
-                     $scope.getSelectedDashboard().sWidgetIds.push( widget.id );
+                     if( widget.selected ) {
+                         $scope.getSelectedDashboard().sWidgetIds.push( widget.id );
+                     }
                  }
              }
          };
@@ -424,16 +445,17 @@
                  for( var i = 0; i < widgets.length; i++ ) {
                      $scope.addWidget( widgets[ i ] );
                  }
+                 $( "#TAB_" + dashboard.id ).click();
              }, 0, true, dashboard );
              $('a[data-toggle="tab"]')
                  .off('shown.bs.tab')
                  .on('shown.bs.tab', function (e) {
+                     if( !e.target.id ) return false;
                      var dbId = $(e.target)[ 0 ].id.split( "_" )[ 1 ];
-                     $timeout( function() {
+                     $timeout( function( dbId ) {
                          $scope.selectedDashboardId = dbId;
-                     }, 0 );
+                     }, 0, true, dbId );
                  });
-             $( "#TAB_" + dashboard.id ).click();
              cs.alert( "success", "Designer", dashboard.Layout.title + " has been loaded" );
          };
          $scope.openFromLocal = function( e ) {
@@ -491,6 +513,7 @@
              if( !w.selected ) {
                  w.selected = true;
                  $scope.getSelectedDashboard().sWidgetIds.push( w.id );
+                 $scope.setSelectedDataProvider();
              }
          };
          $scope.deSelectWidget = function( w ) {
