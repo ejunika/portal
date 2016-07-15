@@ -82,7 +82,7 @@
          $scope.getWidgetsOfSelectedDashboard = function() {
              var dashboard = $scope.getSelectedDashboard(), widgets = [];
              if( typeof dashboard == "object" ) {
-                 widgets = $scope.getSelectedDashboard().Layout.widgets;
+                 widgets = dashboard.Layout.widgets;
              }
              return widgets;
          };
@@ -99,8 +99,8 @@
              return $scope.dashboardMap.hasOwnProperty( dbId );
          };
          $scope.isRefWidget = function( widget ) {
-             return $scope.getSelectedDashboard().sWidgetIds.length > 1 && 
-             $scope.getSelectedDashboard().sWidgetIds[ 0 ] == widget.id;  
+             return $scope.getSelectedDashboard().sWidgetIds.length > 1 &&
+             $scope.getSelectedDashboard().sWidgetIds[ 0 ] == widget.id;
          };
          $scope.openDatasetBuilder = function() {
              $scope.dsBuilderVisible = true;
@@ -207,6 +207,14 @@
              } );
          };
 //       TODO DATA PROVIDER
+         $scope.removeDimension = function( e, dim ) {
+             var dims = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].dimensions;
+             cs.removeFromArray( dims, dim );
+         };
+         $scope.removeMeasure = function( e, mes ) {
+             var mesz = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].measures;
+             cs.removeFromArray( mesz, mes );
+         };
          $scope.onChangeDataProvider = function( e, sDataProvider ) {
              var dataSet = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ];
              dataSet.DataProvider.Connection.id = sDataProvider.id;
@@ -217,12 +225,7 @@
              dataSet = widget.dataSets[ 0 ],
              cId = dataSet.DataProvider.Connection.id,
              offLineConns = $scope.getSelectedDashboard().DataProvider.Offline.connections;
-             for( var i = 0; i < offLineConns.length; i++ ) {
-                 if( offLineConns[ i ].id = dataSet.DataProvider.Connection.id ) {
-                     $scope.sDataProvider = offLineConns[ i ];
-                 }
-             }
-             
+             $scope.sDataProvider = cs.filterItemInList( offLineConns, "id", cId )[ 0 ];
          };
          
 //       TODO WIDGET EXPLORER
@@ -271,9 +274,9 @@
                              .on('shown.bs.tab', function (e) {
                                  if( !e.target.id ) return false;
                                  var dbId = $(e.target)[ 0 ].id.split( "_" )[ 1 ];
-                                 $timeout( function() {
+                                 $timeout( function( dbId ) {
                                      $scope.selectedDashboardId = dbId;
-                                 }, 0 )
+                                 }, 0, true, dbId );
                              });
                          $( "#TAB_" + obj.id ).click();
                          cs.alert( "success", "Designer", obj.Layout.title + " Added" );
@@ -391,7 +394,7 @@
                          cs.alert( "success", "Designer", widget.wName + " Added" );
                      }, 0, true, widget );
                      if( widget.selected ) {
-                         $scope.getSelectedDashboard().sWidgetIds.push( widget.id );
+                         $scope.selectWidget( widget );
                      }
                  }
              }
@@ -420,7 +423,6 @@
                  $scope.removeWidget( widgets[ i ] );
                  $scope.removeFromSWidgets( widgets[ i ].id );
              }
-//             cs.alert( "success", "Designer", "Removed" );
          };
          $scope.openDashboard = function( dashboard ) {
              if( $scope.isDashboardOpen( dashboard.id ) ) {
@@ -468,7 +470,7 @@
                  fileReader.onload = onFileReadSuccess;
                  fileReader.readAsText( f );
                  function onFileReadSuccess( result ) {
-                     var dashboard = angular.fromJson(result.currentTarget.result);
+                     var dashboard = angular.fromJson( result.currentTarget.result );
                      $scope.openDashboard( dashboard );
                  }
              }
@@ -510,7 +512,7 @@
              return $scope.getSelectedDashboard().sWidgetIds.indexOf( w.id ) != -1;
          };
          $scope.selectWidget = function( w ) {
-             if( !w.selected ) {
+             if( w ) {
                  w.selected = true;
                  $scope.getSelectedDashboard().sWidgetIds.push( w.id );
                  $scope.setSelectedDataProvider();
@@ -561,7 +563,7 @@
          $scope.alignLeft = function() {
              var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
              dashboard = $scope.getSelectedDashboard(),
-             widget, refWidgetLeft;
+             widget, refWidgetLeft = 0;
              for( var i = 0; i < sWidgetIds.length; i++ ) {
                  widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
                  if( i == 0 ) {
@@ -575,7 +577,7 @@
          $scope.alignRight = function() {
              var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
              dashboard = $scope.getSelectedDashboard(),
-             widget, refWidgetRightEdge;
+             widget, refWidgetRightEdge = 0;
              for( var i = 0; i < sWidgetIds.length; i++ ) {
                  widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
                  if( i == 0 ) {
@@ -589,7 +591,7 @@
          $scope.alignTop = function() {
              var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
              dashboard = $scope.getSelectedDashboard(),
-             widget, refWidgetTop;
+             widget, refWidgetTop = 0;
              for( var i = 0; i < sWidgetIds.length; i++ ) {
                  widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
                  if( i == 0 ) {
@@ -603,7 +605,7 @@
          $scope.alignBottom = function() {
              var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
              dashboard = $scope.getSelectedDashboard(),
-             widget, refWidgetBottomEdge;
+             widget, refWidgetBottomEdge = 0;
              for( var i = 0; i < sWidgetIds.length; i++ ) {
                  widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
                  if( i == 0 ) {
@@ -617,7 +619,7 @@
          $scope.alignCenterV = function() {
              var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
              dashboard = $scope.getSelectedDashboard(),
-             widget, rVerticalCenter;
+             widget, rVerticalCenter = 0;
              for( var i = 0; i < sWidgetIds.length; i++ ) {
                  widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];    
                  if( i == 0 ) {
@@ -631,7 +633,7 @@
          $scope.alignCenterH = function() {
              var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
              dashboard = $scope.getSelectedDashboard(),
-             widget, rHorizontalCenter;
+             widget, rHorizontalCenter = 0;
              for( var i = 0; i < sWidgetIds.length; i++ ) {
                  widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];
                  if( i == 0 ) {
@@ -659,7 +661,7 @@
          };
          $scope.equalDisanceV = function() {
              var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
-             dashboard, rWidget, tWidget, vDiff ;
+             dashboard, rWidget, tWidget, vDiff = 0;
              if( sWidgetIds.length > 2 ) {
                  dashboard = $scope.getSelectedDashboard();
                  rWidget = dashboard.Info.WidgetMap[ sWidgetIds[ 0 ] ];
@@ -675,7 +677,7 @@
          $scope.equalHeight = function() {
              var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
              dashboard = $scope.getSelectedDashboard(),
-             widget, refWidgetHeight, canvasObj;
+             widget, refWidgetHeight = 0, canvasObj;
              for( var i = 0; i < sWidgetIds.length; i++ ) {
                  widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];
                  if( i == 0 ) {
@@ -693,7 +695,7 @@
          $scope.equalWidth = function() {
              var sWidgetIds = $scope.getSelectedDashboard().sWidgetIds,
              dashboard = $scope.getSelectedDashboard(),
-             widget, refWidgetWidth, canvasObj;
+             widget, refWidgetWidth = 0, canvasObj;
              for( var i = 0; i < sWidgetIds.length; i++ ) {
                  widget = dashboard.Info.WidgetMap[ sWidgetIds[ i ] ];
                  if( i == 0 ) {

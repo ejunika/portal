@@ -19,6 +19,7 @@
         return {
             restrict: "E",
             replace: true,
+            scope: true,
             templateUrl: ac.directives.header.tUrl,
             controller: ac.controllers.header,
             compile: compileFn

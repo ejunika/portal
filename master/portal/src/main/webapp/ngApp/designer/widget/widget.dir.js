@@ -19,9 +19,9 @@
         return {
             restrict: "E",
             replace: true,
+            scope: true,
             templateUrl: ac.directives.widget.tUrl,
             controller: ac.controllers.widget,
-            controllerAs: "hvm",
             compile: compileFn
         };
     }

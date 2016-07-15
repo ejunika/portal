@@ -104,7 +104,7 @@
                 }
                 connection.sheets[ 0 ].records.push( record );
             }
-//                                                     TODO  duplicate condition check should implement
+//          TODO  duplicate condition check should implement
             $timeout( function( connection ) {
                 $scope.getSelectedDashboard().DataProvider.Offline.connections.push( connection );
                 cs.alert( "success", "Designer", connection.label + " created" );

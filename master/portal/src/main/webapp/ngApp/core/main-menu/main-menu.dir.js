@@ -19,9 +19,9 @@
         return {
             restrict: "E",
             replace: true,
+            scope: true,
             templateUrl: ac.directives.mainMenu.tUrl,
             controller: ac.controllers.mainMenu,
-            controllerAs: "mmvm",
             compile: compileFn
         };
     }

@@ -19,9 +19,9 @@
         return {
             restrict: "E",
             replace: true,
+            scope: true,
             templateUrl: ac.directives.breadcrumb.tUrl,
             controller: ac.controllers.breadcrumb,
-            controllerAs: "bcvm",
             compile: compileFn
         };
     }
