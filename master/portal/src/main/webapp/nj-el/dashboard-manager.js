@@ -34,8 +34,8 @@
             chart = new CanvasJS.Chart( widget.id );
             chart.options = widget.Options;
             chart.options.interactivityEnabled = true;
-            chart.options.data[ 0 ].dataPoints = getRealDataPoints( widget, dataProvider );
             chart.options.toolTip = { enabled: true };
+            chart.options.data = prepareNgetData( widget, dataProvider );
             chart.render();
         }
     }
@@ -60,21 +60,30 @@
         };
         return $.grep( list, filterFn );
     }
-    function getRealDataPoints( widget, dataProvider ) {
-        var dataPoints = [], dataPoint, 
+    function prepareNgetData( widget, dataProvider ) {
+        var data = [], series, dataPoints, dataPoint,
         dims = widget.dataSets[ 0 ].dimensions,
         sConnId = widget.dataSets[ 0 ].DataProvider.Connection.id,
         sDataProvider = filterItemInList( dataProvider.Offline.connections, "id", sConnId )[ 0 ],
         records = sDataProvider.sheets[ 0 ].records,
         mesz = widget.dataSets[ 0 ].measures;
-        for( var i = 0; i < records.length; i++ ) {
-            dataPoint = {
-                label: records[ i ][ dims[ 0 ].id ],
-                y: records[ i ][ mesz[ 0 ].id ] * 1
+        for( var mIndex = 0; mIndex < mesz.length; mIndex++ ) {
+            series = {
+                type: widget.cjsObjName,
+                name: mesz[ mIndex ].label,
+                dataPoints: []
             };
-            dataPoints.push( dataPoint );
+            for( var rIndex = 0; rIndex < records.length; rIndex++ ) {
+                dataPoint = {
+                    label: records[ rIndex ][ dims[ 0 ].id ],
+                    y: records[ rIndex ][ mesz[ mIndex ].id ] * 1,
+                    color: mesz[ mIndex ].color
+                };
+                series.dataPoints.push( dataPoint );
+            }
+            data.push( series );
         }
-        return dataPoints;
+        return data;
     };
     DashboardManager.prototype.render = function() {
         var dashboard = this.dashboard;
