@@ -12,7 +12,7 @@
             "id": "",
             "label": "",
             "selected": false,
-            "sField": {},
+            "sField": { "selected": false },
             "DataProvider": {
                 "Connection": {
                     "id": ""

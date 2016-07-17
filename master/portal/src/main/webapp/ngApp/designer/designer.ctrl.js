@@ -34,6 +34,24 @@
                  helper: "clone",
                  appendTo: "body"
              };
+             $scope.dashboardResizeConfig = {
+                 create: function( e, ui ) {
+                     
+                 },
+                 resize: function( e, ui ) {
+                     
+                 },
+                 start: function( e, ui ) {
+                     
+                 },
+                 stop: function( e, ui ) {
+                     var dashboard = $scope.getSelectedDashboard();
+                     $timeout( function( dashboard ) {
+                         dashboard.Layout.height = ui.size.height;
+                         dashboard.Layout.width = ui.size.width;
+                     }, 0, true, dashboard );
+                 }
+             };
              $scope.registerHotkeys();
              rs.getJson( wedPath, scb );
              function scb( jsonData ) {
@@ -62,7 +80,7 @@
                      label: cloneField.label,
                      id: cloneField.id,
                      isVisible: true,
-                     color: "#9d0bfa",
+                     color: cs.getRandomColor(),
                      opacity: 1
                  };
                  dataSets = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets;
@@ -224,6 +242,9 @@
                  }
              } );
          };
+         $scope.doPreview = function( e ) {
+             $scope.preview = true;
+         };
 //       TODO DATA PROVIDER
          $scope.selectField = function( e, field ) {
              var sField = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].sField;
@@ -279,6 +300,16 @@
          $scope.previewDashboard = function( e ) {
              $scope.preview = true;
              cs.alert( "info", "Designer", "Preview enabled!!" );
+             var dashboard = $scope.getSelectedDashboard(), 
+             dJson = angular.copy( dashboard );
+             $( ".d-preview-wrapper" ).find( "iframe" ).remove();
+             $( ".d-preview-wrapper" ).append( $( "<iframe src='preview.html'></iframe>" ) );
+             $timeout( function( dJson ) {
+                 window.frames[0].frameElement.contentWindow.doPreview( dJson );
+             }, 1000, false, dJson );
+         };
+         $scope.closePreview = function( e ) {
+             $scope.preview = false;
          };
          $scope.toggleRightPane = function( e ) {
              var 
@@ -350,8 +381,6 @@
              rs.getJson( filePath, scb );
              function scb( dashboard ) {
                  dashboard.id = tab.id;
-                 dashboard.Layout.height = 2200;
-                 dashboard.Layout.width = 2200;
                  dashboard.Layout.title = tab.title;
                  dashboard.Layout.gredientColor = "#0000";
                  dashboard.Layout.gredientRotation = "90";

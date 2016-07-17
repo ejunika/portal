@@ -78,12 +78,14 @@
                             left: getAdjustableLeft( e ),
                             top: getAdjustableTop( e )
                         };
+                    } );
+                    setTimeout( function() {
                         $( ".dropdown-menu" ).parent()
                         .removeClass( "open" );
                         $( ".cxt-menu" ).parent()
                         .addClass( "dropdown open" )
                         .css( "position", "initial");
-                    } );
+                    }, 300 );
                     function getAdjustableLeft( e ) {
                         if( e.clientX + $( ".cxt-menu" ).width() > $( "body" ).width() ) {
                             return $( "body" ).width() - $( ".cxt-menu" ).width() - 10;

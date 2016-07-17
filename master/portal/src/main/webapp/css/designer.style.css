@@ -354,7 +354,7 @@ a:hover, a:focus {
     border: 1px solid #DDDDDD;
     border-radius: 2px;
     margin: 1px;
-    padding-left: 5px;
+    padding: 1px 1px 1px 4px;
     position: relative;
 }
 .f-item-container li a {
@@ -366,11 +366,12 @@ a:hover, a:focus {
 }
 .f-highlighter {
     width: 3px;
-    height: 100%;
-    background: red;
+    height: calc( 100% - 2px );
+    background: #727272;;
     position: absolute;
-    top: 0;
+    top: 1px;
     left: 0;
+    bottom: 1px;
 }
 #FIELDS {
     
@@ -379,7 +380,7 @@ a:hover, a:focus {
     
 }
 #MES {
-    
+    color: white;
 }
 .f-i-label {
     margin: 0;
@@ -388,6 +389,8 @@ a:hover, a:focus {
     white-space: nowrap;
     overflow: hidden;
     vertical-align: middle;
+    padding-left: 10px;
+    margin-top: -2px;
 }
 .f-i-scroller {
     height: 238px;

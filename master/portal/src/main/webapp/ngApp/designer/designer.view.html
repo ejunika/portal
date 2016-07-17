@@ -267,7 +267,9 @@
                             <ul class="f-item-container" 
                                 id="DIMS"
                                 jq-droppable="fDropConfig">
-                                <li ng-click="selectField( $event, dim )" ng-repeat="dim in getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].dimensions track by $index">
+                                <li ng-click="selectField( $event, dim )" 
+                                    ng-style="{ 'background': dim.color }"
+                                    ng-repeat="dim in getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].dimensions track by $index">
                                     <label class="f-i-label">
                                        {{ dim.label }}
                                     </label>
@@ -283,8 +285,9 @@
                             <ul class="f-item-container" 
                                 id="MES"
                                 jq-droppable="fDropConfig">
-                                <li ng-click="selectField( $event, mes )" ng-repeat="mes in getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].measures track by $index">
-                                    <label class="f-i-label">
+                                <li ng-click="selectField( $event, mes )" 
+                                    ng-repeat="mes in getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].measures track by $index">
+                                    <label ng-style="{ 'background': mes.color }" class="f-i-label">
                                        {{ mes.label }}
                                     </label>
                                     <div class="f-highlighter" ng-show="mes.selected"></div>
@@ -365,4 +368,17 @@
             <div class="pull-clear"></div>
         </div>
     </div>
+    <div class="d-preview-wrapper" ng-show="preview">
+            <a href="javascript: void( 0 )" ng-click="closePreview( $event )" style="
+                    position: absolute;
+                    right: 8px;
+                    top: 8px;
+                    background: #DDD;
+                    padding: 7px 11px;
+                    border-radius: 50%;
+                    width: 35px;
+                    height: 35px;">
+                <i class="glyphicon glyphicon-remove"></i>
+            </a>
+        </div>
 </div>

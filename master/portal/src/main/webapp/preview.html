@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>Preview</title>
+        <style type="text/css">
+            html, body {
+                 height: 100%;
+                 width: 100%;
+                 margin: 0;
+                 overflow: auto;
+            }
+            .d-preview {
+                 background: white;
+                 height: calc( 100% - 20px );
+                 width: calc( 100% - 20px );
+                 margin: 0;
+                 padding: 10px;
+            }
+            .db-frame {
+                border: 1px solid #DDD;
+                border-radius: 2px;
+                margin: 0 auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="d-preview"></div>
+        <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="src/canvasjs/source/canvasjs.js"></script>
+        <script type="text/javascript" src="nj-el/dashboard-manager.js"></script>
+        <script type="text/javascript">
+        function doPreview( dashboard ) {
+            var dbManager = new DashboardManager( dashboard );
+            dbManager.render();
+        }
+        </script>
+    </body>
+</html>

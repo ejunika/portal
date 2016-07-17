@@ -170,14 +170,22 @@
                     }
                 }
         };
+        $scope.getDashboardSize = function() {
+            var dashboard = $scope.getSelectedDashboard(), size;
+            if( dashboard ) {
+                size = {
+                    height: dashboard.Layout.height,
+                    width: dashboard.Layout.width
+                };
+            }
+            return size;
+        };
         $scope.getDashboardStyle = function( dashboard ) {
             return {
                 // 'background': 'linear-gradient('+ d.Layout.gredientRotation +'deg,'+d.Layout.gredientColor +')',
                 background: "#ecf0f1",
-                // 'height': d.Layout.height+'px',
-                // 'width': d.Layout.width+'px',
-                height: 'calc( 100% - 5px )',
-                width: 'calc( 100% - 5px )',
+                height: '100%',
+                width: '100%',
                 border: '2px solid #E0E0E0'
             };
         };

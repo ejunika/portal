@@ -24,13 +24,21 @@
              $scope.fullMainMenu = false;
              $scope.mouseOverCnt = 0;
              cs.cxtMenuPosition = {};
-             $scope.preview = false;
              $scope.selectHelper = {
                  position: "absolute",
                  zIndex: "1000",
                  border: "1px solid #2196f3",
                  background: "rgba(33, 150, 243, 0.1)"
              };
+         };
+         $scope.alertOptions = {
+             "time-out": { 
+                 "toast-warning": 3000, 
+                 "toast-error": 2000,
+                 "toast-info": 3000,
+                 "toast-success": 2000
+             },
+             "position-class": "toast-bottom-left"
          };
          $scope.toggleMainMenu = function( e, full ) {
              if( full ) {

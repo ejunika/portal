@@ -28,6 +28,9 @@
         cs.getPouchDbInstance = function( dbName ) {
             return new pDb( dbName );
         };
+        cs.getRandomColor = function() {
+            return "#" + ( ( 1 << 24 ) * Math.random() | 0 ).toString( 16 );
+        };
         cs.removeFromArray = function( arr, item ) {
             var itemIndex;
             if( Array.isArray( arr ) ) {
