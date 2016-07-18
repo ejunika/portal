@@ -80,7 +80,7 @@
                      label: cloneField.label,
                      id: cloneField.id,
                      isVisible: true,
-                     color: cs.getRandomColor(),
+                     color: cs.getRandomHexColor(),
                      opacity: 1
                  };
                  dataSets = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets;
@@ -239,6 +239,38 @@
                  callback: function( e, hKeys ) {
                      e.preventDefault();
                      $scope.moveDown();
+                 }
+             } );
+             cs.addHotkeys( {
+                 combo: "ctrl+b",
+                 description: "Send to back",
+                 callback: function( e, hKeys ) {
+                     e.preventDefault();
+                     $scope.sendToBack();
+                 }
+             } );
+             cs.addHotkeys( {
+                 combo: "ctrl+shift+b",
+                 description: "Send backward",
+                 callback: function( e, hKeys ) {
+                     e.preventDefault();
+                     $scope.sendBackward();
+                 }
+             } );
+             cs.addHotkeys( {
+                 combo: "ctrl+f",
+                 description: "Send to front",
+                 callback: function( e, hKeys ) {
+                     e.preventDefault();
+                     $scope.bringToFront();
+                 }
+             } );
+             cs.addHotkeys( {
+                 combo: "ctrl+shift+f",
+                 description: "Send forward",
+                 callback: function( e, hKeys ) {
+                     e.preventDefault();
+                     $scope.bringForward();
                  }
              } );
          };
@@ -825,10 +857,36 @@
          };
 //         LAYER
          $scope.sendToBack = function() {
-             
+             var widgets = $scope.getWidgetsOfSelectedDashboard(), 
+             sWidget = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ],
+             swIndex = widgets.indexOf( sWidget );
+             if( swIndex != -1 && swIndex != 0 ) {
+                 cs.moveItemInArray( widgets, swIndex, --swIndex );
+             }
          };
-         $scope.sendBackward = function() {};
-         $scope.bringToFront = function() {};
-         $scope.bringForward = function() {};
+         $scope.sendBackward = function() {
+             var widgets = $scope.getWidgetsOfSelectedDashboard(), 
+             sWidget = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ],
+             swIndex = widgets.indexOf( sWidget );
+             if( swIndex != -1 ) {
+                 cs.moveItemInArray( widgets, swIndex, 0 );
+             }
+         };
+         $scope.bringToFront = function() {
+             var widgets = $scope.getWidgetsOfSelectedDashboard(), 
+             sWidget = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ],
+             swIndex = widgets.indexOf( sWidget );
+             if( swIndex != -1 && swIndex != widgets.length - 1 ) {
+                 cs.moveItemInArray( widgets, swIndex, ++swIndex );
+             }
+         };
+         $scope.bringForward = function() {
+             var widgets = $scope.getWidgetsOfSelectedDashboard(), 
+             sWidget = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ],
+             swIndex = widgets.indexOf( sWidget );
+             if( swIndex != -1 ) {
+                 cs.moveItemInArray( widgets, swIndex, widgets.length - 1 );
+             }
+         };
      }
 } );
