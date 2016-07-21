@@ -34,7 +34,9 @@
             chart = new CanvasJS.Chart( widget.id );
             chart.options = widget.Options;
             chart.options.interactivityEnabled = true;
-            chart.options.toolTip = { enabled: true };
+            chart.options.toolTip = { 
+                content: "<b>{label}</b><br/>{name}: {y}" 
+            };
             chart.options.data = prepareNgetData( widget, dataProvider );
             chart.render();
         }

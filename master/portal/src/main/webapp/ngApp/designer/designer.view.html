@@ -96,7 +96,82 @@
             </div>
             <!-- DATASET BUILDER -->
             <div class="full-height d-right-pane d-right-pane-hide">
-                 <div class="d-right-pane-body">
+                <div id="propertyPalette" 
+                    class="d-right-pane-body" 
+                    ng-show="showProps">
+                     <div class="row">
+                        <div class="col-md-10 d-w-search-container">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <div class="col-md-offset-1">
+                                        <input type="text" 
+                                            ng-model="searchTxt"
+                                            style="margin-top: 5px;"
+                                            class="form-control input-md" 
+                                            placeholder="Search property"
+                                            id="widget-search" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+<!--                         <div class="col-md-2 d-w-view-switch-container"> -->
+<!--                             <a href="javascript: void( 0 )" class="d-w-view-switcher"> -->
+<!--                                 <i class="glyphicon glyphicon-th"></i> -->
+<!--                             </a> -->
+<!--                         </div> -->
+                    </div>
+			        <div class="row">
+			            <div class="d-prop-wrapper">
+			                 <ul class="list-group prop-group-list-wrapper" ng-class="{ 'in': enablePropPanel }">
+	                            <li class="list-group-item" 
+	                                ng-repeat="pg in propGroups"
+	                                ng-click="listProperty( $event, pg )">
+	                                <label>{{ pg.label }}</label>
+	                                <a href="javascript: void( 0 )" 
+	                                     class="pull-right">
+	                                         <i class="glyphicon glyphicon-menu-right"></i>
+	                                </a>
+	                            </li>
+	                        </ul>
+	                        <div class="panel panel-default prop-form-panel" ng-class="{ 'in': enablePropPanel }">
+	                            <div class="panel-heading" ng-click="listProperty( e )">
+	                                <a href="javascript: void( 0 )">
+	                                     <i class="glyphicon glyphicon-menu-left"></i>
+	                                </a>
+	                                <label>{{ clickedPropGroup.label }}</label>
+	                            </div>
+	                            <div class="panel-body">
+	                                <form class="form-horizontal">
+	                                    <div class="form-group d-form-group" ng-repeat="prop in clickedPropGroup.props">
+	                                        <label for="dProvider" class="col-sm-4 control-label">{{ prop.label }}</label>
+	                                        <div class="col-sm-8">
+	                                            <input ng-if="prop.type == 'text'"
+	                                                type="number" 
+	                                                class="form-control d-input-md" 
+	                                                ng-model="prop.value" />
+	                                            <input ng-if="prop.type == 'numSpinner'"
+	                                                type="number" 
+	                                                max="{{prop.max}}" 
+	                                                min="{{prop.min}}" 
+	                                                step="{{prop.step}}"
+	                                                class="form-control d-input-md" 
+	                                                ng-model="prop.value" />
+	                                            <font-builder fb-cfg="fbCfg" ng-if="prop.type == 'font'"></font-builder>
+	                                            <div ng-if="prop.type == 'checkbox'" 
+	                                                class="checkbox">
+	                                                <label>
+	                                                    <input type="checkbox">
+	                                                </label>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                </form>
+	                            </div>
+	                        </div>
+			            </div>
+			        </div>
+                 </div>
+                <div id="widgetExp" class="d-right-pane-body" ng-show="showWidExp">
                     <div class="row">
                         <div class="col-md-10 d-w-search-container">
                             <form class="form-horizontal" role="form">
@@ -157,7 +232,7 @@
                         </div>
                     </div>
                  </div>
-                 <div class="d-right-pane-footer">
+                <div class="d-right-pane-footer">
                     <label class="pull-left">Widgets::{{ wExpGrLastClicked.label }}</label>
                     <a href="javascript: void( 0 )" 
                         class="pull-right" 

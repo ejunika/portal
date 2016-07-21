@@ -1,32 +1,40 @@
 ( function( ctx, fn ) {
     fn( ctx.window );
 } )( this, function( win ) {
-    function inherits( child, parent ) {
-        child.prototype = new parent();
+    /**
+     * @constructor Widget
+     * */
+    function Widget() {
+        this.x = 0;
+        this.y = 0;
+        this.height = 100;
+        this.width = 100;
+        this.background = "#FFFFFF";
+        this.borderRadius = 0;
+        this.borderColor = "#000000";
+        this.borderStyle = "solid";
     }
-    function njElement() {
-        this.x = 10;
-        this.y = 90;
+    Widget.prototype.init = function() {};
+    /**
+     * @constructor Other
+     * */
+    function Other() {
+        this.otherProp = "Other Prop";
+        Widget.call( this );
     }
-    njElement.prototype = {
-        doThis: function() {
-            alert( "doThis from base" );
-        }
+    Other.prototype = new Widget();
+    /**
+     * @constructor Box
+     * */
+    function Box() {
+        this.boxStyle = "boxStyle";
+        Other.call( this );
+    }
+    Box.prototype = new Other();
+    Box.prototype.init = function() {
+        console.log( this.x );
     };
-    function njBox() {
-        
-    }
-    inherits( njBox, njElement );
-    njBox.prototype = {
-        doThis: function() {
-            alert( "doThis" );
-        },
-        doThat: function() {
-            alert( "doThat" );
-        }
-    };
-    var njEle = win.njEle = new njElement();
-    var njBox = win.njBox =  new njBox();
-    console.log( njBox );
-    console.log( njEle );
+    var box = new Box();
+    debugger;
+    box.init();
 } );

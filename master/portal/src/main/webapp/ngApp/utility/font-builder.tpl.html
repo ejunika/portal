@@ -1,0 +1,112 @@
+<div class="font-builder">
+    <form class="form-vertical">
+        <div class="form-group d-form-group col-sm-12 dropdown">
+            <input type="text" readonly
+                class="dropdown-toggle d-input-md" 
+                ng-model="displayFont" 
+                ng-style="getDisplayStyle()"  
+                data-toggle="dropdown" 
+                aria-haspopup="true" 
+                aria-expanded="true" />
+            <div class="dropdown-menu dropdown-menu-right f-drop-down" 
+                ng-click="$event.stopPropagation()"
+                role="menu">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <select style="width: 100%; font-size: 14px; outline: none" 
+                            ng-model="sFont" 
+                            ng-options="opn as opn for opn in fbCfg.fonts">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <select style="width: 100%; font-size: 14px; outline: none" 
+                            ng-model="sFontSize" 
+                            ng-options="opn as opn for opn in fSizeList">
+                        </select>
+                    </div>
+                    <div class="col-sm-8">
+                        <a ng-click="toggleStyle( $event, 'BOLD' )" 
+                            class="text-decoration" 
+                            href="javascript: void( 0 )">
+                            <i class="glyphicon glyphicon-bold"></i>
+                        </a>
+                        <a ng-click="toggleStyle( $event, 'ITALIC' )" 
+                            class="text-decoration" 
+                            href="javascript: void( 0 )">
+                            <i class="glyphicon glyphicon-italic"></i>
+                        </a>
+                        <a ng-click="toggleStyle( $event, 'UNDERLINE' )" 
+                            class="text-decoration" 
+                            href="javascript: void( 0 )">
+                            <i class="glyphicon glyphicon-italic"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="color-palette">
+                        <h6>Colors</h6>
+                        <ul class="color-col">
+                            <li><span></span></li>
+                            <li><span></span></li>
+                            <li><span></span></li>
+                            <li><span></span></li>
+                            <li><span></span></li>
+                        </ul>
+                        <ul class="color-col">
+                            <li><span></span></li>
+                            <li><span></span></li>
+                            <li><span></span></li>
+                            <li><span></span></li>
+                            <li><span></span></li>
+                        </ul>
+                        <ul class="color-col">
+                            <li><span></span></li>
+                            <li><span></span></li>
+                            <li><span></span></li>
+                            <li><span></span></li>
+                            <li><span></span></li>
+                        </ul>
+                        <ul class="color-col">
+                            <li><span></span></li>
+                            <li><span></span></li>
+                            <li><span></span></li>
+                            <li><span></span></li>
+                            <li><span></span></li>
+                        </ul>
+                        <ul class="color-col">
+                            <li><span></span></li>
+                            <li><span></span></li>
+                            <li><span></span></li>
+                            <li><span></span></li>
+                            <li><span></span></li>
+                        </ul>
+                        <ul class="color-col">
+                            <li><span></span></li>
+                            <li><span></span></li>
+                            <li><span></span></li>
+                            <li><span></span></li>
+                            <li><span></span></li>
+                        </ul>
+                        <ul class="color-col">
+                            <li><span></span></li>
+                            <li><span></span></li>
+                            <li><span></span></li>
+                            <li><span></span></li>
+                            <li><span></span></li>
+                        </ul>
+                        <ul class="color-col">
+                            <li><span></span></li>
+                            <li><span></span></li>
+                            <li><span></span></li>
+                            <li><span></span></li>
+                            <li><span></span></li>
+                        </ul>
+                        <h6>Recent</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

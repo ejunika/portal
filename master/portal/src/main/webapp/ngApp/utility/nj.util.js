@@ -14,6 +14,7 @@
         .module( "nj.util", [] )
         .directive( "njCxtMenu", [ "$parse", njCxtMenuFn ] )
         .directive( "cxtMenuBox", [ "$parse", cxtMenuBoxFn ] )
+        .directive( "fontBuilder", [ "$parse", fontBuilderFn ] )
         .filter( "search", [ searchFilterFn ] )
         .directive( "repeatEnd", [ repeatEndDirFn ] );
     function repeatEndDirFn() {
@@ -114,5 +115,75 @@
     //            var njCxtMenuHandler = $parse( attrs.cxtMenuBox )( $scope );
             }
         };
+    }
+    function fontBuilderFn( $parse ) {
+        return {
+            restrict: "E",
+            scope: true,
+            replace: true,
+            controller: [ "$scope", function( $scope ) {
+                var displayStyle = {};
+                $scope.toggleStyle = function( e, style ) {
+                    e.stopPropagation();
+                    switch( style ) {
+                        case "BOLD":
+                            if( displayStyle[ "font-weight" ] == 'bold' ) {
+                                displayStyle[ "font-weight" ] = "normal";
+                            }
+                            else {
+                                displayStyle[ "font-weight" ] = "bold";
+                            }
+                            break;
+                        case "ITALIC":
+                            if( displayStyle[ "font-style" ] == "italic" ) {
+                                displayStyle[ "font-style" ] = "normal";
+                            }
+                            else {
+                                displayStyle[ "font-style" ] = "italic";
+                            }
+                            break;
+                        case "UNDERLINE":
+                            if( displayStyle[ "text-decoration" ] == "underline" ) {
+                                displayStyle[ "text-decoration" ] = "none";
+                            }
+                            else {
+                                displayStyle[ "text-decoration" ] = "underline";
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                        
+                };
+                $scope.getDisplayStyle = function() {
+                    return displayStyle;
+                };
+                $scope.$watch( "sFont", function( nv, ov ) {
+                    if( nv && angular.isDefined( $scope.sFontSize ) ) {
+                        displayStyle[ "font-family" ] = nv;
+                        $scope.displayFont = nv + ", " + $scope.sFontSize + 'px';
+                    }
+                } );
+                $scope.$watch( "sFontSize", function( nv, ov ) {
+                    if( nv && $scope.sFont ) {
+                        $scope.displayFont = $scope.sFont + ", " + nv + "px"; 
+                    }
+                } );
+                $scope.fSizeList = [];
+                $scope.init = function() {
+                    var minSize = $scope.fbCfg.minSize, maxSize = $scope.fbCfg.maxSize;
+                    for( var i = minSize; i <= maxSize; i++ ) {
+                        $scope.fSizeList.push( i );
+                    }
+                    $scope.sFontSize = $scope.fSizeList[ 0 ];
+                }
+            } ],
+            templateUrl: "ngApp/utility/font-builder.tpl.html",
+            link: function( $scope, el, attrs, ctrl ) {
+                $scope.fbCfg = $parse( attrs.fbCfg )( $scope );
+                $scope.init();
+                $scope.sFont = $scope.fbCfg.fonts[ 0 ];
+            }
+        }
     }
 } );

@@ -118,11 +118,64 @@ a:hover, a:focus {
 .d-right-pane-body {
 	height: calc( 100% - 34px );
 	overflow: hidden;
+	position: relative;
 }
 .d-right-pane-footer {
 	padding: 5px 5px;
     height: 30px;
     border-top: 1px solid #dddddd;
+}
+ .d-right-pane-body .list-group-item:first-child {
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
+}
+ .d-right-pane-body .list-group-item:last-child {
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+}
+ .d-right-pane-body .list-group-item {
+    padding: 4px 10px;
+}
+ .d-right-pane-body .prop-form-panel .panel-heading label,
+ .d-right-pane-body .list-group-item label {
+    padding: 0;
+    margin: 0;
+}
+ .d-right-pane-body .list-group-item a {
+    padding: 0px 5px;
+}
+ .d-right-pane-body .list-group-item a:hover {
+     background: #DDDDDD;
+}
+ .d-right-pane-body .prop-group-list-wrapper {
+    width: 300px;
+    position: absolute;
+    transition: .2s;
+    left: -1px;
+}
+ .d-right-pane-body .prop-group-list-wrapper.in {
+    left: -300px;
+}
+ .d-right-pane-body .prop-form-panel {
+    width: 300px;
+    position: absolute;
+    border-radius: 2px;
+    right: -300px;
+    transition: .2s;
+    border: 1px solid #DDDDDD;
+    box-shadow: none;
+}
+ .d-right-pane-body .prop-form-panel.in {
+    right: -1px;
+}
+ .d-right-pane-body .prop-form-panel .panel-heading {
+    padding: 5px 5px !important;
+}
+ .d-right-pane-body .prop-form-panel .panel-heading a {
+    padding: 5px;
+}
+ .d-right-pane-body .prop-form-panel .panel-heading a:hover {
+    background: #DDDDDD;
 }
 .d-control-btn-container {
 	width: 200px;
@@ -422,3 +475,44 @@ a:hover, a:focus {
     border: 5px solid #DDD;
     border-radius: 2px;
 }
+
+/* FONT BUILDER */
+.overflow-hidden {
+                overflow: hidden;
+            }
+            .f-drop-down {
+                padding: 5px;
+                margin-left: 15px;
+                border-radius: 0;
+            }
+            .text-decoration {
+                padding: 2px 5px;
+                background: #FFFFFF;
+                margin: 2px;
+                outline: none;
+                text-decoration: none;
+            }
+            .text-decoration:hover, .text-decoraton:focus {
+                outline: none;
+                text-decoration: none;
+            }
+            .color-palette {
+                padding: 5px 18px;
+            }
+            ul.color-col {
+                padding: 0;
+                margin: 0;
+                display: inline-block;
+            }
+            ul.color-col li {
+                list-style: none;
+                width: 15px;
+                height: 15px;
+                background: green;
+                margin: -1px 0px;
+                border: 1px solid #FFFFFF;
+                opacity: .7;
+            }
+            ul.color-col li:hover {
+                opacity: 1;
+            }

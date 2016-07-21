@@ -277,6 +277,96 @@
          $scope.doPreview = function( e ) {
              $scope.preview = true;
          };
+//       TODO PROPERTY PALETTE
+         $scope.enablePropPanel = false;
+         $scope.clickedPropGroup = {};
+         $scope.fbCfg = {
+             fonts: [
+                 "Arial",
+                 "Verdna",
+                 "Cursive"
+             ],
+             minSize: 1,
+             maxSize: 72
+         };
+         $scope.propGroups = [
+             {
+                 label: "Position & Dimension",
+                 props: [
+                     {
+                         label: "Left",
+                         type: "numSpinner",
+                         min: 0,
+                         max: 1000,
+                         step: 1,
+                         value: 5
+                     },
+                     {
+                         label: "Top",
+                         type: "numSpinner",
+                         min: 0,
+                         max: 1000,
+                         step: 1,
+                         value: 5
+                     },
+                     {
+                         label: "Height",
+                         type: "numSpinner",
+                         min: 0,
+                         max: 1000,
+                         step: 1,
+                         value: 5
+                     },
+                     {
+                         label: "Width",
+                         type: "numSpinner",
+                         min: 0,
+                         max: 1000,
+                         step: 1,
+                         value: 5
+                     }
+                 ]
+             },
+             {
+                 label: "Fonts",
+                 props: [
+                    {
+                        label: "Title",
+                        type: "font"
+                    },
+                    {
+                        label: "Sub-Title",
+                        type: "font"
+                    }
+                 ]
+             },
+             {
+                 label: "Colors"
+             },
+             {
+                 label: "Formatter"
+             }
+         ];
+         $scope.listProperty = function( e, pg ) {
+             if( pg ) {
+                 $scope.clickedPropGroup = pg;
+             }
+             $scope.enablePropPanel = !$scope.enablePropPanel;    
+         };
+         $scope.openRightPane = function( pane ) {
+             switch( pane ) {
+                 case "WID_EXP":
+                     $scope.showWidExp = true;
+                     $scope.showProps = false;
+                     break;
+                 case "PROPS":
+                     $scope.showWidExp = false;
+                     $scope.showProps = true;
+                     break;
+                 default:
+                     break;
+             }
+         };
 //       TODO DATA PROVIDER
          $scope.selectField = function( e, field ) {
              var sField = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ].dataSets[ 0 ].sField;
