@@ -1,0 +1,51 @@
+[
+    {
+        "id": "DIMENSION",
+        "label": "Dimension",
+        "info": {
+            
+        },
+        "props": [
+            {
+                "id": "LEFT",
+                "label": "Left",
+                "type": "numSpinner",
+                "value": {
+                    
+                },
+                "info": {},
+                "options": false
+            },
+            {
+                "id": "TOP",
+                "label": "Top",
+                "type": "numSpinner",
+                "value": {
+                    
+                },
+                "info": {},
+                "options": false
+            },
+            {
+                "id": "WIDTH",
+                "label": "Width",
+                "type": "numSpinner",
+                "value": {
+                    
+                },
+                "info": {},
+                "options": false
+            },
+            {
+                "id": "HEIGHT",
+                "label": "Left",
+                "type": "numSpinner",
+                "value": {
+                    
+                },
+                "info": {},
+                "options": false
+            }
+        ]
+    }
+]

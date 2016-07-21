@@ -280,19 +280,53 @@
 //       TODO PROPERTY PALETTE
          $scope.enablePropPanel = false;
          $scope.clickedPropGroup = {};
+         $scope.overflowHidden = true;
+         $scope.listVisible = true;
          $scope.fbCfg = {
+             colors: [
+                 "#FF0000", 
+                 "#5C97BF", 
+                 "#4ECDC4", 
+                 "#00F910", 
+                 "#A2DED0", 
+                 "#87D37C", 
+                 "#0000FF", 
+                 "#90C695",
+                 "#26A65B"
+             ],
              fonts: [
                  "Arial",
                  "Verdna",
-                 "Cursive"
+                 "Cursive",
+                 "Ubuntu"
              ],
              minSize: 1,
              maxSize: 72
          };
+         $scope.font  = {
+             fFamily: "Ubuntu",
+             fSize: 15,
+             fColor: "green",
+             fStyle: "none",
+             fWeight: "normal",
+             fDecoration: "none"
+         };
          $scope.propGroups = [
              {
-                 label: "Position & Dimension",
+                 label: "General",
                  props: [
+                     {
+                         label: "Title font",
+                         type: "font",
+                         value: {
+                             fFamily: "Cursive",
+                             fSize: 13,
+                             fColor: "red",
+                             fStyle: "italic",
+                             fWeight: "bold",
+                             fDecoration: "underline"
+                         }
+                     },
                      {
                          label: "Left",
                          type: "numSpinner",
@@ -324,24 +358,19 @@
                          max: 1000,
                          step: 1,
                          value: 5
+                     },
+                     {
+                         label: "Visible",
+                         type: "checkbox",
+                         value: true
                      }
                  ]
              },
              {
-                 label: "Fonts",
-                 props: [
-                    {
-                        label: "Title",
-                        type: "font"
-                    },
-                    {
-                        label: "Sub-Title",
-                        type: "font"
-                    }
-                 ]
+                 label: "Chart"
              },
              {
-                 label: "Colors"
+                 label: "Style"
              },
              {
                  label: "Formatter"

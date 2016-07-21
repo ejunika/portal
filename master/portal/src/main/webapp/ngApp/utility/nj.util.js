@@ -119,41 +119,118 @@
     function fontBuilderFn( $parse ) {
         return {
             restrict: "E",
+            require: "ngModel",
             scope: true,
             replace: true,
-            controller: [ "$scope", function( $scope ) {
-                var displayStyle = {};
-                $scope.toggleStyle = function( e, style ) {
+            templateUrl: "ngApp/utility/font-builder.tpl.html",
+            link: function( $scope, el, attrs ) {
+                var ngModel = $parse( attrs.ngModel )( $scope ), 
+                fbCfg = $parse( attrs.fbCfg )( $scope );
+                $scope.init( ngModel, fbCfg );
+            },
+            controller: [ "$scope", "$timeout", function( $scope, $timeout ) {
+                var displayStyle = {}, 
+                ngModel, fbCfg;
+                $scope.fSizeList = [];
+                $scope.recentColors = [];
+                $scope.moreColor = "";
+                $scope.biu = {
+                    bold: false,
+                    italic: false,
+                    underline: false
+                }
+                $scope.addMoreColor = function( e ) {
                     e.stopPropagation();
+                    $timeout( function() {
+                        $( "#moreColor" ).click();
+                    }, 0 );
+                };
+                $scope.setSelectedColor = function( color, fromRecent ) {
+                    if( !fromRecent ) {
+                        if( $scope.recentColors.indexOf( color ) == -1 ) {
+                            if( $scope.recentColors.length < 9 ) {
+                                $scope.recentColors.push( color );
+                            }
+                            else {
+                                $scope.recentColors.splice( 0, 1 );
+                                $scope.recentColors.push( color );
+                            }
+                        }
+                    }
+                    ngModel[ "fColor" ] = color;
+                    displayStyle[ "color" ] = color;
+                };
+                $scope.getAnalogousColors = function( color ) {
+                    var tinyColors = tinycolor( color ).analogous();
+                    var hexColors = [];
+                    for( var i = 0; i < tinyColors.length; i++ ) {
+                        hexColors.push( tinyColors[ i ].toHex() );
+                    }
+                    return hexColors;
+                };
+                $scope.init = function( m, c ) {
+                    ngModel = m; fbCfg = c;
+                    var minSize = fbCfg.minSize, maxSize = fbCfg.maxSize;
+                    for( var i = minSize; i <= maxSize; i++ ) {
+                        $scope.fSizeList.push( i );
+                    }
+                    $scope.sFont = fbCfg.fonts[ fbCfg.fonts.indexOf( ngModel.fFamily ) ];
+                    $scope.sFontSize = $scope.fSizeList[ $scope.fSizeList.indexOf( ngModel.fSize ) ];
+                    if( ngModel.fWeight == "bold" ) {
+                        displayStyle[ "font-weight" ] = ngModel.fWeight;
+                        $scope.biu.bold = true;
+                    }
+                    if( ngModel.fStyle == "italic" ) {
+                        $scope.biu.italic = true;
+                        displayStyle[ "font-style" ] = ngModel.fStyle;
+                    }
+                    if( ngModel.fDecoration == "underline" ) {
+                        displayStyle[ "text-decoration" ] = ngModel.fDecoration;
+                        $scope.biu.underline = true;
+                    }
+                    displayStyle[ "color" ] = ngModel.fColor;
+                };
+                $scope.toggleStyle = function( e, style ) {
                     switch( style ) {
                         case "BOLD":
                             if( displayStyle[ "font-weight" ] == 'bold' ) {
                                 displayStyle[ "font-weight" ] = "normal";
+                                ngModel.fWeight = "normal";
+                                $scope.biu.bold = false;
                             }
                             else {
                                 displayStyle[ "font-weight" ] = "bold";
+                                ngModel.fWeight = "bold";
+                                $scope.biu.bold = true;
                             }
                             break;
                         case "ITALIC":
                             if( displayStyle[ "font-style" ] == "italic" ) {
                                 displayStyle[ "font-style" ] = "normal";
+                                ngModel.fStyle = "normal";
+                                $scope.biu.italic = false;
                             }
                             else {
                                 displayStyle[ "font-style" ] = "italic";
+                                ngModel.fStyle = "italic";
+                                $scope.biu.italic = true;
                             }
                             break;
                         case "UNDERLINE":
                             if( displayStyle[ "text-decoration" ] == "underline" ) {
                                 displayStyle[ "text-decoration" ] = "none";
+                                ngModel.fDecoration = "none";
+                                $scope.biu.underline = false;
                             }
                             else {
                                 displayStyle[ "text-decoration" ] = "underline";
+                                ngModel.fDecoration = "underline";
+                                $scope.biu.underline = true;
                             }
                             break;
                         default:
                             break;
                     }
-                        
                 };
                 $scope.getDisplayStyle = function() {
                     return displayStyle;
@@ -162,28 +239,16 @@
                     if( nv && angular.isDefined( $scope.sFontSize ) ) {
                         displayStyle[ "font-family" ] = nv;
                         $scope.displayFont = nv + ", " + $scope.sFontSize + 'px';
+                        ngModel.fFamily = nv;
                     }
                 } );
                 $scope.$watch( "sFontSize", function( nv, ov ) {
                     if( nv && $scope.sFont ) {
-                        $scope.displayFont = $scope.sFont + ", " + nv + "px"; 
+                        $scope.displayFont = $scope.sFont + ", " + nv + "px";
+                        ngModel.fSize = nv;
                     }
                 } );
-                $scope.fSizeList = [];
-                $scope.init = function() {
-                    var minSize = $scope.fbCfg.minSize, maxSize = $scope.fbCfg.maxSize;
-                    for( var i = minSize; i <= maxSize; i++ ) {
-                        $scope.fSizeList.push( i );
-                    }
-                    $scope.sFontSize = $scope.fSizeList[ 0 ];
-                }
-            } ],
-            templateUrl: "ngApp/utility/font-builder.tpl.html",
-            link: function( $scope, el, attrs, ctrl ) {
-                $scope.fbCfg = $parse( attrs.fbCfg )( $scope );
-                $scope.init();
-                $scope.sFont = $scope.fbCfg.fonts[ 0 ];
-            }
-        }
+            } ]
+        };
     }
 } );

@@ -516,3 +516,21 @@ a:hover, a:focus {
             ul.color-col li:hover {
                 opacity: 1;
             }
+            .pressed {
+                background: #DDDDDD !important;
+            }
+            .color-palette h6 {
+                margin: 3px -4px;
+                font-size: 13px;
+            }
+            .selected {
+                height: 5px;
+                width: 10px;
+                display: block;
+                position: absolute;
+                top: 2px;
+                left: 2px;
+                border-left: 2px solid white;
+                border-bottom: 2px solid white;
+                transform: rotate( 315deg );
+            }

@@ -1,109 +1,76 @@
 <div class="font-builder">
-    <form class="form-vertical">
-        <div class="form-group d-form-group col-sm-12 dropdown">
-            <input type="text" readonly
-                class="dropdown-toggle d-input-md" 
-                ng-model="displayFont" 
-                ng-style="getDisplayStyle()"  
-                data-toggle="dropdown" 
-                aria-haspopup="true" 
-                aria-expanded="true" />
-            <div class="dropdown-menu dropdown-menu-right f-drop-down" 
-                ng-click="$event.stopPropagation()"
-                role="menu">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <select style="width: 100%; font-size: 14px; outline: none" 
-                            ng-model="sFont" 
-                            ng-options="opn as opn for opn in fbCfg.fonts">
-                        </select>
-                    </div>
+    <form class="form-vertical dropdown">
+        <input type="text" class="dropdown-toggle d-input-md" 
+            readonly
+            ng-model="displayFont" 
+            ng-style="getDisplayStyle()"  
+            data-toggle="dropdown" 
+            aria-haspopup="true" 
+            aria-expanded="true" />
+        <div ng-click="$event.stopPropagation()" 
+            class="dropdown-menu dropdown-menu-right f-drop-down" 
+            role="menu">
+            <div class="row">
+                <div class="col-sm-12">
+                    <select style="width: 100%; font-size: 14px; outline: none" 
+                        ng-model="sFont" 
+                        ng-options="opn as opn for opn in fbCfg.fonts">
+                    </select>
                 </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <select style="width: 100%; font-size: 14px; outline: none" 
-                            ng-model="sFontSize" 
-                            ng-options="opn as opn for opn in fSizeList">
-                        </select>
-                    </div>
-                    <div class="col-sm-8">
+            </div>
+            <div class="row">
+                <div class="col-sm-5">
+                    <select style="width: 100%; font-size: 14px; outline: none" 
+                        ng-model="sFontSize" 
+                        ng-options="opn as opn for opn in fSizeList">
+                    </select>
+                </div>
+                <div class="col-sm-7">
+                    <div class="btn-group pull-right" role="group" aria-label="...">
                         <a ng-click="toggleStyle( $event, 'BOLD' )" 
-                            class="text-decoration" 
+                            ng-class="{ 'pressed': biu.bold }" 
+                            class="text-decoration btn btn-default btn-sm" 
                             href="javascript: void( 0 )">
                             <i class="glyphicon glyphicon-bold"></i>
                         </a>
                         <a ng-click="toggleStyle( $event, 'ITALIC' )" 
-                            class="text-decoration" 
+                            ng-class="{ 'pressed': biu.italic }"
+                            class="text-decoration btn btn-default btn-sm" 
                             href="javascript: void( 0 )">
                             <i class="glyphicon glyphicon-italic"></i>
                         </a>
-                        <a ng-click="toggleStyle( $event, 'UNDERLINE' )" 
-                            class="text-decoration" 
+                        <a ng-click="toggleStyle( $event, 'UNDERLINE' )"
+                            ng-class="{ 'pressed': biu.underline }" 
+                            class="text-decoration btn btn-default btn-sm" 
                             href="javascript: void( 0 )">
-                            <i class="glyphicon glyphicon-italic"></i>
+                            <i class="glyphicon glyphicon-text-width"></i>
                         </a>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="color-palette">
-                        <h6>Colors</h6>
-                        <ul class="color-col">
-                            <li><span></span></li>
-                            <li><span></span></li>
-                            <li><span></span></li>
-                            <li><span></span></li>
-                            <li><span></span></li>
-                        </ul>
-                        <ul class="color-col">
-                            <li><span></span></li>
-                            <li><span></span></li>
-                            <li><span></span></li>
-                            <li><span></span></li>
-                            <li><span></span></li>
-                        </ul>
-                        <ul class="color-col">
-                            <li><span></span></li>
-                            <li><span></span></li>
-                            <li><span></span></li>
-                            <li><span></span></li>
-                            <li><span></span></li>
-                        </ul>
-                        <ul class="color-col">
-                            <li><span></span></li>
-                            <li><span></span></li>
-                            <li><span></span></li>
-                            <li><span></span></li>
-                            <li><span></span></li>
-                        </ul>
-                        <ul class="color-col">
-                            <li><span></span></li>
-                            <li><span></span></li>
-                            <li><span></span></li>
-                            <li><span></span></li>
-                            <li><span></span></li>
-                        </ul>
-                        <ul class="color-col">
-                            <li><span></span></li>
-                            <li><span></span></li>
-                            <li><span></span></li>
-                            <li><span></span></li>
-                            <li><span></span></li>
-                        </ul>
-                        <ul class="color-col">
-                            <li><span></span></li>
-                            <li><span></span></li>
-                            <li><span></span></li>
-                            <li><span></span></li>
-                            <li><span></span></li>
-                        </ul>
-                        <ul class="color-col">
-                            <li><span></span></li>
-                            <li><span></span></li>
-                            <li><span></span></li>
-                            <li><span></span></li>
-                            <li><span></span></li>
-                        </ul>
-                        <h6>Recent</h6>
+            </div>
+            <div class="row">
+                <div class="color-palette">
+                    <h6>Recent Colors</h6>
+                    <ul class="color-col recent" style="display: inline-flex;">
+                        <li ng-click="setSelectedColor( rColor, true )" 
+                            ng-repeat="rColor in recentColors"
+                            ng-style="{ 'background': rColor }">
+                            <span></span>
+                        </li>
+                    </ul>
+                    <h6>Preset Colors</h6>
+                    <ul class="color-col" ng-repeat="color in fbCfg.colors" 
+                        ng-init="aColors = getAnalogousColors( color )">
+                        <li ng-click="setSelectedColor( '#' + c )" 
+                            ng-style="{ 'background': '#' + c }" 
+                            ng-repeat="c in aColors track by $index">
+                            <span></span>
+                        </li>
+                    </ul>
+                    <div>
+                        <a href="javascript: void( 0 )" ng-click="addMoreColor( $event )">More Colors</a>
+	                    <input id="moreColor" ng-model="moreColor" ng-change="setSelectedColor( moreColor )" 
+	                        style="visibility: hidden; position: absolute; bottom: 15px; right: 15px;" type="color" />
                     </div>
                 </div>
             </div>

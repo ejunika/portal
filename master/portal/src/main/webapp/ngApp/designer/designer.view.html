@@ -156,7 +156,10 @@
 	                                                step="{{prop.step}}"
 	                                                class="form-control d-input-md" 
 	                                                ng-model="prop.value" />
-	                                            <font-builder fb-cfg="fbCfg" ng-if="prop.type == 'font'"></font-builder>
+	                                            <font-builder ng-model="font" 
+	                                               fb-cfg="fbCfg" 
+	                                               ng-if="prop.type == 'font'">
+	                                            </font-builder>
 	                                            <div ng-if="prop.type == 'checkbox'" 
 	                                                class="checkbox">
 	                                                <label>
