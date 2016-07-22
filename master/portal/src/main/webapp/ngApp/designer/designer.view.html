@@ -149,7 +149,9 @@
 	                                                type="number" 
 	                                                class="form-control d-input-md" 
 	                                                ng-model="prop.value" />
-	                                            <input ng-if="prop.type == 'numSpinner'"
+	                                            <input ng-init="setNgModel( prop.id )" 
+	                                                ng-model="propNgModel[ prop.id ][ prop.name ]" 
+	                                                ng-if="prop.type == 'numSpinner'"
 	                                                type="number" 
 	                                                max="{{prop.max}}" 
 	                                                min="{{prop.min}}" 

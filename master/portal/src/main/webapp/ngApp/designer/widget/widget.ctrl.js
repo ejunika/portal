@@ -133,7 +133,7 @@
                         case "CENTER_V": $scope.alignCenterV(); break;
                         case "DELETE": $scope.removeAllSelectedWidgets(); break;
                         case "DATA_SET": $scope.openDatasetBuilder(); break;
-                        case "PROPERTIES": $scope.openRightPane( "PROPS" ); break;
+                        case "PROPERTIES": $scope.showProperties( "WIDGET" ); break;
                         default: break;
                     }
                 }

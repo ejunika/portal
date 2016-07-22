@@ -9,40 +9,36 @@
             {
                 "id": "LEFT",
                 "label": "Left",
+                "name": "left",
                 "type": "numSpinner",
-                "value": {
-                    
-                },
+                "value": 5,
                 "info": {},
                 "options": false
             },
             {
                 "id": "TOP",
                 "label": "Top",
+                "name": "top",
                 "type": "numSpinner",
-                "value": {
-                    
-                },
+                "value": 5,
                 "info": {},
                 "options": false
             },
             {
                 "id": "WIDTH",
                 "label": "Width",
+                "name": "width",
                 "type": "numSpinner",
-                "value": {
-                    
-                },
+                "value": 5,
                 "info": {},
                 "options": false
             },
             {
                 "id": "HEIGHT",
                 "label": "Left",
+                "name": "height",
                 "type": "numSpinner",
-                "value": {
-                    
-                },
+                "value": 5,
                 "info": {},
                 "options": false
             }

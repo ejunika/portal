@@ -376,19 +376,54 @@
                  label: "Formatter"
              }
          ];
+         $scope.showProperties = function( propFor ) {
+             switch( propFor ) {
+                 case "WIDGET":
+                     $scope.setRightPane( "PROPS", "WIDGET" );
+                     break;
+                 case "DASHBOARD":
+                     $scope.setRightPane( "PROPS", "DASHBOARD" );
+                     break;
+                 default:
+                     break;
+             }
+             $scope.toggleRightPane( false );
+         };
+         $scope.showWidgetExp = function() {
+             $scope.setRightPane( "WID_EXP" );
+             $scope.toggleRightPane( false );
+         };
          $scope.listProperty = function( e, pg ) {
              if( pg ) {
                  $scope.clickedPropGroup = pg;
              }
              $scope.enablePropPanel = !$scope.enablePropPanel;    
          };
-         $scope.openRightPane = function( pane ) {
+         $scope.propNgModel = {};
+         $scope.setNgModel = function( propId ) {
+             $scope.propNgModel[ propId ] = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ];
+         };
+         $scope.updatePropertyPalette = function( propFor ) {
+             var widget, dashboard, propDataUrl = "ngApp/designer/widget-prop/line-chart.prop.json";
+             if( propFor == "WIDGET" ) {
+                 widget = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ];
+             }
+             else {
+                 dashboard = $scope.getSelectedDashboard();
+             }
+             rs.getJson( propDataUrl, scb );
+             function scb( propData ) {
+                 $scope.propGroups = propData;
+             }
+         };
+         $scope.setRightPane = function( pane, paneFor ) {
              switch( pane ) {
                  case "WID_EXP":
                      $scope.showWidExp = true;
                      $scope.showProps = false;
                      break;
                  case "PROPS":
+                     $scope.updatePropertyPalette( paneFor )
                      $scope.showWidExp = false;
                      $scope.showProps = true;
                      break;

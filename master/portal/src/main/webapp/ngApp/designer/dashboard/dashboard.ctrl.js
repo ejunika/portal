@@ -158,7 +158,7 @@
                     switch( opn.id ) {
                         case "PREVIEW": break;
                         case "DATA_SOURCE": $scope.addNewDataProvider(); break;
-                        case "WIDGET_EXP":  $scope.openRightPane( "WID_EXP" ); break;
+                        case "WIDGET_EXP":  $scope.showWidgetExp(); break;
                         case "WIDGET_BROWSER": break;
                         case "COPY": break;
                         case "PASTE": break;
