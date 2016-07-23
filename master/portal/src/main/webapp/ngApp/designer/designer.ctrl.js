@@ -570,14 +570,24 @@
                      break;
              }
          };
+         $scope.getDashboardDimention = function() {
+        	 var $tabContainer = $( ".d-tab-content-pane" );
+        	 return {
+        		 height: $tabContainer.height() - 5,
+        		 width: $tabContainer.width() - 5
+        	 };
+         };
          $scope.addDashboard = function( tab ) {
-             var filePath = ac.jsonPath.dashboardData;
+             var filePath = ac.jsonPath.dashboardData, dimesion;
              rs.getJson( filePath, scb );
              function scb( dashboard ) {
+            	 dimension = $scope.getDashboardDimention();
                  dashboard.id = tab.id;
                  dashboard.Layout.title = tab.title;
                  dashboard.Layout.gredientColor = "#0000";
                  dashboard.Layout.gredientRotation = "90";
+                 dashboard.Layout.height = dimension.height;
+                 dashboard.Layout.width = dimension.width;
                  $scope.notify( "ADD_DASHBOARD", dashboard );
              }
          };
