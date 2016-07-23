@@ -2,7 +2,20 @@
     "interactivityEnabled": false,
     "animationEnabled": false,
     "title": {
-        "text": "Fruit sales in 2016"
+        "text": "Fruit sales in 2016",
+        "backgroundClor": null,
+        "borderColor": "black",
+        "borderThickness": 0,
+        "cornerRadius": 0,
+        "fontColor": "red",
+        "fontFamily": "calibri",
+        "fontSize": 20,
+        "fontStyle": "normal",
+        "fontWeight": "normal",
+        "margin": 5,
+        "padding": 0,
+        "wrap": true,
+        "dockInsidePlotArea": false
     },
     "toolTip": {
         "enabled": false
