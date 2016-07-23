@@ -149,7 +149,7 @@
 	                                                type="number" 
 	                                                class="form-control d-input-md" 
 	                                                ng-model="prop.value" />
-	                                            <input ng-init="setNgModel( prop.id )" 
+	                                            <input ng-init="setNgModel( prop.id, prop.objPath )" 
 	                                                ng-model="propNgModel[ prop.id ][ prop.name ]" 
 	                                                ng-if="prop.type == 'numSpinner'"
 	                                                type="number" 

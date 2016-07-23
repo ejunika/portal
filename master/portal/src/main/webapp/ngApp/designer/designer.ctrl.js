@@ -15,11 +15,12 @@
      dm.controller( ac.controllers.designer, [ 
          ac.ngVars.scope,
          ac.ngVars.timeout,
+         "$parse",
          ac.services.core,
          ac.services.request,
          designerCtrlFn 
      ] );
-     function designerCtrlFn( $scope, $timeout, cs, rs ) {
+     function designerCtrlFn( $scope, $timeout, $parse, cs, rs ) {
          $scope.init = function() {
              var wedPath = ac.jsonPath.widgetExpData;
              $scope.openTabs = [];
@@ -400,8 +401,15 @@
              $scope.enablePropPanel = !$scope.enablePropPanel;    
          };
          $scope.propNgModel = {};
-         $scope.setNgModel = function( propId ) {
-             $scope.propNgModel[ propId ] = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ];
+         $scope.changeNgModel = function() {
+             for( var i = 0; i < $scope.propGroups.length; i++ ) {
+                 $scope.propGroups[ i ].props = angular.copy( $scope.propGroups[ i ].props );
+             }
+         };
+         $scope.setNgModel = function( propId, objPath ) {
+             var dashboard = $scope.getSelectedDashboard(), 
+             widget = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ];
+             $scope.propNgModel[ propId ] = objPath ? $parse( objPath )( widget ): widget;
          };
          $scope.updatePropertyPalette = function( propFor ) {
              var widget, dashboard, propDataUrl = "ngApp/designer/widget-prop/line-chart.prop.json";
@@ -773,6 +781,7 @@
                  w.selected = true;
                  $scope.getSelectedDashboard().sWidgetIds.push( w.id );
                  $scope.setSelectedDataProvider();
+                 $scope.changeNgModel();
              }
          };
          $scope.deSelectWidget = function( w ) {
