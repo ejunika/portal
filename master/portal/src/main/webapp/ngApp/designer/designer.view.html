@@ -145,20 +145,24 @@
 	                                    <div class="form-group d-form-group" ng-repeat="prop in clickedPropGroup.props">
 	                                        <label for="dProvider" class="col-sm-4 control-label">{{ prop.label }}</label>
 	                                        <div class="col-sm-8">
-	                                            <input ng-if="prop.type == 'text'"
-	                                                type="number" 
+	                                            <input ng-init="setNgModel( prop.id, prop.objPath )" 
+	                                                ng-change="onPropChange()" 
+	                                                ng-if="prop.type == 'text'"
+	                                                type="text" 
 	                                                class="form-control d-input-md" 
-	                                                ng-model="prop.value" />
+	                                                ng-model="propNgModel[ prop.id ][ prop.name ]"  />
 	                                            <input ng-init="setNgModel( prop.id, prop.objPath )" 
 	                                                ng-model="propNgModel[ prop.id ][ prop.name ]" 
+	                                                ng-change="onPropChange()" 
 	                                                ng-if="prop.type == 'numSpinner'"
 	                                                type="number" 
 	                                                max="{{prop.max}}" 
 	                                                min="{{prop.min}}" 
 	                                                step="{{prop.step}}"
-	                                                class="form-control d-input-md" 
-	                                                ng-model="prop.value" />
-	                                            <font-builder ng-model="font" 
+	                                                class="form-control d-input-md" />
+	                                            <font-builder ng-model="propNgModel[ prop.id ][ prop.name ]" 
+	                                               ng-init="setNgModel( prop.id, prop.objPath )" 
+	                                               ng-change="onPropChange()"
 	                                               fb-cfg="fbCfg" 
 	                                               ng-if="prop.type == 'font'">
 	                                            </font-builder>

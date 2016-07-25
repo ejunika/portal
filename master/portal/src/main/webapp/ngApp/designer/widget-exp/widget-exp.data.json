@@ -108,25 +108,25 @@
                 {
                     "id": "DATA_GRID",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Data Grid"
                 },
                 {
                     "id": "PAGE_DATA_GRID",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Paging Data Grid"
                 },
                 {
                     "id": "SCORE_CARD",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Score Card"
                 },
                 {
                     "id": "PIVOT_GRID",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Pivot Grid"
                 }
             ]
@@ -140,31 +140,31 @@
                 {
                     "id": "CHECKBOX",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Check Box"
                 },
                 {
                     "id": "COMBOBOX_FILTER",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Combo Filter"
                 },
                 {
                     "id": "HIER_COMBOBOX_FILTER",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Hierarchical Combo Box"
                 },
                 {
                     "id": "DD_FILTER",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Drop Down"
                 },
                 {
                     "id": "RADIO_FILTER",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Radio Filter"
                 }
             ]
@@ -178,31 +178,31 @@
                 {
                     "id": "BOX_PLOT",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Box Plot"
                 },
                 {
                     "id": "CANDLE_STICK",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Candle Stick"
                 },
                 {
                     "id": "CHEVRON",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Chevron"
                 },
                 {
                     "id": "GR_BAR",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Group Bar"
                 },
                 {
                     "id": "HEAT_MAP",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Heat Map"
                 },
                 {
@@ -246,103 +246,103 @@
                 {
                     "id": "BOX",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Box"
                 },
                 {
                     "id": "BULLET",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Bullet"
                 },
                 {
                     "id": "DATE_PICKER",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Date Picker"
                 },
                 {
                     "id": "EXPORT_DASHBOARD",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Export Dashboard"
                 },
                 {
                     "id": "GAUGE",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Gauge"
                 },
                 {
                     "id": "GRAPHICS",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Graphics"
                 },
                 {
                     "id": "H_SLIDER",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Slider (Horizontal)"
                 },
                 {
                     "id": "V_SLIDER",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Slider (Vertical)"
                 },
                 {
                     "id": "IMAGE",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Slider (Vertical)"
                 },
                 {
                     "id": "IMAGE",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Image"
                 },
                 {
                     "id": "LEGEND",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Legend"
                 },
                 {
                     "id": "SEMI_GAUGE",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Semi Gauge"
                 },
                 {
                     "id": "STEPPER",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Stepper"
                 },
                 {
                     "id": "SVG_IMG",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Image (SVG)"
                 },
                 {
                     "id": "TEXT_BOX",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Text Box"
                 },
                 {
                     "id": "TREND",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Trend"
                 },
                 {
                     "id": "URL_BTN",
                     "info": {},
-                    "active": true,
+                    "active": false,
                     "label": "Button (URL)"
                 }
             ]

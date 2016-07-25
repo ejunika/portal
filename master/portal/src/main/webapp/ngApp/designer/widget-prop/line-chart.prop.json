@@ -47,5 +47,34 @@
                 "options": false
             }
         ]
+    },
+    {
+        "id": "STYLE",
+        "label": "Style",
+        "info": {
+            
+        },
+        "props": [
+            {
+                "id": "TITLE_TEXT",
+                "label": "Title text",
+                "objPath": "Options.title",
+                "name": "text",
+                "type": "text",
+                "value": "",
+                "info": {},
+                "options": false
+            },
+            {
+                "id": "TITLE_FONT",
+                "label": "Title font",
+                "objPath": "Options.title",
+                "name": "fontColor",
+                "type": "font",
+                "value": "",
+                "info": {},
+                "options": false
+            }
+        ]
     }
 ]

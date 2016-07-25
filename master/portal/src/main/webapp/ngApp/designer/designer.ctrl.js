@@ -411,6 +411,12 @@
              widget = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ];
              $scope.propNgModel[ propId ] = objPath ? $parse( objPath )( widget ): widget;
          };
+         $scope.onPropChange = function() {
+             var dashboard = $scope.getSelectedDashboard(),
+             wId = dashboard.sWidgetIds[ 0 ],
+             canvasObj = dashboard.Info.ObjMap[ wId ];
+             canvasObj.render();
+         };
          $scope.updatePropertyPalette = function( propFor ) {
              var widget, dashboard, propDataUrl = "ngApp/designer/widget-prop/line-chart.prop.json";
              if( propFor == "WIDGET" ) {
