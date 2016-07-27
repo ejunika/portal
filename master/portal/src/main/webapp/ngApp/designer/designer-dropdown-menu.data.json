@@ -1,0 +1,10 @@
+[
+    { "id": "SETTINGS", "label": "Settings" },
+    { "divider": true },
+    { "id": "MANAGE", "label": "Manage" },
+    { "id": "CONNECTION", "label": "Connection" },
+    { "id": "OPENFROMELOCAL", "label": "Open from local" },
+    { "divider": true },
+    { "id": "HELP", "label": "Help" },
+    { "id": "EXIT", "label": "Exit" }
+]

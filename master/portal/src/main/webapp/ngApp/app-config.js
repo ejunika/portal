@@ -78,7 +78,8 @@
         },
         jsonPath: {
             widgetExpData: "ngApp/designer/widget-exp/widget-exp.data.json",
-            dashboardData: "ngApp/designer/dashboard/dashboard.data.json"
+            dashboardData: "ngApp/designer/dashboard/dashboard.data.json",
+            dropdownMenuData: "ngApp/designer/designer-dropdown-menu.data.json"
         },
         ngPlugins: {
             ngRoute: "ngRoute",

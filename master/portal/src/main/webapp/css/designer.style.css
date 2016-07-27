@@ -403,7 +403,7 @@ a:hover, a:focus {
 }
 .f-item-container li {
     list-style: none;
-    width: 100%;
+    width: 156px;
     border: 1px solid #DDDDDD;
     border-radius: 2px;
     margin: 1px;
@@ -437,7 +437,7 @@ a:hover, a:focus {
 }
 .f-i-label {
     margin: 0;
-    width: calc( 100% - 25px );
+    width: 124px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;

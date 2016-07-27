@@ -22,7 +22,8 @@
      ] );
      function designerCtrlFn( $scope, $timeout, $parse, cs, rs ) {
          $scope.init = function() {
-             var wedPath = ac.jsonPath.widgetExpData;
+             var wedPath = ac.jsonPath.widgetExpData,
+             ddmdPath = ac.jsonPath.dropdownMenuData;
              $scope.openTabs = [];
              $scope.openDashboardIds = [];
              $scope.selectedDashboardId = "";
@@ -54,12 +55,16 @@
                  }
              };
              $scope.registerHotkeys();
-             rs.getJson( wedPath, scb );
-             function scb( jsonData ) {
+             rs.getJson( wedPath, wedScb );
+             rs.getJson( ddmdPath, ddmdScb );
+             function wedScb( jsonData ) {
                  $scope.widgetExpGroups = jsonData.groups;
                  $timeout( function() {
                      angular.element( $(".d-w-group-wrapper .active") ).click();
                  }, 0 );
+             }
+             function ddmdScb( jsonData ) {
+                 $scope.ddMenuList = jsonData;
              }
          };
          $scope.fDragConfig = {
@@ -278,6 +283,28 @@
          $scope.doPreview = function( e ) {
              $scope.preview = true;
          };
+//       TODO DD MENU
+         $scope.handleDDMenuClick = function( e, menu ) {
+             switch( menu.id ) {
+                 case "SETTINGS":
+                     $scope.openTab( e, 'SETTINGS' );
+                     break;
+                 case "MANAGE":
+                     $scope.openTab( e, 'MANAGE' );
+                     break;
+                 case "CONNECTION":
+                     $scope.openTab( e, 'CONNECTION' );
+                     break;
+                 case "HELP":
+                     $scope.openTab( e, 'HELP' );
+                     break;
+                 case "OPENFROMELOCAL":
+                     $scope.openFromLocal( e );
+                     break;
+                 default: 
+                     break;
+             }
+         };
 //       TODO PROPERTY PALETTE
          $scope.enablePropPanel = false;
          $scope.clickedPropGroup = {};
@@ -312,71 +339,6 @@
              fWeight: "normal",
              fDecoration: "none"
          };
-         $scope.propGroups = [
-             {
-                 label: "General",
-                 props: [
-                     {
-                         label: "Title font",
-                         type: "font",
-                         value: {
-                             fFamily: "Cursive",
-                             fSize: 13,
-                             fColor: "red",
-                             fStyle: "italic",
-                             fWeight: "bold",
-                             fDecoration: "underline"
-                         }
-                     },
-                     {
-                         label: "Left",
-                         type: "numSpinner",
-                         min: 0,
-                         max: 1000,
-                         step: 1,
-                         value: 5
-                     },
-                     {
-                         label: "Top",
-                         type: "numSpinner",
-                         min: 0,
-                         max: 1000,
-                         step: 1,
-                         value: 5
-                     },
-                     {
-                         label: "Height",
-                         type: "numSpinner",
-                         min: 0,
-                         max: 1000,
-                         step: 1,
-                         value: 5
-                     },
-                     {
-                         label: "Width",
-                         type: "numSpinner",
-                         min: 0,
-                         max: 1000,
-                         step: 1,
-                         value: 5
-                     },
-                     {
-                         label: "Visible",
-                         type: "checkbox",
-                         value: true
-                     }
-                 ]
-             },
-             {
-                 label: "Chart"
-             },
-             {
-                 label: "Style"
-             },
-             {
-                 label: "Formatter"
-             }
-         ];
          $scope.showProperties = function( propFor ) {
              switch( propFor ) {
                  case "WIDGET":
@@ -411,11 +373,29 @@
              widget = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ];
              $scope.propNgModel[ propId ] = objPath ? $parse( objPath )( widget ): widget;
          };
+         $scope.syncPropertyWithNgModel = function( prop ) {
+             var widget = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ];
+             if( widget ) {
+                 widget.Options.title.fontColor = prop.fColor;
+                 widget.Options.title.fontSize = prop.fSize;
+                 widget.Options.title.fontFamily = prop.fFamily;
+                 widget.Options.title.fontWeight = prop.fWidget;
+                 widget.Options.title.fontStyle = prop.fStyle;
+             }
+         };
+         $scope.$watch( "font", function( nv, ov ) {
+             if( ov ) {
+                 $scope.syncPropertyWithNgModel( nv );
+                 $scope.onPropChange();
+             }
+         }, true );
          $scope.onPropChange = function() {
-             var dashboard = $scope.getSelectedDashboard(),
-             wId = dashboard.sWidgetIds[ 0 ],
-             canvasObj = dashboard.Info.ObjMap[ wId ];
-             canvasObj.render();
+             var dashboard = $scope.getSelectedDashboard(), wId, canvasObj;
+             if( dashboard ) {
+                 wId = dashboard.sWidgetIds[ 0 ],
+                 canvasObj = dashboard.Info.ObjMap[ wId ];
+                 canvasObj.render();
+             }
          };
          $scope.updatePropertyPalette = function( propFor ) {
              var widget, dashboard, propDataUrl = "ngApp/designer/widget-prop/line-chart.prop.json";
@@ -428,6 +408,7 @@
              rs.getJson( propDataUrl, scb );
              function scb( propData ) {
                  $scope.propGroups = propData;
+                 $scope.changeNgModel();
              }
          };
          $scope.setRightPane = function( pane, paneFor ) {
@@ -437,7 +418,6 @@
                      $scope.showProps = false;
                      break;
                  case "PROPS":
-                     $scope.updatePropertyPalette( paneFor )
                      $scope.showWidExp = false;
                      $scope.showProps = true;
                      break;
@@ -501,9 +481,11 @@
              $scope.preview = true;
              cs.alert( "info", "Designer", "Preview enabled!!" );
              var dashboard = $scope.getSelectedDashboard(), 
+             $iFrame = $( "<iframe src='preview.html'></iframe>" );
+//             $iFrame.attr( "height", 400 ).attr( "width", 400 );
              dJson = angular.copy( dashboard );
              $( ".d-preview-wrapper" ).find( "iframe" ).remove();
-             $( ".d-preview-wrapper" ).append( $( "<iframe src='preview.html'></iframe>" ) );
+             $( ".d-preview-wrapper" ).append( $iFrame );
              $timeout( function( dJson ) {
                  window.frames[0].frameElement.contentWindow.doPreview( dJson );
              }, 1000, false, dJson );
@@ -797,7 +779,7 @@
                  w.selected = true;
                  $scope.getSelectedDashboard().sWidgetIds.push( w.id );
                  $scope.setSelectedDataProvider();
-                 $scope.changeNgModel();
+                 $scope.updatePropertyPalette();
              }
          };
          $scope.deSelectWidget = function( w ) {

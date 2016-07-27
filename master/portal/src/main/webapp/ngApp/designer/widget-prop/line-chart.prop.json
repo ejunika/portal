@@ -1,5 +1,24 @@
 [
     {
+        "id": "GENERAL",
+        "label": "General",
+        "info": {
+            
+        },
+        "props": [
+            {
+                "id": "TITLE_TEXT",
+                "label": "Title text",
+                "objPath": "Options.title",
+                "name": "text",
+                "type": "text",
+                "value": "",
+                "info": {},
+                "options": false
+            }
+        ]
+    },
+    {
         "id": "DIMENSION",
         "label": "Dimension",
         "info": {
@@ -38,7 +57,7 @@
             },
             {
                 "id": "HEIGHT",
-                "label": "Left",
+                "label": "Height",
                 "objPath": "",
                 "name": "height",
                 "type": "numSpinner",
@@ -55,16 +74,6 @@
             
         },
         "props": [
-            {
-                "id": "TITLE_TEXT",
-                "label": "Title text",
-                "objPath": "Options.title",
-                "name": "text",
-                "type": "text",
-                "value": "",
-                "info": {},
-                "options": false
-            },
             {
                 "id": "TITLE_FONT",
                 "label": "Title font",

@@ -12,34 +12,41 @@
                                 <i class="glyphicon glyphicon-align-justify"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li ng-click="openTab( $event, 'MANAGE' )">
-                                <a href="javascript: void( 0 )">
-                                    Manage
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li ng-click="openTab( $event, 'SETTINGS' )">
-                                <a href="javascript: void( 0 )">
-                                    Settings
-                                </a>
-                            </li>
-                            <li ng-click="openFromLocal( $event )">
-                                <a href="javascript: void( 0 )">
-                                    Open from local
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="javascript: void( 0 )">
-                                    Help
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript: void( 0 )">
-                                    Exit
-                                </a>
+                            <li ng-class="{ 'divider': ddMenu.divider }" 
+                                ng-repeat="ddMenu in ddMenuList" 
+                                ng-click="handleDDMenuClick( $event, ddMenu )">
+                                <a>{{ddMenu.label}}</a>
                             </li>
                         </ul>
+<!--                         <ul class="dropdown-menu"> -->
+<!--                             <li ng-click="openTab( $event, 'MANAGE' )"> -->
+<!--                                 <a href="javascript: void( 0 )"> -->
+<!--                                     Manage -->
+<!--                                 </a> -->
+<!--                             </li> -->
+<!--                             <li class="divider"></li> -->
+<!--                             <li ng-click="openTab( $event, 'SETTINGS' )"> -->
+<!--                                 <a href="javascript: void( 0 )"> -->
+<!--                                     Settings -->
+<!--                                 </a> -->
+<!--                             </li> -->
+<!--                             <li ng-click="openFromLocal( $event )"> -->
+<!--                                 <a href="javascript: void( 0 )"> -->
+<!--                                     Open from local -->
+<!--                                 </a> -->
+<!--                             </li> -->
+<!--                             <li class="divider"></li> -->
+<!--                             <li> -->
+<!--                                 <a href="javascript: void( 0 )"> -->
+<!--                                     Help -->
+<!--                                 </a> -->
+<!--                             </li> -->
+<!--                             <li> -->
+<!--                                 <a href="javascript: void( 0 )"> -->
+<!--                                     Exit -->
+<!--                                 </a> -->
+<!--                             </li> -->
+<!--                         </ul> -->
                     </li>
                     <!-- TABS -->
                     <li class="d-tab" ng-repeat="tab in openTabs track by tab.id">
@@ -160,7 +167,7 @@
 	                                                min="{{prop.min}}" 
 	                                                step="{{prop.step}}"
 	                                                class="form-control d-input-md" />
-	                                            <font-builder ng-model="propNgModel[ prop.id ][ prop.name ]" 
+	                                            <font-builder ng-model="font" 
 	                                               ng-init="setNgModel( prop.id, prop.objPath )" 
 	                                               ng-change="onPropChange()"
 	                                               fb-cfg="fbCfg" 
