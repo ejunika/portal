@@ -17,7 +17,7 @@
         requestSrvcFn
     ] );
     function requestSrvcFn( $http ) {
-        var rs = this;
+        var rs = this;ac
         rs.loginInfo = {};
         rs.showLoader = false;
       
@@ -26,9 +26,9 @@
         };
         rs.getBaseUrl = function() {
             var bUrl = "http://";
-            bUrl += acfg.server.ip + ":";
-            bUrl += acfg.server.port + "/";
-            bUrl += acfg.server.contextPath + "/";
+            bUrl += ac.serverInfo.ip + ":";
+            bUrl += ac.serverInfo.port + "/";
+            bUrl += ac.serverInfo.contextPath + "/";
             return bUrl;
         };
         rs.getJson = function( fileUrl, sCallback ) {

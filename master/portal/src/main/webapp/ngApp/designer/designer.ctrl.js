@@ -66,6 +66,11 @@
              function ddmdScb( jsonData ) {
                  $scope.ddMenuList = jsonData;
              }
+             if( $scope.loggedInUser.id ) {
+//                 $scope.createDirectoryInDb( "DEFAULT", "Default Workspace", null, $scope.DIRECTORY.TYPE.WORKSPACE, function( wsDir ) {
+//                     console.log( wsDir );
+//                 } );
+             }
          };
          $scope.fDragConfig = {
 //             helper: function() {
@@ -151,6 +156,22 @@
              $scope.dsBuilderVisible = false;
          };
          $scope.registerHotkeys = function() {
+             cs.addHotkeys( {
+                 combo: "ctrl+c",
+                 description: "Copy widgets",
+                 callback: function( e, hKeys ) {
+                     e.preventDefault();
+                     $scope.copy();
+                 }
+             } );
+             cs.addHotkeys( {
+                 combo: "ctrl+v",
+                 description: "Paste widgets",
+                 callback: function( e, hKeys ) {
+                     e.preventDefault();
+                     $scope.paste();
+                 }
+             } );
              cs.addHotkeys( {
                  combo: "ctrl+a",
                  description: "Select all widgets",
@@ -300,6 +321,8 @@
                      break;
                  case "OPENFROMELOCAL":
                      $scope.openFromLocal( e );
+                     break;
+                 case "EXIT":
                      break;
                  default: 
                      break;
@@ -477,7 +500,18 @@
              $scope.movePointer( e, g );
          };
          $scope.saveDashboard = function( e ) {
-             cs.alert( "error", "Designer", "Service Error!!" );
+             var dashboard = $scope.getSelectedDashboard();
+             $scope.createDirectoryInDb( 
+                     dashboard.Layout.title, 
+                     dashboard.Layout.title,
+                     1,
+                     $scope.DIRECTORY.TYPE.DASHBOARD,
+                     function( dbDir ) {
+                         $scope.saveDashboardInDb( dashboard, dbDir.id, function( dbInfo ) {
+                             cs.alert( "success", "Designer", "Dashboard saved!!" );
+                         } );
+                     }
+                 );
          };
          $scope.previewDashboard = function( e ) {
              $scope.preview = true;
@@ -705,8 +739,10 @@
                  id: dashboard.id,
                  title: dashboard.Layout.title
              };
-             $scope.openTabs.push( tab );
-             $scope.$apply();
+             $timeout( function() {
+                 $scope.openTabs.push( tab );
+             }, 0 );
+//             $scope.$apply();
              $timeout( function() {
                  var widgets = dashboard.Layout.widgets;
                  $scope.openDashboardIds.push( dashboard.id );
@@ -715,8 +751,9 @@
                  for( var i = 0; i < widgets.length; i++ ) {
                      $scope.addWidget( widgets[ i ] );
                  }
+                 cs.alert( "success", "Designer", dashboard.Layout.title + " has been loaded" );
                  $( "#TAB_" + dashboard.id ).click();
-             }, 0, true, dashboard );
+             }, 1, true, dashboard );
              $('a[data-toggle="tab"]')
                  .off('shown.bs.tab')
                  .on('shown.bs.tab', function (e) {
@@ -732,7 +769,12 @@
                          return false;
                      }
                  });
-             cs.alert( "success", "Designer", dashboard.Layout.title + " has been loaded" );
+         };
+         $scope.openFromServer = function( dbId ) {
+             $scope.getDashboardFromDb( dbId, function( db ) {
+                 var dashboard = angular.fromJson( db.data );
+                 $scope.openDashboard(dashboard)
+             } );
          };
          $scope.openFromLocal = function( e ) {
              $("<input type='file' accept='.njd'>")
@@ -1027,6 +1069,31 @@
                  return false;
              }
          };
+//         CUT, COPY, PASTE
+         $scope.clipBoard = {
+             widgets: [],
+             prevWidgetPos: {
+                 left: 0,
+                 top: 0
+             }
+         };
+         $scope.cut = function() {
+             
+         };
+         $scope.copy = function() {
+             $scope.clipBoard.widgets = angular.copy( $scope.getSelectedWidgetsFromSelectedDashboard() );
+         };
+         $scope.paste = function() {
+             var widgets = $scope.getWidgetsOfSelectedDashboard();
+             for( var i = 0; i < $scope.clipBoard.widgets.length; i++ ) {
+                 $scope.clipBoard.widgets[ i ].id = cs.getUniqueId();
+                 $scope.clipBoard.prevWidgetPos.left = $scope.clipBoard.widgets[ i ].left = $scope.clipBoard.prevWidgetPos.left + 10;
+                 $scope.clipBoard.prevWidgetPos.top = $scope.clipBoard.widgets[ i ].top = $scope.clipBoard.prevWidgetPos.top + 10;
+//                 $scope.clipBoard.widgets[ i ].left = $scope.clipBoard.prevWidgetPos.left + 10;
+//                 $scope.clipBoard.widgets[ i ].top = $scope.clipBoard.prevWidgetPos.top + 10;
+                 widgets.push( angular.copy( $scope.clipBoard.widgets[ i ] ) );
+             }
+         };
 //         LAYER
          $scope.sendToBack = function() {
              var widgets = $scope.getWidgetsOfSelectedDashboard(), 
@@ -1059,6 +1126,59 @@
              if( swIndex != -1 ) {
                  cs.moveItemInArray( widgets, swIndex, widgets.length - 1 );
              }
+         };
+//         DATABASE OPERATIONS
+         $scope.saveDashboardInDb = function( dashboard, wId, cb ) {
+             var reqUrl = rs.getUrl( "rest/directoryInfo/saveData" ),
+             reqData = {
+                 data: angular.toJson( dashboard ),
+                 directory: {
+                     id: wId
+                 }
+             },
+             scb = function( resData ) {
+                 if( resData.status ) {
+                     if( cb && typeof cb === "function" ) {
+                         cb( resData.data[ 0 ] );
+                     }
+                 }
+                 console.log( resData );
+             },
+             ecb = function() {
+                 
+             };
+             rs.doPostRequest( reqUrl, reqData, scb, ecb );
+         };
+         $scope.getDashboardFromDb = function( dbId, cb ) {
+             var reqUrl = rs.getUrl( "rest/directoryInfo/getData/" + dbId ),
+             scb = function( resData ) {
+                 if( resData.status ) {
+                     if( cb && typeof cb === "function" ) {
+                         cb( resData.data[ 0 ] );
+                     }
+                 }
+                 console.log( resData );
+             },
+             ecb = function() {
+                 
+             };
+             rs.doGetRequest( reqUrl, scb, ecb );
+         };
+         $scope.getAllDashboards = function( cb ) {
+             var reqUrl = rs.getUrl( "rest/directory/getAll" ),
+             scb = function( resData ) {
+                 if( resData.status ) {
+                     $scope.mdList = resData.data;
+                     if( cb && typeof cb === "function" ) {
+                         cb( resData.data );
+                     }
+                 }
+                 console.log( resData );
+             },
+             ecb = function() {
+                 
+             };
+             rs.doGetRequest( reqUrl, scb, ecb );
          };
      }
 } );

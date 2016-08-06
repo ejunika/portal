@@ -17,9 +17,11 @@
 <!--                     trash -->
 <!--                 </div> -->
 <!--             </div> -->
+        <ul ng-init="getAllDashboards()">
+            <li ng-click="openFromServer( md.id )" ng-if="md.type == 5" ng-repeat="md in mdList">{{ md.label }}</li>
+        </ul>
         </div>
         <div class="d-manage-page-right pull-right">
-        
         </div>
     </div>
     <div class="d-settings-page full-size" ng-if="tab.type == 2">

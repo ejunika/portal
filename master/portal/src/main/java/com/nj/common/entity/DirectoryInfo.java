@@ -29,7 +29,7 @@ public class DirectoryInfo implements Serializable {
     @Lob
     private String data;
     
-    @OneToOne( cascade = CascadeType.ALL )
+    @OneToOne( cascade = CascadeType.PERSIST )
     @JoinColumn( name = "DIRECTORY_ID" )
     private Directory directory;
 

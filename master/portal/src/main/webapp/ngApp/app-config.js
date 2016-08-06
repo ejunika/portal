@@ -82,6 +82,11 @@
             dropdownMenuData: "ngApp/designer/designer-dropdown-menu.data.json",
             propData: "ngApp/designer/widget-prop/line-chart.prop.json",
         },
+        serverInfo: {
+            ip: "localhost",
+            port: "8080",
+            contextPath: "portal"
+        },
         ngPlugins: {
             ngRoute: "ngRoute",
             ngAnimate: "ngAnimate",
