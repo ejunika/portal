@@ -18,35 +18,6 @@
                                 <a>{{ddMenu.label}}</a>
                             </li>
                         </ul>
-<!--                         <ul class="dropdown-menu"> -->
-<!--                             <li ng-click="openTab( $event, 'MANAGE' )"> -->
-<!--                                 <a href="javascript: void( 0 )"> -->
-<!--                                     Manage -->
-<!--                                 </a> -->
-<!--                             </li> -->
-<!--                             <li class="divider"></li> -->
-<!--                             <li ng-click="openTab( $event, 'SETTINGS' )"> -->
-<!--                                 <a href="javascript: void( 0 )"> -->
-<!--                                     Settings -->
-<!--                                 </a> -->
-<!--                             </li> -->
-<!--                             <li ng-click="openFromLocal( $event )"> -->
-<!--                                 <a href="javascript: void( 0 )"> -->
-<!--                                     Open from local -->
-<!--                                 </a> -->
-<!--                             </li> -->
-<!--                             <li class="divider"></li> -->
-<!--                             <li> -->
-<!--                                 <a href="javascript: void( 0 )"> -->
-<!--                                     Help -->
-<!--                                 </a> -->
-<!--                             </li> -->
-<!--                             <li> -->
-<!--                                 <a href="javascript: void( 0 )"> -->
-<!--                                     Exit -->
-<!--                                 </a> -->
-<!--                             </li> -->
-<!--                         </ul> -->
                     </li>
                     <!-- TABS -->
                     <li class="d-tab" ng-repeat="tab in openTabs track by tab.id">
@@ -121,71 +92,66 @@
                                 </div>
                             </form>
                         </div>
-<!--                         <div class="col-md-2 d-w-view-switch-container"> -->
-<!--                             <a href="javascript: void( 0 )" class="d-w-view-switcher"> -->
-<!--                                 <i class="glyphicon glyphicon-th"></i> -->
-<!--                             </a> -->
-<!--                         </div> -->
                     </div>
-			        <div class="row">
-			            <div class="d-prop-wrapper">
-			                 <ul class="list-group prop-group-list-wrapper" ng-class="{ 'in': enablePropPanel }">
-	                            <li class="list-group-item" 
-	                                ng-repeat="pg in propGroups"
-	                                ng-click="listProperty( $event, pg )">
-	                                <label>{{ pg.label }}</label>
-	                                <a href="javascript: void( 0 )" 
-	                                     class="pull-right">
-	                                         <i class="glyphicon glyphicon-menu-right"></i>
-	                                </a>
-	                            </li>
-	                        </ul>
-	                        <div class="panel panel-default prop-form-panel" ng-class="{ 'in': enablePropPanel }">
-	                            <div class="panel-heading" ng-click="listProperty( e )">
-	                                <a href="javascript: void( 0 )">
-	                                     <i class="glyphicon glyphicon-menu-left"></i>
-	                                </a>
-	                                <label>{{ clickedPropGroup.label }}</label>
-	                            </div>
-	                            <div class="panel-body">
-	                                <form class="form-horizontal">
-	                                    <div class="form-group d-form-group" ng-repeat="prop in clickedPropGroup.props">
-	                                        <label for="dProvider" class="col-sm-4 control-label">{{ prop.label }}</label>
-	                                        <div class="col-sm-8">
-	                                            <input ng-init="setNgModel( prop.id, prop.objPath )" 
-	                                                ng-change="onPropChange()" 
-	                                                ng-if="prop.type == 'text'"
-	                                                type="text" 
-	                                                class="form-control d-input-md" 
-	                                                ng-model="propNgModel[ prop.id ][ prop.name ]"  />
-	                                            <input ng-init="setNgModel( prop.id, prop.objPath )" 
-	                                                ng-model="propNgModel[ prop.id ][ prop.name ]" 
-	                                                ng-change="onPropChange()" 
-	                                                ng-if="prop.type == 'numSpinner'"
-	                                                type="number" 
-	                                                max="{{prop.max}}" 
-	                                                min="{{prop.min}}" 
-	                                                step="{{prop.step}}"
-	                                                class="form-control d-input-md" />
-	                                            <font-builder ng-model="font" 
-	                                               ng-init="setNgModel( prop.id, prop.objPath )" 
-	                                               ng-change="onPropChange()"
-	                                               fb-cfg="fbCfg" 
-	                                               ng-if="prop.type == 'font'">
-	                                            </font-builder>
-	                                            <div ng-if="prop.type == 'checkbox'" 
-	                                                class="checkbox">
-	                                                <label>
-	                                                    <input type="checkbox">
-	                                                </label>
-	                                            </div>
-	                                        </div>
-	                                    </div>
-	                                </form>
-	                            </div>
-	                        </div>
-			            </div>
-			        </div>
+                    <div class="row">
+                        <div class="d-prop-wrapper">
+                             <ul class="list-group prop-group-list-wrapper" ng-class="{ 'in': enablePropPanel }">
+                                <li class="list-group-item" 
+                                    ng-repeat="pg in propGroups"
+                                    ng-click="listProperty( $event, pg )">
+                                    <label>{{ pg.label }}</label>
+                                    <a href="javascript: void( 0 )" 
+                                         class="pull-right">
+                                             <i class="glyphicon glyphicon-menu-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="panel panel-default prop-form-panel" ng-class="{ 'in': enablePropPanel }">
+                                <div class="panel-heading" ng-click="listProperty( e )">
+                                    <a href="javascript: void( 0 )">
+                                         <i class="glyphicon glyphicon-menu-left"></i>
+                                    </a>
+                                    <label>{{ clickedPropGroup.label }}</label>
+                                </div>
+                                <div class="panel-body">
+                                    <form class="form-horizontal">
+                                        <div class="form-group d-form-group" ng-repeat="prop in clickedPropGroup.props">
+                                            <label for="dProvider" class="col-sm-4 control-label">{{ prop.label }}</label>
+                                            <div class="col-sm-8">
+                                                <input ng-init="setNgModel( prop.id, prop.objPath )" 
+                                                    ng-change="onPropChange()" 
+                                                    ng-if="prop.type == 'text'"
+                                                    type="text" 
+                                                    class="form-control d-input-md" 
+                                                    ng-model="propNgModel[ prop.id ][ prop.name ]"  />
+                                                <input ng-init="setNgModel( prop.id, prop.objPath )" 
+                                                    ng-model="propNgModel[ prop.id ][ prop.name ]" 
+                                                    ng-change="onPropChange()" 
+                                                    ng-if="prop.type == 'numSpinner'"
+                                                    type="number" 
+                                                    max="{{prop.max}}" 
+                                                    min="{{prop.min}}" 
+                                                    step="{{prop.step}}"
+                                                    class="form-control d-input-md" />
+                                                <font-builder ng-model="font" 
+                                                   ng-init="setNgModel( prop.id, prop.objPath )" 
+                                                   ng-change="onPropChange()"
+                                                   fb-cfg="fbCfg" 
+                                                   ng-if="prop.type == 'font'">
+                                                </font-builder>
+                                                <div ng-if="prop.type == 'checkbox'" 
+                                                    class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                  </div>
                 <div id="widgetExp" class="d-right-pane-body" ng-show="showWidExp">
                     <div class="row">
@@ -258,9 +224,6 @@
                  </div>
             </div>
         </div>
-<!--        <div class="full-size d-other"> -->
-<!--            Other -->
-<!--        </div> -->
     </div>
     <div class="full-height d-main-control pull-right">
         <ul class="list-group full-height d-main-menu d-hf-menu">

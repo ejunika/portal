@@ -15,7 +15,7 @@
      dm.controller( ac.controllers.designer, [ 
          ac.ngVars.scope,
          ac.ngVars.timeout,
-         "$parse",
+         ac.ngVars.parse,
          ac.services.core,
          ac.services.request,
          designerCtrlFn 
@@ -394,11 +394,13 @@
              if( dashboard ) {
                  wId = dashboard.sWidgetIds[ 0 ],
                  canvasObj = dashboard.Info.ObjMap[ wId ];
-                 canvasObj.render();
+                 if( canvasObj ) {
+                     canvasObj.render();
+                 }
              }
          };
          $scope.updatePropertyPalette = function( propFor ) {
-             var widget, dashboard, propDataUrl = "ngApp/designer/widget-prop/line-chart.prop.json";
+             var widget, dashboard, propDataUrl = ac.jsonPath.propData;
              if( propFor == "WIDGET" ) {
                  widget = $scope.getSelectedWidgetsFromSelectedDashboard()[ 0 ];
              }
@@ -481,13 +483,15 @@
              $scope.preview = true;
              cs.alert( "info", "Designer", "Preview enabled!!" );
              var dashboard = $scope.getSelectedDashboard(), 
-             $iFrame = $( "<iframe src='preview.html'></iframe>" );
+             $iFrame = $( "<iframe id='previewFrame' src='preview.html'></iframe>" );
 //             $iFrame.attr( "height", 400 ).attr( "width", 400 );
              dJson = angular.copy( dashboard );
              $( ".d-preview-wrapper" ).find( "iframe" ).remove();
              $( ".d-preview-wrapper" ).append( $iFrame );
              $timeout( function( dJson ) {
-                 window.frames[0].frameElement.contentWindow.doPreview( dJson );
+                 document.getElementById( "previewFrame" )
+                     .contentWindow.doPreview( dJson );
+//                 window.frames[0].frameElement.contentWindow.doPreview( dJson );
              }, 1000, false, dJson );
          };
          $scope.closePreview = function( e ) {
@@ -506,6 +510,13 @@
                  $rightPane.addClass( "d-right-pane-hide" );
                  $dashboardWrapper.addClass( "d-dashboard-wrapper-full" );
              }
+         };
+         $scope.enableRightPane = false;
+         $scope.showRightPane = function() {
+             
+         };
+         $scope.hideRightPane = function() {
+             
          };
          $scope.notify = function( type, obj ) {
              switch( type ) {

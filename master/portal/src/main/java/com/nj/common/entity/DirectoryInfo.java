@@ -2,14 +2,15 @@ package com.nj.common.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -28,8 +29,8 @@ public class DirectoryInfo implements Serializable {
     @Lob
     private String data;
     
-    @OneToOne
-    @PrimaryKeyJoinColumn
+    @OneToOne( cascade = CascadeType.ALL )
+    @JoinColumn( name = "DIRECTORY_ID" )
     private Directory directory;
 
     public Long getId() {

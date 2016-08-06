@@ -79,7 +79,8 @@
         jsonPath: {
             widgetExpData: "ngApp/designer/widget-exp/widget-exp.data.json",
             dashboardData: "ngApp/designer/dashboard/dashboard.data.json",
-            dropdownMenuData: "ngApp/designer/designer-dropdown-menu.data.json"
+            dropdownMenuData: "ngApp/designer/designer-dropdown-menu.data.json",
+            propData: "ngApp/designer/widget-prop/line-chart.prop.json",
         },
         ngPlugins: {
             ngRoute: "ngRoute",
@@ -91,6 +92,7 @@
         },
         ngVars: {
             scope: "$scope",
+            parse: "$parse",
             http: "$http",
             timeout: "$timeout",
             routeProvider: "$routeProvider"

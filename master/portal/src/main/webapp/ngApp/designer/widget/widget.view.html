@@ -8,6 +8,9 @@
         id="{{w.id}}" 
         ng-click="preventClick || onClickWidget( $event, w, dontClick )" >
         <div id="{{ 'CC_' + w.id }}" class="chart-container full-size"></div>
+<!--         <div class=""> -->
+<!--             <a href=""><i class="glyphicon glyphicon-plus"></i></a> -->
+<!--         </div> -->
         <div class="w-s-border" 
             ng-class="{ 'ref-widget': isRefWidget( w ) }" ng-show="w.selected">
             <div class="ui-resizable-handle ui-resizable-n r-handle r-handle-n"></div>
