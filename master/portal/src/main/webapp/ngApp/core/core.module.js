@@ -24,6 +24,7 @@
          ac.modules.mainMenu.module.name,
          ac.modules.mainArea.module.name,
          ac.modules.fileManager.module.name,
+         ac.modules.modalDialog.module.name,
          ac.modules.designer.module.name
      ] )
      .config( [

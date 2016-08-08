@@ -7,6 +7,7 @@
     define( [
         "jquery",
         "jqueryui",
+        "jstree",
         "angular",
         "angularroute",
         "angularanimate",
@@ -35,6 +36,9 @@
         "mad",
         "fmm",
         "fmc",
+        "mdm",
+        "mdc",
+        "mdd",
         "dm",
         "dc",
         "dbm",

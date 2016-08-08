@@ -27,6 +27,10 @@ public interface IDirectoryService {
     Response getAll();
     
     @GET
+    @Path( "getRootDirectories" )
+    Response getRootDirectories();
+    
+    @GET
     @Path( "getAllFilesAndFolders" )
     Response getAllFilesAndFolders();
     

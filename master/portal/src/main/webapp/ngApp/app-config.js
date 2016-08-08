@@ -23,6 +23,7 @@
             mainMenu: { module: { name: "main-menu.module" } },
             mainArea: { module: { name: "main-area.module" } },
             fileManager: { module: { name: "file-manager.module" } },
+            modalDialog: { module: { name: "modal-dialog.module" } },
             designer: { module: { name: "designer.module" } },
             dashboard: { module: { name: "dashboard.module" } },
             specialPage: { module: { name: "special-page.module" } },
@@ -35,6 +36,7 @@
             mainMenu: "main-menu.ctrl",
             mainArea: "main-area.ctrl",
             fileManager: "file-manager.ctrl",
+            modalDialog: "modal-dialog.ctrl",
             designer: "designer.ctrl",
             dashboard: "dashboard.ctrl",
             specialPage: "special-page.ctrl",
@@ -57,6 +59,10 @@
             mainArea: {
                 name: "njMainArea",
                 tUrl: "ngApp/core/main-area/main-area.view.html"
+            },
+            modalDialog: {
+                name: "njModalDialog",
+                tUrl: "ngApp/modal-dialog/modal-dialog.view.html"
             },
             dashboard: {
                 name: "njDashboard",
@@ -86,8 +92,8 @@
         },
         serverInfo: {
             ip: "localhost",
-//            port: "8080",
-            port: "8090",
+            port: "8080",
+//            port: "8090",
             contextPath: "portal"
         },
         ngPlugins: {

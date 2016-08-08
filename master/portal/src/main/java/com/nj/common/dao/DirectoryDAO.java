@@ -6,6 +6,7 @@ import org.hibernate.criterion.Restrictions;
 
 import com.nj.common.entity.Directory;
 import com.nj.util.HibernateDAO;
+import com.nj.util.PortalStatus;
 
 public class DirectoryDAO extends HibernateDAO implements IDirectoryDAO {
 	
@@ -53,6 +54,25 @@ public class DirectoryDAO extends HibernateDAO implements IDirectoryDAO {
 			session = getSessionFactory().openSession();
 			criteria = session.createCriteria( Directory.class );
 			criteria.add(Restrictions.eq( "parent", entity ) );
+			list = criteria.list();
+		}
+		catch( Exception e ) {
+			e.printStackTrace();
+		}
+		finally {
+			session.close();
+		}
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Object> getRootDirectories() {
+		List<Object> list = null;
+		try {
+			session = getSessionFactory().openSession();
+			criteria = session.createCriteria( Directory.class );
+			criteria.add(Restrictions.eq( "type", PortalStatus.ROOT_FOLDER ) );
 			list = criteria.list();
 		}
 		catch( Exception e ) {

@@ -29,6 +29,7 @@ public class DirectoryManager {
 	}
 	
 	public Response getAllDirectories() {
+		getList().clear();
 		List<Object> allDirectories = getDirectoryDAO().getAll();
 		if( !allDirectories.isEmpty() ) {
 			getResponse().setData(allDirectories);
@@ -42,7 +43,13 @@ public class DirectoryManager {
 		return getResponse();
 	}
 	
+	public Response getRootDirectories() {
+		getDirectoryDAO().getRootDirectories();
+		return getResponse();
+	}
+	
 	public Response getByParentId( Long pId ) {
+		getList().clear();
 		getDirectory().setId(pId);
 		List<Object> directories = getDirectoryDAO().getByParentId(getDirectory());
 		if( !directories.isEmpty() ) {

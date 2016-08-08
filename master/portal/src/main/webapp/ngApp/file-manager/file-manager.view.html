@@ -1,12 +1,11 @@
 <div class="file-manager-view full-size" 
-	ng-init="fmVm.fn.init( coreVm )">
+	ng-init="init()">
 	<div class="clg-file-browser pull-left" 
 		jq-resizable
-		resize-config="fmVm.cfg.fmResCfg">
+		resize-config="fmResCfg">
 		<div id="jstree" 
-			js-tree 
-			js-tree-select="fmVm.fn.jsTreeSelectHandler"  
-			tree-config="fmVm.cfg.treeCfg">
+			js-tree="treeCfg" 
+			js-tree-select="jsTreeSelectHandler">
 	  	</div>
 	</div>
 	<div class="clg-file-viewer pull-left">

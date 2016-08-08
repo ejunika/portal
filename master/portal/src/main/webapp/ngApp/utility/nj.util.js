@@ -15,6 +15,7 @@
         .directive( "njCxtMenu", [ "$parse", njCxtMenuFn ] )
         .directive( "cxtMenuBox", [ "$parse", cxtMenuBoxFn ] )
         .directive( "fontBuilder", [ "$parse", fontBuilderFn ] )
+        .directive( "jsTree", [ "$parse", jsTreeFn ] )
         .filter( "search", [ searchFilterFn ] )
         .directive( "repeatEnd", [ repeatEndDirFn ] );
     function repeatEndDirFn() {
@@ -113,6 +114,15 @@
             template: '<ul ng-style="$root.menuPos" class="dropdown-menu cxt-menu"><li ng-class="{ \'divider\': opn.divider }" ng-repeat="opn in $root.opnList" ng-click="$root.opnClicked( $event, opn )"><a>{{opn.label}}</a></li></ul>',
             link: function( $scope, el, attrs, ctrl ) {
     //            var njCxtMenuHandler = $parse( attrs.cxtMenuBox )( $scope );
+            }
+        };
+    }
+    function jsTreeFn( $parse ) {
+        return {
+            restrict: "AE",
+            link: function( $scope, el, attrs, ngModel ) {
+                var treeCfg = $parse( attrs.jsTree )( $scope );
+                el.jstree( treeCfg );
             }
         };
     }

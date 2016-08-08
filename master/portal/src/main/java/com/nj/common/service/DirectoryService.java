@@ -43,4 +43,10 @@ public class DirectoryService implements IDirectoryService {
     public void setMasterManager(MasterManager masterManager) {
         this.masterManager = masterManager;
     }
+
+	@Override
+	public Response getRootDirectories() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
