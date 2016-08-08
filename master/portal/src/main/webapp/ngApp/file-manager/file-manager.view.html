@@ -1,0 +1,39 @@
+<div class="file-manager-view full-size" 
+	ng-init="fmVm.fn.init( coreVm )">
+	<div class="clg-file-browser pull-left" 
+		jq-resizable
+		resize-config="fmVm.cfg.fmResCfg">
+		<div id="jstree" 
+			js-tree 
+			js-tree-select="fmVm.fn.jsTreeSelectHandler"  
+			tree-config="fmVm.cfg.treeCfg">
+	  	</div>
+	</div>
+	<div class="clg-file-viewer pull-left">
+		<div class="clg-folder-container dropdown" 
+			ng-dblclick="getChildren( $event, file )"  
+			ng-repeat="file in fmVm.data.files">
+			<a class="clg-file-option dropdown-toggle" 
+				id="{{ 'FILE_OPN_' + file.id }}"
+				href="javascript: void( 0 )" 
+				data-toggle="dropdown" 
+				aria-haspopup="true" 
+				aria-expanded="false"
+				ng-click="fmVm.fn.getFileOptions( $event, file )" >
+					<i class="glyphicon glyphicon-cog"></i>
+			</a>
+			<ul class="dropdown-menu clg-folder-dropdown-menu" 
+				aria-labelledby="{{ 'FILE_OPN_' + file.id }}" >
+			    <li ng-click="$parent.fmVm.fn.handleCxtMenu( $event, fCxtOpn )"
+			    	ng-repeat="fCxtOpn in $parent.fmVm.data.fCxtMenu track by $index">
+			    	<a href="javascript: void( 0 )">{{ fCxtOpn.label }}</a>
+			    </li>
+	<!-- 		    <li role="separator" class="divider"></li> -->
+			</ul>
+			<a href="javascript: void( 0 )" class="thumbnail">
+		       <img ng-src="{{ fmVm.fn.getThumbnail( file ) }}" />
+		       <label>{{ file.text }}</label>
+		    </a>
+		</div>
+	</div>
+</div>
