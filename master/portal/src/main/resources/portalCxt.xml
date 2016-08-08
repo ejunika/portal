@@ -15,8 +15,8 @@
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
 		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/PORTAL?createDatabaseIfNotExist=true" />
 		<property name="user" value="root" />
-<!-- 		<property name="password" value="Admin" /> -->
-		<property name="password" value="Vijeta" />
+		<property name="password" value="Admin" />
+<!-- 		<property name="password" value="Vijeta" /> -->
 		<!-- CONNECTION POOL INFORMATION -->
 		<property name="maxPoolSize" value="5" /> 
 		<property name="minPoolSize" value="1" />
@@ -42,7 +42,7 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
 				<prop key="hibernate.format_sql">true</prop>
 				<prop key="use_sql_comments">true</prop>
 			</props>
