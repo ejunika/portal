@@ -33,6 +33,8 @@
         "mam",
         "mac",
         "mad",
+        "fmm",
+        "fmc",
         "dm",
         "dc",
         "dbm",

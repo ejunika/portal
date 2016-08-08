@@ -28,5 +28,15 @@
         "icon": {
             "clazz": "glyphicon glyphicon-picture"
         }
+    },
+    {
+        "id": "FILE_MANAGER",
+        "name": "File Manger",
+        "hasOpns": false,
+        "selected": false,
+        "enable": true,
+        "icon": {
+            "clazz": "glyphicon glyphicon-picture"
+        }
     }
 ]

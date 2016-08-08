@@ -23,6 +23,7 @@
          ac.modules.breadcrumb.module.name,
          ac.modules.mainMenu.module.name,
          ac.modules.mainArea.module.name,
+         ac.modules.fileManager.module.name,
          ac.modules.designer.module.name
      ] )
      .config( [
@@ -35,9 +36,12 @@
                  templateUrl: "ngApp/designer/designer.view.html",
                  controller: "designer.ctrl"
              } )
-             .when( "/fProps", {} )
+             .when( "/fManager", {
+                 templateUrl: "ngApp/file-manager/file-manager.view.html",
+                 controller: "file-manager.ctrl"
+             } )
              .otherwise( {
-                 redirectTo: "/designer"
+                 redirectTo: "/fManager"
              } );
      }
 } );

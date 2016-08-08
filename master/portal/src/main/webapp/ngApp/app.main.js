@@ -37,6 +37,8 @@
             mam: "core/main-area/main-area.module",
             mac: "core/main-area/main-area.ctrl",
             mad: "core/main-area/main-area.dir",
+            fmm: "file-manager/file-manager.module",
+            fmc: "file-manager/file-manager.ctrl",
             dm: "designer/designer.module",
             dc: "designer/designer.ctrl",
             dbm: "designer/dashboard/dashboard.module",
