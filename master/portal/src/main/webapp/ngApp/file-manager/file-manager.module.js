@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ( function( ctx, fn ) {
     "use strict";
     if( typeof define === "function" && define.amd ) {
@@ -16,3 +17,18 @@
         
     ] );
 } );
+=======
+( function() { "use strict";
+    var
+    requireCallback = function( ng, appConfig ) {
+    	var
+
+    	fileManagerModule = ng.module( appConfig.modules.core.fileManager.name, [] );
+
+    	return fileManagerModule;
+    };
+
+    define( [ "angular", "appConfig" ], requireCallback );
+    
+} )();
+>>>>>>> refs/remotes/origin/master
