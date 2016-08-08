@@ -31,6 +31,7 @@
                  }
              };
              $scope.cs = cs;
+             $scope.$root.showLoader = false;
              $scope.fullMainMenu = false;
              $scope.mouseOverCnt = 0;
              cs.cxtMenuPosition = {};

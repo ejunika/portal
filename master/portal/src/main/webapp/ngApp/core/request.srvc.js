@@ -13,13 +13,13 @@
     }
 } )( this, function( ac, cm ) {
     cm.service( ac.services.request, [
+        ac.ngVars.rootScope,
         ac.ngVars.http,
         requestSrvcFn
     ] );
-    function requestSrvcFn( $http ) {
+    function requestSrvcFn( $rootScope, $http ) {
         var rs = this;ac
         rs.loginInfo = {};
-        rs.showLoader = false;
       
         rs.getUrl = function( act ) {
             return rs.getBaseUrl() + act;
@@ -75,20 +75,20 @@
                 return str.join( "&" );
             },
             settings = angular.extend( {}, defSettings, config );
-            rs.showLoader = true;
+            $rootScope.showLoader = true;
             $http( settings )
             .success( function( resData, resStatus, resHeaders, cnf ) {
                 if( sCallbackFn && typeof (sCallbackFn) === "function" ) {
                     sCallbackFn( resData, resStatus, resHeaders, cnf );
                 }
-                rs.showLoader = false;
+                $rootScope.showLoader = false;
             } )
             .error( function( resData, resStatus, resHeaders, cnf ) {
                 console.info( "$http request ERROR!!!" );
                 if( eCallbackFn && typeof (eCallbackFn) === "function" ) {
                     eCallbackFn( resData, resStatus, resHeaders, cnf );
                 }
-                rs.showLoader = false;
+                $rootScope.showLoader = false;
             } );
         };
         rs.doPostRequest = function( reqUrl, reqData, sCallbackFn, eCallbackFn ) {

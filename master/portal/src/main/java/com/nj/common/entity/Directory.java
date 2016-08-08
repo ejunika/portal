@@ -141,12 +141,4 @@ public class Directory {
 		this.owner = owner;
 	}
 
-//	public DirectoryInfo getDirectoryInfo() {
-//		return directoryInfo;
-//	}
-//
-//	public void setDirectoryInfo(DirectoryInfo directoryInfo) {
-//		this.directoryInfo = directoryInfo;
-//	}
-
 }

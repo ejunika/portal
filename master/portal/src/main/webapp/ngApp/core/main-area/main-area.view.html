@@ -2,4 +2,7 @@
 	ng-class="getMainAreaToggleClasses()"
 	class="clg-wrapper animated bounceInLeft pull-right">
 	<div ng-view class="clg-sub-container"></div>
+	<div class="nj-blocked-ui" ng-show="$root.showLoader">
+        <div class="dizzy-gillespie"></div>
+    </div>
 </div>

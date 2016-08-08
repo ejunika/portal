@@ -16,17 +16,25 @@ import com.nj.common.response.Response;
 @Consumes( MediaType.APPLICATION_JSON )
 @Produces( MediaType.APPLICATION_JSON )
 public interface IDirectoryService {
-	
-	@GET
-	@Path( "getByParent/{pId}")
-	public Response getByParentId( @PathParam("pId") Long pId );
-	
-	@POST
-	@Path( "create" )
-	Response create( Directory directory );
-	
-	@GET
-	@Path( "getAll" )
-	Response getAll();
-	
+    
+    @GET
+    @Path( "getByParent/{pId}")
+    Response getByParentId( @PathParam("pId") Long pId );
+    
+    
+    @GET
+    @Path( "getAll" )
+    Response getAll();
+    
+    @GET
+    @Path( "getAllFilesAndFolders" )
+    Response getAllFilesAndFolders();
+    
+    @GET
+    @Path( "getAllWorkspacesAndDashboards" )
+    Response getAllWorkspacesAndDashboards();
+    
+    @POST
+    @Path( "create" )
+    Response create( Directory directory );
 }

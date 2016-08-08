@@ -84,7 +84,8 @@
         },
         serverInfo: {
             ip: "localhost",
-            port: "8080",
+//            port: "8080",
+            port: "8090",
             contextPath: "portal"
         },
         ngPlugins: {
@@ -97,6 +98,7 @@
         },
         ngVars: {
             scope: "$scope",
+            rootScope: "$rootScope",
             parse: "$parse",
             http: "$http",
             timeout: "$timeout",
