@@ -35,6 +35,11 @@ public class DirectoryService implements IDirectoryService {
         // TODO Auto-generated method stub
         return null;
     }
+    
+    @Override
+	public Response getRootDirectories( Long loginId ) {
+    	return getMasterManager().getDirectoryManager().getRootDirectories( loginId );
+	}
 
     public MasterManager getMasterManager() {
         return masterManager;
@@ -44,9 +49,4 @@ public class DirectoryService implements IDirectoryService {
         this.masterManager = masterManager;
     }
 
-	@Override
-	public Response getRootDirectories() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

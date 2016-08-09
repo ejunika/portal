@@ -21,14 +21,13 @@ public interface IDirectoryService {
     @Path( "getByParent/{pId}")
     Response getByParentId( @PathParam("pId") Long pId );
     
-    
     @GET
     @Path( "getAll" )
     Response getAll();
     
     @GET
-    @Path( "getRootDirectories" )
-    Response getRootDirectories();
+    @Path( "getRootDirectories/{loginId}" )
+    Response getRootDirectories( @PathParam("loginId") Long pId );
     
     @GET
     @Path( "getAllFilesAndFolders" )

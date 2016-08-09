@@ -41,7 +41,9 @@
                  border: "1px solid #2196f3",
                  background: "rgba(33, 150, 243, 0.1)"
              };
-             $scope.loggedInUser = {};
+             $scope.loggedInUser = {
+                 rootDirectories: []
+             };
 //             debugger;
 //             $scope.signUp();
              $scope.signIn();
@@ -67,6 +69,33 @@
                  $scope.fullMainMenu = false; 
              }
          };
+         $scope.makeRootDirectories = function() {
+             var rootDirectories = [
+                 {
+                     label: "My Documents",
+                     description: "The root folder"
+                 },
+                 {
+                     label: "Favourite Documents",
+                     description: "The root folder"
+                 },
+                 {
+                     label: "Public Documents",
+                     description: "The root folder"
+                 },
+             ];
+             for( var i = 0; i < rootDirectories.length; i++ ) {
+                 $scope.createDirectoryInDb( 
+                         rootDirectories[ i ].label, 
+                         rootDirectories[ i ].description, 
+                         null, 
+                         $scope.DIRECTORY.TYPE.ROOT_FOLDER, 
+                         function( rootDir ) {
+                             $scope.loggedInUser.rootDirectories.push( rootDir );
+                         } 
+                 );
+             }
+         };
          $scope.signUp = function() {
              var reqUrl = rs.getUrl( "rest/login/register" ),
              reqData = {
@@ -82,8 +111,20 @@
              },
              ecb = function() {
                  
-             }
+             };
              rs.doPostRequest( reqUrl, reqData, scb, ecb );
+         };
+         $scope.getRootDirectories = function( userId, cb ) {
+             var reqUrl = rs.getUrl( "rest/directory/getRootDirectories/" + userId ),
+             scb = function( resData ) {
+                 if( cb && typeof cb === "function" ) {
+                     cb( resData.data );
+                 }
+             },
+             ecb = function() {
+                 
+             };
+             rs.doGetRequest( reqUrl, scb, ecb );
          };
          $scope.signIn = function() {
              var reqUrl = rs.getUrl( "rest/login/doLogin" ),
@@ -93,7 +134,14 @@
              },
              scb = function( resData ) {
                  if( resData.status ) {
+                     debugger;
                      $scope.loggedInUser = resData.data[ 0 ];
+                     $scope.getRootDirectories( resData.data[ 0 ].id, function( rootDir ) {
+                         $scope.loggedInUser.rootDirectories = rootDir;
+                         if( rootDir.length == 0 ) {
+                             $scope.makeRootDirectories();
+                         }
+                     } );
                  }
              },
              ecb = function() {

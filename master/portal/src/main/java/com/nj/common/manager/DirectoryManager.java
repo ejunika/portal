@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.nj.common.dao.DirectoryDAO;
 import com.nj.common.entity.Directory;
+import com.nj.common.entity.Login;
 import com.nj.common.response.Response;
 
 public class DirectoryManager {
@@ -11,6 +12,7 @@ public class DirectoryManager {
 	private Response response;
 	private DirectoryDAO directoryDAO;
 	private Directory directory;
+	private Login login;
 	private List<Directory> list;
 	
 	public Response createDirectory( Directory directory ) {
@@ -43,8 +45,34 @@ public class DirectoryManager {
 		return getResponse();
 	}
 	
-	public Response getRootDirectories() {
-		getDirectoryDAO().getRootDirectories();
+	public Response getRootDirectories( Long loginId ) {
+		getList().clear();
+		getLogin().setId( loginId );
+		List<Object> directories = getDirectoryDAO().getRootDirectories( getLogin() );
+		if( !directories.isEmpty() ) {
+			getResponse().setData(directories);
+			getResponse().setStatus(true);
+			getResponse().setInfo("Success");
+		}
+		else {
+			getResponse().setStatus(false);
+			getResponse().setInfo("Error");
+		}
+		return getResponse();
+	}
+	
+	public Response getByType( Byte type ) {
+		getList().clear();
+		List<Object> directories = getDirectoryDAO().getByType( type );
+		if( !directories.isEmpty() ) {
+			getResponse().setData(directories);
+			getResponse().setStatus(true);
+			getResponse().setInfo("Success");
+		}
+		else {
+			getResponse().setStatus(false);
+			getResponse().setInfo("Error");
+		}
 		return getResponse();
 	}
 	
@@ -94,6 +122,14 @@ public class DirectoryManager {
 
 	public void setList(List<Directory> list) {
 		this.list = list;
+	}
+
+	public Login getLogin() {
+		return login;
+	}
+
+	public void setLogin(Login login) {
+		this.login = login;
 	}
 	
 	
