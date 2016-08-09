@@ -92,8 +92,8 @@
         },
         serverInfo: {
             ip: "localhost",
-            port: "8080",
-//            port: "8090",
+//            port: "8080",
+            port: "8090",
             contextPath: "portal"
         },
         ngPlugins: {

@@ -1,102 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://cxf.apache.org/configuration/beans"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:jaxws="http://cxf.apache.org/jaxws"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-		http://cxf.apache.org/configuration/beans http://cxf.apache.org/schemas/configuration/cxf-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
-		http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
-		http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
-	<context:annotation-config />
-	<import resource="classpath:META-INF/cxf/cxf.xml"/>
-	<bean id="comboPooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<!-- DATABASE INFORMATION -->
-		<property name="driverClass" value="com.mysql.jdbc.Driver" />
-		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/PORTAL?createDatabaseIfNotExist=true" />
-		<property name="user" value="root" />
-<!-- 		<property name="password" value="Admin" /> -->
-		<property name="password" value="Vijeta" />
-		<!-- CONNECTION POOL INFORMATION -->
-		<property name="maxPoolSize" value="5" /> 
-		<property name="minPoolSize" value="1" />
-		<property name="acquireIncrement" value="1" />
-		<property name="initialPoolSize" value="1" />
-		<property name="maxStatements" value="0" />
-		<property name="idleConnectionTestPeriod" value="3000" />
-		<property name="maxIdleTime" value="3600" />
-		<property name="checkoutTimeout" value="60000" />
-		<property name="testConnectionOnCheckout" value="true" />
-	</bean>
-	<bean id="sessionFactory" 
-		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-		<property name="dataSource" ref="comboPooledDataSource" />
-		<property name="annotatedClasses">
-			<list>
-				<value>com.nj.common.entity.Login</value>
-				<value>com.nj.common.entity.Directory</value>
-				<value>com.nj.common.entity.DirectoryInfo</value>
-			</list>
-		</property>
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				<prop key="hibernate.format_sql">true</prop>
-				<prop key="use_sql_comments">true</prop>
-			</props>
-		</property>
-	</bean>
-	<bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
-	<bean id="authenticationFilter" class="com.nj.common.filter.AuthenticationFilter" />
-	
-	<jaxrs:server id="dirService" address="/directory">
-		<jaxrs:serviceBeans>
-			<ref bean="directoryService" />
-		</jaxrs:serviceBeans>
-		<jaxrs:providers>
-			<ref bean="jsonProvider" />
-			<ref bean="authenticationFilter"/>
-		</jaxrs:providers>
-	</jaxrs:server>
-	
-	<jaxrs:server id="dirInfoService" address="/directoryInfo">
-		<jaxrs:serviceBeans>
-			<ref bean="directoryInfoService" />
-		</jaxrs:serviceBeans>
-		<jaxrs:providers>
-			<ref bean="jsonProvider" />
-		</jaxrs:providers>
-	</jaxrs:server>
-	
-	<jaxrs:server id="logService" address="/login">
-		<jaxrs:serviceBeans>
-			<ref bean="loginService" />
-		</jaxrs:serviceBeans>
-		<jaxrs:providers>
-			<ref bean="jsonProvider" />
-		</jaxrs:providers>
-	</jaxrs:server>
-	
-	<bean id="list" class="java.util.ArrayList" autowire="byName" />
-	<bean id="response" class="com.nj.common.response.Response" autowire="byName" />
-	<bean id="masterManager" class="com.nj.common.manager.MasterManager" autowire="byName" />
-	
-	<bean id="login" class="com.nj.common.entity.Login" autowire="byName" />
-	<bean id="loginDAO" class="com.nj.common.dao.LoginDAO" autowire="byName" />
-	<bean id="loginManager" class="com.nj.common.manager.LoginManager" autowire="byName" />
-	<bean id="loginService" class="com.nj.common.service.LoginService" autowire="byName" />
-	
-	
-	<bean id="directory" class="com.nj.common.entity.Directory" autowire="byName" />
-	<bean id="directoryDAO" class="com.nj.common.dao.DirectoryDAO" autowire="byName" />
-	<bean id="directoryManager" class="com.nj.common.manager.DirectoryManager" autowire="byName" />
-	<bean id="directoryService" class="com.nj.common.service.DirectoryService" autowire="byName" />
-	
-	<bean id="directoryInfo" class="com.nj.common.entity.DirectoryInfo" autowire="byName" />
-	<bean id="directoryInfoDAO" class="com.nj.common.dao.DirectoryInfoDAO" autowire="byName" />
-	<bean id="directoryInfoManager" class="com.nj.common.manager.DirectoryInfoManager" autowire="byName" />
-	<bean id="directoryInfoService" class="com.nj.common.service.DirectoryInfoService" autowire="byName" />
-	
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:beans="http://cxf.apache.org/configuration/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:jaxrs="http://cxf.apache.org/jaxrs" 
+    xmlns:cxf="http://cxf.apache.org/core"
+    xmlns:jaxws="http://cxf.apache.org/jaxws"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://cxf.apache.org/configuration/beans 
+        http://cxf.apache.org/schemas/configuration/cxf-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd 
+        http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
+    <context:annotation-config />
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+    <bean id="comboPooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <!-- DATABASE INFORMATION -->
+        <property name="driverClass" value="com.mysql.jdbc.Driver" />
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/PORTAL?createDatabaseIfNotExist=true" />
+        <property name="user" value="root" />
+        <property name="password" value="Admin" />
+<!--        <property name="password" value="Vijeta" /> -->
+        <!-- CONNECTION POOL INFORMATION -->
+        <property name="maxPoolSize" value="5" /> 
+        <property name="minPoolSize" value="1" />
+        <property name="acquireIncrement" value="1" />
+        <property name="initialPoolSize" value="1" />
+        <property name="maxStatements" value="0" />
+        <property name="idleConnectionTestPeriod" value="3000" />
+        <property name="maxIdleTime" value="3600" />
+        <property name="checkoutTimeout" value="60000" />
+        <property name="testConnectionOnCheckout" value="true" />
+    </bean>
+    <bean id="sessionFactory" 
+        class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="comboPooledDataSource" />
+        <property name="annotatedClasses">
+            <list>
+                <value>com.nj.common.entity.Login</value>
+                <value>com.nj.common.entity.Directory</value>
+                <value>com.nj.common.entity.DirectoryInfo</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="use_sql_comments">true</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
+    <bean id="authenticationInterceptor" class="com.nj.common.interceptor.AuthenticationInterceptor"></bean>
+    <cxf:bus>
+        <cxf:features>
+            <cxf:logging/>
+        </cxf:features>
+    </cxf:bus>
+    
+    <jaxrs:server id="dirService" address="/directory">
+        <jaxrs:serviceBeans>
+            <ref bean="directoryService" />
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <ref bean="jsonProvider" />
+        </jaxrs:providers>
+        <jaxrs:inInterceptors>
+            <ref bean="authenticationInterceptor" />
+        </jaxrs:inInterceptors>
+    </jaxrs:server>
+    
+    <jaxrs:server id="dirInfoService" address="/directoryInfo">
+        <jaxrs:serviceBeans>
+            <ref bean="directoryInfoService" />
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <ref bean="jsonProvider" />
+        </jaxrs:providers>
+        <jaxrs:inInterceptors>
+            <ref bean="authenticationInterceptor" />
+        </jaxrs:inInterceptors>
+    </jaxrs:server>
+    
+    <jaxrs:server id="logService" address="/login">
+        <jaxrs:serviceBeans>
+            <ref bean="loginService" />
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <ref bean="jsonProvider" />
+        </jaxrs:providers>
+    </jaxrs:server>
+    
+    <bean id="list" class="java.util.ArrayList" autowire="byName" />
+    <bean id="response" class="com.nj.common.response.Response" autowire="byName" />
+    <bean id="masterManager" class="com.nj.common.manager.MasterManager" autowire="byName" />
+    
+    <bean id="login" class="com.nj.common.entity.Login" autowire="byName" />
+    <bean id="loginDAO" class="com.nj.common.dao.LoginDAO" autowire="byName" />
+    <bean id="loginManager" class="com.nj.common.manager.LoginManager" autowire="byName" />
+    <bean id="loginService" class="com.nj.common.service.LoginService" autowire="byName" />
+    
+    
+    <bean id="directory" class="com.nj.common.entity.Directory" autowire="byName" />
+    <bean id="directoryDAO" class="com.nj.common.dao.DirectoryDAO" autowire="byName" />
+    <bean id="directoryManager" class="com.nj.common.manager.DirectoryManager" autowire="byName" />
+    <bean id="directoryService" class="com.nj.common.service.DirectoryService" autowire="byName" />
+    
+    <bean id="directoryInfo" class="com.nj.common.entity.DirectoryInfo" autowire="byName" />
+    <bean id="directoryInfoDAO" class="com.nj.common.dao.DirectoryInfoDAO" autowire="byName" />
+    <bean id="directoryInfoManager" class="com.nj.common.manager.DirectoryInfoManager" autowire="byName" />
+    <bean id="directoryInfoService" class="com.nj.common.service.DirectoryInfoService" autowire="byName" />
+    
 </beans>
