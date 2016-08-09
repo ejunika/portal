@@ -52,6 +52,7 @@
                 console.error( error );
                 return headers;
             }
+            headers[ "AUTH-TOKEN" ] = "newAuthToken";
             return headers;
         };
         rs.doRequest = function( config, sCallbackFn, eCallbackFn ) {
