@@ -20,6 +20,12 @@
          fileManagerCtrlFn 
      ] );
      function fileManagerCtrlFn( $scope, $timeout, cs, rs ) {
+         /**
+          * @function
+          * @description This function will invoked by the angular when file-manager.view.html
+          * will loads on the DOM and do the initialization of related variables.
+          * @author M A Akhtar
+          * */
          $scope.init = function() {
              $scope.files = [];
              $scope.parentChildMap = {};
@@ -29,7 +35,7 @@
                              name: "proton",
                              responsive: true
                          },
-                         data: $scope.treeDataHandler,
+                         data: $scope.treeDataProvider,
                          check_callback: true
                      },
                      plugins : [ "wholerow", "contextmenu" ],
@@ -113,6 +119,14 @@
                      } 
                  };
          };
+         /**
+          * @function
+          * @description This function will be invoked when any node of jstree will be expanded to get the
+          * child node of the node
+          * @param { Object } node - The expanded jstree node object
+          * @param { function } cb - The callback function of jstree
+          * @author M A Akhtar
+          * */
          $scope.getChildNodes = function( node, cb ) {
              var url = rs.getUrl( "rest/directory/getByParent/" + node.id );
              rs.doGetRequest( url, scb );
@@ -120,6 +134,15 @@
                  $scope.processResponseData( node, resData, cb );
              }
          };
+         /**
+          * @function
+          * @description This is the response processing function which process the response and creates the
+          * array of nodes
+          * @param { Object } node - The expanded jstree node object
+          * @param { Object } resData - The response object
+          * @param { function } cb - The callback function of jstree
+          * @author M A Akhtar
+          * */
          $scope.processResponseData = function( node, resData, cb ) {
              var files, newNode, nodes = [];
              if( resData.status ) {
@@ -136,15 +159,25 @@
              }
              cb( nodes );
          };
+         /**
+          * @function
+          * @description This function will ask for the root nodes from the server
+          * @param { Object } node - The expanded jstree node object
+          * @param { function } cb - The callback function of jstree
+          * @author M A Akhtar
+          * */
          $scope.getRootNodes = function( node, cb ) {
              var reqUrl = rs.getUrl( "rest/directory/getAll" );
-             rs.doGetRequest( reqUrl, scb );
+             rs.doGetRequest( reqUrl, scb, ecb );
              function scb( resData ) {
                  $scope.processResponseData( node, resData, cb );
              }
+             function ecb( resData ) {
+                 $scope.processResponseData( node, resData, cb );
+             }
          };
-         $scope.treeDataHandler = function( node, cb ) {
-             var nodeId = node.id, thiz = this;
+         $scope.treeDataProvider = function( node, cb ) {
+             var thiz = this;
 
              if( nodeId === "#" ) {
                  $scope.getRootNodes( node, function( rootNodes ) {

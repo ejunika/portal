@@ -53,6 +53,15 @@
             wm: "designer/widget/widget.module",
             wc: "designer/widget/widget.ctrl",
             wd: "designer/widget/widget.dir",
+            wem: "designer/widget-exp/widget-exp.module",
+            wec: "designer/widget-exp/widget-exp.ctrl",
+            wed: "designer/widget-exp/widget-exp.dir",
+            wpm: "designer/widget-prop/widget-prop.module",
+            wpc: "designer/widget-prop/widget-prop.ctrl",
+            wpd: "designer/widget-prop/widget-prop.dir",
+            dsm: "designer/data-set/data-set.module",
+            dsc: "designer/data-set/data-set.ctrl",
+            dsd: "designer/data-set/data-set.dir",
             jsfileloader: "js-file.loader"
         },
         shim: {

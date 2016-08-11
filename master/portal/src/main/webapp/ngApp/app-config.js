@@ -27,7 +27,10 @@
             designer: { module: { name: "designer.module" } },
             dashboard: { module: { name: "dashboard.module" } },
             specialPage: { module: { name: "special-page.module" } },
-            widget: { module: { name: "widget.module" } }
+            widget: { module: { name: "widget.module" } },
+            widgetExp: { module: { name: "widget-exp.module" } },
+            widgetProp: { module: { name: "widget-prop.module" } },
+            dataSet: { module: { name: "data-set.module" } }
         },
         controllers: {
             core: "core.ctrl",
@@ -40,7 +43,10 @@
             designer: "designer.ctrl",
             dashboard: "dashboard.ctrl",
             specialPage: "special-page.ctrl",
-            widget: "widget.ctrl"
+            widget: "widget.ctrl",
+            widgetExp: "widget-exp.ctrl",
+            widgetProp: "widget-prop.ctrl",
+            dataSet: "data-set.ctrl"
         },
         directives: {
             core: {},
@@ -75,6 +81,18 @@
             widget: {
                 name: "njWidget",
                 tUrl: "ngApp/designer/widget/widget.view.html"
+            },
+            widgetExp: {
+                name: "njWidgetExp",
+                tUrl: "ngApp/designer/widget-exp/widget-exp.view.html"
+            },
+            widgetProp: {
+                name: "njWidgetProp",
+                tUrl: "ngApp/designer/widget-prop/widget-prop.view.html"
+            },
+            dataSet: {
+                name: "njDataSet",
+                tUrl: "ngApp/designer/data-set/data-set.view.html"
             }
         },
         factories: {

@@ -49,7 +49,16 @@
         "spd",
         "wm",
         "wc",
-        "wd"
+        "wd",
+        "wem",
+        "wec",
+        "wed",
+        "wpm",
+        "wpc",
+        "wpd",
+        "dsm",
+        "dsc",
+        "dsd"
     ], rcb );
     function rcb() {}
 } )();

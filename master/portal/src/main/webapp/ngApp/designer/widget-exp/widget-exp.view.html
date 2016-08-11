@@ -1,0 +1,63 @@
+<div id="widgetExp" 
+    class="d-right-pane-body" 
+    ng-show="showWidExp" >
+    <div class="row">
+        <div class="col-md-10 d-w-search-container">
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <div class="col-md-offset-1">
+                        <input type="text" 
+                            ng-model="searchTxt"
+                            style="margin-top: 5px;"
+                            class="form-control input-md" 
+                            placeholder="Search widget"
+                            id="widget-search" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2 d-w-view-switch-container">
+            <a href="javascript: void( 0 )" class="d-w-view-switcher">
+                <i class="glyphicon glyphicon-th"></i>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 d-w-group-container">
+            <div style="min-width: 298px;">
+                <ul class="d-w-group-wrapper">
+                    <li ng-class="{'active': g.active}" 
+                       ng-repeat="g in widgetExpGroups" 
+                       ng-click="groupClicked( $event, g )" 
+                       class="d-w-group-item">
+                       <img class="full-size" 
+                           ng-src="images/chart.png" />
+                       <label>{{ g.label }}</label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="d-w-g-separator">
+        <div class="pointer" style="left: 36px;"></div>
+    </div>
+    <div class="row" style="height: calc( 100% - 145px );">
+        <div class="col-md-12 full-height">
+            <div class="full-height">
+                <ul class="d-w-list-group full-height">
+                    <li class="d-w-list-item" 
+                        ng-if="w.active" 
+                        ng-repeat="w in fWidgetList = ( widgetList | search :searchTxt : 'label' )" 
+                        drag-data="w"
+                        jq-draggable="wExpItemDragCfg">
+                        <a href="">
+                            <i class="glyphicon glyphicon-th"></i>
+                        </a>
+                        {{ w.label }}
+                    </li>
+                    <li ng-show="fWidgetList.length == 0">No Item found</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+ </div>
