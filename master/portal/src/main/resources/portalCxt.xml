@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://cxf.apache.org/configuration/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:beans="http://cxf.apache.org/configuration/beans"
     xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:jaxws="http://cxf.apache.org/jaxws"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-        http://cxf.apache.org/configuration/beans http://cxf.apache.org/schemas/configuration/cxf-beans.xsd
+    xmlns:jaxrs="http://cxf.apache.org/jaxrs" 
+    xmlns:cxf="http://cxf.apache.org/core"
+    xmlns:jaxws="http://cxf.apache.org/jaxws"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://cxf.apache.org/configuration/beans 
+        http://cxf.apache.org/schemas/configuration/cxf-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
         http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
-        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd 
+        http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
     <context:annotation-config />
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
     <bean id="comboPooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -15,8 +21,8 @@
         <property name="driverClass" value="com.mysql.jdbc.Driver" />
         <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/PORTAL?createDatabaseIfNotExist=true" />
         <property name="user" value="root" />
-<!--        <property name="password" value="Admin" /> -->
-        <property name="password" value="Vijeta" />
+        <property name="password" value="Admin" />
+<!--        <property name="password" value="Vijeta" /> -->
         <!-- CONNECTION POOL INFORMATION -->
         <property name="maxPoolSize" value="5" /> 
         <property name="minPoolSize" value="1" />
@@ -49,7 +55,12 @@
         </property>
     </bean>
     <bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
-    <bean id="authenticationFilter" class="com.nj.common.filter.AuthenticationFilter" />
+    <bean id="authenticationInterceptor" class="com.nj.common.interceptor.AuthenticationInterceptor"></bean>
+    <cxf:bus>
+        <cxf:features>
+            <cxf:logging/>
+        </cxf:features>
+    </cxf:bus>
     
     <jaxrs:server id="dirService" address="/directory">
         <jaxrs:serviceBeans>
@@ -57,8 +68,10 @@
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <ref bean="jsonProvider" />
-            <ref bean="authenticationFilter"/>
         </jaxrs:providers>
+        <jaxrs:inInterceptors>
+            <ref bean="authenticationInterceptor" />
+        </jaxrs:inInterceptors>
     </jaxrs:server>
     
     <jaxrs:server id="dirInfoService" address="/directoryInfo">
@@ -68,6 +81,9 @@
         <jaxrs:providers>
             <ref bean="jsonProvider" />
         </jaxrs:providers>
+        <jaxrs:inInterceptors>
+            <ref bean="authenticationInterceptor" />
+        </jaxrs:inInterceptors>
     </jaxrs:server>
     
     <jaxrs:server id="logService" address="/login">
