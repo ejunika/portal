@@ -13,9 +13,34 @@
 } )( this, function( ac, spm ) {
     "use strict";
     spm.controller( ac.controllers.specialPage, [
+        ac.ngVars.scope,
         specialPageCtrlFn
     ] );
-    function specialPageCtrlFn() {
-        
+    function specialPageCtrlFn( $scope ) {
+        $scope.allWorkspaces = [
+            {
+                label: "Workspace-1"
+            },
+            {
+                label: "Workspace-2"
+            },
+            {
+                label: "Workspace-3"
+            }
+        ];
+        $scope.ddOpns = [
+            {
+                label: "Open"
+            },
+            {
+                label: "Move"
+            },
+            {
+                label: "Delete"
+            }
+        ];
+        $scope.getAllDashboards( function( dashboards ) {
+            $scope.allDashboards = dashboards
+        } );
     }
 } );

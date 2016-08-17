@@ -30,6 +30,21 @@
                      DASHBOARD: 5
                  }
              };
+             $scope.modalDialog = {
+                 title: "Create",
+                 bInclude: "ngApp/file-manager/create-folder.view.html",
+                 fBtns: [
+                     {
+                         label: "DONE",
+                         action: "done"
+                     }, 
+                     {
+                         label: "CANCEL",
+                         action: "cancel"
+                     }
+                 ]
+             };
+             $scope.rootNodeInfo = {};
              $scope.cs = cs;
              $scope.$root.showLoader = false;
              $scope.fullMainMenu = false;
@@ -114,6 +129,21 @@
              };
              rs.doPostRequest( reqUrl, reqData, scb, ecb );
          };
+         $scope.processRawNodes = function( node, rawNodes, cb ) {
+             if( !node ) return false;
+             var newNode, nodes = [],
+             files = rawNodes;
+             for( var i = 0; i < files.length; i++ ) {
+                 newNode = {
+                     id: files[ i ].id,
+                     text: files[ i ].label,
+                     parent: node.id,
+                     children: true
+                 };
+                 nodes.push( newNode );
+             }
+             cb( nodes );
+         };
          $scope.getRootDirectories = function( userId, cb ) {
              var reqUrl = rs.getUrl( "rest/directory/getRootDirectories/" + userId ),
              scb = function( resData ) {
@@ -131,15 +161,20 @@
              reqData = {
                  emailId: "akhtar.azaz@live.com",
                  password: "password"
+//                 emailId: "sinha.vijeta@outlook.com",
+//                 password: "pass"
              },
              scb = function( resData ) {
                  if( resData.status ) {
-                     debugger;
+//                     debugger;
                      $scope.loggedInUser = resData.data[ 0 ];
                      $scope.getRootDirectories( resData.data[ 0 ].id, function( rootDir ) {
                          $scope.loggedInUser.rootDirectories = rootDir;
                          if( rootDir.length == 0 ) {
                              $scope.makeRootDirectories();
+                         }
+                         else {
+                             $scope.processRawNodes( $scope.rootNodeInfo.node, rootDir, $scope.rootNodeInfo.cb );
                          }
                      } );
                  }
@@ -149,7 +184,7 @@
              }
              rs.doPostRequest( reqUrl, reqData, scb, ecb );
          };
-         $scope.createDirectoryInDb = function( name, description, pId, type, cb ) {
+         $scope.createDirectoryInDb = function( name, description, pId, type, preview, cb ) {
              var reqUrl = rs.getUrl( "rest/directory/create" ),
              reqData = {
                  type: type,
@@ -161,6 +196,7 @@
                  creationTime: new Date().getTime(),
                  iconPath: "",
                  iconClass: "",
+                 preview: preview,
                  owner: { 
                      id: $scope.loggedInUser.id
                  }

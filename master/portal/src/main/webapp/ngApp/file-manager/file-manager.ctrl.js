@@ -167,19 +167,13 @@
           * @author M A Akhtar
           * */
          $scope.getRootNodes = function( node, cb ) {
-             var reqUrl = rs.getUrl( "rest/directory/getAll" );
-             rs.doGetRequest( reqUrl, scb, ecb );
-             function scb( resData ) {
-                 $scope.processResponseData( node, resData, cb );
-             }
-             function ecb( resData ) {
-                 $scope.processResponseData( node, resData, cb );
-             }
+             $scope.rootNodeInfo.node = node;
+             $scope.rootNodeInfo.cb = cb;
          };
          $scope.treeDataProvider = function( node, cb ) {
              var thiz = this;
 
-             if( nodeId === "#" ) {
+             if( node.id === "#" ) {
                  $scope.getRootNodes( node, function( rootNodes ) {
                      cb.call( thiz, rootNodes );
                  } );

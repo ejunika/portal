@@ -25,6 +25,7 @@
              var wedPath = ac.jsonPath.widgetExpData,
              ddmdPath = ac.jsonPath.dropdownMenuData;
              $scope.openTabs = [];
+             $scope.enableRightPane = false;
              $scope.openDashboardIds = [];
              $scope.selectedDashboardId = "";
              $scope.dashboardMap = {};
@@ -373,11 +374,13 @@
                  default:
                      break;
              }
-             $scope.toggleRightPane( false );
+//             $scope.toggleRightPane( false );
+             $scope.showRightPane();
          };
          $scope.showWidgetExp = function() {
              $scope.setRightPane( "WID_EXP" );
-             $scope.toggleRightPane( false );
+//             $scope.toggleRightPane( false );
+             $scope.showRightPane();
          };
          $scope.listProperty = function( e, pg ) {
              if( pg ) {
@@ -501,17 +504,21 @@
          };
          $scope.saveDashboard = function( e ) {
              var dashboard = $scope.getSelectedDashboard();
-             $scope.createDirectoryInDb( 
-                     dashboard.Layout.title, 
-                     dashboard.Layout.title,
-                     1,
-                     $scope.DIRECTORY.TYPE.DASHBOARD,
-                     function( dbDir ) {
-                         $scope.saveDashboardInDb( dashboard, dbDir.id, function( dbInfo ) {
-                             cs.alert( "success", "Designer", "Dashboard saved!!" );
-                         } );
-                     }
+             $scope.getDashboardImage( dashboard.id, function( base64Str ) {
+                 debugger;
+                 $scope.createDirectoryInDb( 
+                         dashboard.Layout.title, 
+                         dashboard.Layout.title,
+                         4,
+                         $scope.DIRECTORY.TYPE.DASHBOARD,
+                         base64Str,
+                         function( dbDir ) {
+                             $scope.saveDashboardInDb( dashboard, dbDir.id, function( dbInfo ) {
+                                 cs.alert( "success", "Designer", "Dashboard saved!!" );
+                             } );
+                         }
                  );
+             } );
          };
          $scope.previewDashboard = function( e ) {
              $scope.preview = true;
@@ -531,26 +538,28 @@
          $scope.closePreview = function( e ) {
              $scope.preview = false;
          };
-         $scope.toggleRightPane = function( e ) {
-             var 
-             $rightPane = $( ".d-right-pane" ),
-             $dashboardWrapper = $( ".d-dashboard-wrapper" );
-             
-             if( $rightPane.hasClass( "d-right-pane-hide" ) ) {
-                 $rightPane.removeClass( "d-right-pane-hide" );
-                 $dashboardWrapper.removeClass( "d-dashboard-wrapper-full" );
-             }
-             else {
-                 $rightPane.addClass( "d-right-pane-hide" );
-                 $dashboardWrapper.addClass( "d-dashboard-wrapper-full" );
-             }
-         };
-         $scope.enableRightPane = false;
+         
          $scope.showRightPane = function() {
-             
+             $scope.enableRightPane = true;
          };
          $scope.hideRightPane = function() {
-             
+             $scope.enableRightPane = false;
+         };
+         
+         $scope.toggleRightPane = function( e ) {
+             $scope.enableRightPane = !$scope.enableRightPane;
+         };
+         $scope.getDashboardImage = function( dId, cb ) {
+             if( dId && typeof cb == "function" ) {
+                 var dEl = document.getElementById( dId );
+                 html2canvas( dEl, {
+                     onrendered: function( canvas ) {
+                         var base64str = canvas.toDataURL( "image/png" );
+//                         var newCanvas = document.createElement( "canvas" );
+                         cb( base64str );
+                     }
+                 });
+             }
          };
          $scope.notify = function( type, obj ) {
              switch( type ) {

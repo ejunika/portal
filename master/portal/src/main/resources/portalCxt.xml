@@ -13,7 +13,7 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
         http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
         http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd 
-        http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
+        http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd"> 
     <context:annotation-config />
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
     <bean id="comboPooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -21,8 +21,8 @@
         <property name="driverClass" value="com.mysql.jdbc.Driver" />
         <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/PORTAL?createDatabaseIfNotExist=true" />
         <property name="user" value="root" />
-        <property name="password" value="Admin" />
-<!--        <property name="password" value="Vijeta" /> -->
+<!--         <property name="password" value="Admin" /> -->
+       <property name="password" value="Vijeta" />
         <!-- CONNECTION POOL INFORMATION -->
         <property name="maxPoolSize" value="5" /> 
         <property name="minPoolSize" value="1" />

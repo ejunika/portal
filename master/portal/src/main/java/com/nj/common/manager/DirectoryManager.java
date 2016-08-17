@@ -81,7 +81,6 @@ public class DirectoryManager {
 		getDirectory().setId(pId);
 		List<Object> directories = getDirectoryDAO().getByParentId(getDirectory());
 		if( !directories.isEmpty() ) {
-			getResponse().setData(directories);
 			getResponse().setStatus(true);
 			getResponse().setInfo("Success");
 		}
@@ -89,6 +88,7 @@ public class DirectoryManager {
 			getResponse().setStatus(false);
 			getResponse().setInfo("Error");
 		}
+		getResponse().setData(directories);
 		return getResponse();
 	}
 

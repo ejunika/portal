@@ -211,6 +211,7 @@ a:hover, a:focus {
     text-align: center;
     margin: 1px;
     opacity: 0.4;
+    position: relative;
 }
 .d-w-group-item.active {
 	opacity: 1 !important;
@@ -290,6 +291,14 @@ a:hover, a:focus {
     float: left;
     margin: 5px;
     border: 1px solid #DDD;
+}
+
+.d-manage-page-left {
+	width: 400px;
+}
+.d-manage-page-right {
+	width: calc( 100% - 400px );
+	height: 100%;
 }
 
 /*WIDGETS*/

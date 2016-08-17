@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -30,6 +31,10 @@ public class Directory {
 	@ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.PERSIST )
 	@JoinColumn( name = "PARENT_ID" )
 	private Directory parent;
+	
+	@Lob
+	@Column( name="PREVIEW" )
+	private String preview;
 	
 	@Column( name="LABEL" )
 	private String label;
@@ -139,6 +144,14 @@ public class Directory {
 
 	public void setOwner(Login owner) {
 		this.owner = owner;
+	}
+
+	public String getPreview() {
+		return preview;
+	}
+
+	public void setPreview(String preview) {
+		this.preview = preview;
 	}
 
 }

@@ -73,7 +73,8 @@
                 </div>
             </div>
             <!-- DATASET BUILDER -->
-            <div class="full-height d-right-pane d-right-pane-hide">
+            <div ng-class="{ 'd-right-pane-hide': enableRightPane == false }" 
+                class="full-height d-right-pane d-right-pane-hide">
                 <nj-widget-prop></nj-widget-prop>
                 <nj-widget-exp></nj-widget-exp>
                 <div class="d-right-pane-footer">

@@ -1,27 +1,91 @@
 <div class="d-special-page full-size">
     <div class="d-manage-page full-size" ng-if="tab.type == 1">
-        <div class="d-manage-page-left pull-left">
-<!--             <ul id="manageTabs" class="nav nav-tabs"> -->
-<!--                 <li class="active"><a href="#workspaces" data-toggle="tab">Workspaces</a></li> -->
-<!--                 <li><a href="#trash" data-toggle="tab">Trash</a></li> -->
-<!--             </ul> -->
-<!--             <div id="manageContents" class="tab-content"> -->
-<!--                 <div class="tab-pane fade active in" id="workspaces"> -->
-<!--                     <ul> -->
-<!--                         <li>Workspace-1</li> -->
-<!--                         <li>Workspace-2</li> -->
-<!--                         <li>Workspace-3</li> -->
-<!--                     </ul> -->
-<!--                 </div> -->
-<!--                 <div class="tab-pane fade" id="trash"> -->
-<!--                     trash -->
-<!--                 </div> -->
-<!--             </div> -->
-        <ul ng-init="getAllDashboards()">
-            <li ng-click="openFromServer( md.id )" ng-if="md.type == 5" ng-repeat="md in mdList">{{ md.label }}</li>
+        <ul id="manageTabs" class="nav nav-tabs">
+            <li class="active"><a href="#wsTab" data-toggle="tab">Workspace</a></li>
+            <li><a href="#dbTab" data-toggle="tab">Dashboard</a></li>
+            <li><a href="#trashTab" data-toggle="tab">Trash</a></li>
         </ul>
-        </div>
-        <div class="d-manage-page-right pull-right">
+        <div id="manageContents" class="tab-content" style="height: calc( 100% - 42px )">
+            <div class="tab-pane fade full-size active in" id="wsTab">
+                <div class="panel panel-default full-size" style="margin-bottom: 0">
+				    <div class="panel-heading">
+				        Workspaces
+				    </div>
+				    <div class="panel-body special-page-panel-body" style="height: calc( 100% - 38px)">
+				        <div class="clg-folder-container dropdown" 
+				            ng-dblclick="getChildren( $event, file )" 
+				            ng-if="ws.type == 4"
+				            ng-repeat="ws in allWorkspaces">
+				            <a class="clg-file-option dropdown-toggle" 
+				                id="{{ 'FILE_OPN_' + ws.id }}"
+				                href="javascript: void( 0 )" 
+				                data-toggle="dropdown" 
+				                aria-haspopup="true" 
+				                aria-expanded="false"
+				                ng-click="fmVm.fn.getFileOptions( $event, file )" >
+				                    <i class="glyphicon glyphicon-cog"></i>
+				            </a>
+				            <ul class="dropdown-menu clg-folder-dropdown-menu" 
+				                aria-labelledby="{{ 'FILE_OPN_' + ws.id }}" >
+				                <li ng-click="$parent.fmVm.fn.handleCxtMenu( $event, fCxtOpn )"
+				                    ng-repeat="opn in ddOpns">
+				                    <a href="javascript: void( 0 )">{{ opn.label }}</a>
+				                </li>
+				    <!--            <li role="separator" class="divider"></li> -->
+				            </ul>
+				            <a href="javascript: void( 0 )" class="thumbnail">
+<!-- 				               <img ng-src="{{ ws.preview }}" /> -->
+				               <label>{{ ws.label }}</label>
+				            </a>
+				        </div>
+				    </div>
+				</div>
+            </div>
+            <div class="tab-pane fade full-size" id="dbTab">
+				<div class="panel panel-default full-size" style="margin-bottom: 0">
+                    <div class="panel-heading">
+                        Dashboard
+                    </div>
+                    <div class="panel-body special-page-panel-body" style="height: calc( 100% - 38px)">
+                        <div class="clg-folder-container dropdown" 
+                            ng-click="openFromServer( db.id )" 
+                            ng-if="db.type == 5"
+                            ng-repeat="db in allDashboards">
+                            <a class="clg-file-option dropdown-toggle" 
+                                id="{{ 'FILE_OPN_' + db.id }}"
+                                href="javascript: void( 0 )" 
+                                data-toggle="dropdown" 
+                                aria-haspopup="true" 
+                                aria-expanded="false"
+                                ng-click="$event.stopPropagation()" >
+                                    <i class="glyphicon glyphicon-cog"></i>
+                            </a>
+                            <ul class="dropdown-menu clg-folder-dropdown-menu" 
+                                aria-labelledby="{{ 'FILE_OPN_' + ws.id }}" >
+                                <li ng-click="$parent.fmVm.fn.handleCxtMenu( $event, fCxtOpn )"
+                                    ng-repeat="opn in ddOpns">
+                                    <a href="javascript: void( 0 )">{{ opn.label }}</a>
+                                </li>
+                    <!--            <li role="separator" class="divider"></li> -->
+                            </ul>
+                            <a href="javascript: void( 0 )" class="thumbnail">
+                               <img ng-src="{{ db.preview }}" style="height: 125px" />
+                               <label>{{ db.label }}</label>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade full-size" id="trashTab">
+                <div class="panel panel-default full-size" style="margin-bottom: 0">
+                    <div class="panel-heading">
+                        Trash
+                    </div>
+                    <div class="panel-body special-page-panel-body" style="height: calc( 100% - 38px)">
+                        
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="d-settings-page full-size" ng-if="tab.type == 2">
@@ -30,7 +94,7 @@
             <li><a href="#preference" data-toggle="tab">Preference</a></li>
             <li><a href="#advance" data-toggle="tab">Advance</a></li>
         </ul>
-        <div id="manageContents" class="tab-content">
+        <div id="settingContents" class="tab-content">
             <div class="tab-pane fade active in" id="general">
                 General
             </div>

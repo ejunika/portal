@@ -20,5 +20,8 @@
         $scope.init = function() {
             
         };
+        $scope.onModalBtnClick = function( e, action ) {
+            
+        };
     }
 } );
