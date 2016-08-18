@@ -121,8 +121,10 @@
         return {
             restrict: "AE",
             link: function( $scope, el, attrs, ngModel ) {
-                var treeCfg = $parse( attrs.jsTree )( $scope );
-                el.jstree( treeCfg );
+                var treeCfg = $parse( attrs.jsTree )( $scope ),
+                jsTreeSelect = $parse( attrs.jsTreeSelect )( $scope );
+                el.jstree( treeCfg )
+                .on( "select_node.jstree", jsTreeSelect );
             }
         };
     }

@@ -13,15 +13,17 @@
     }
 } )( this, function( ac, mdm ) {
     mdm.controller( ac.controllers.modalDialog, [ 
+        ac.ngVars.rootScope,
         ac.ngVars.scope,
         modalDialogCtrlFn 
     ] );
-    function modalDialogCtrlFn( $scope ) {
+    function modalDialogCtrlFn( $rootScope, $scope ) {
+        $scope.dirName = "Abc";
         $scope.init = function() {
             
         };
         $scope.onModalBtnClick = function( e, action ) {
-            
+            $rootScope.$broadcast( "addJsTreeNode", $scope.dirName );
         };
     }
 } );

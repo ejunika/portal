@@ -184,9 +184,17 @@
                  } );
              }
          };
-         $scope.jsTreeSelectHandler = function( e, data ) {
-             vm.data.files = vm.data.parentChildMap[ data.node.id ];
-             $scope.$apply();
+         $scope.addJsTreeNode = function( pId, nodeObj, pos, cb, isLoaded ) {
+             if( !pos ) pos = "last";
+             if( !cb ) cb = function() {};
+             if( !isLoaded ) isLoaded = true;
+             $( "#jstree" ).jstree( "create_node", pId, nodeObj, pos, cb, isLoaded );
          };
+         $scope.jsTreeSelectHandler = function( e, data ) {
+             $scope.selectedNodeId = data.node.id;
+         };
+         $scope.$on( "addJsTreeNode", function( e, node ) {
+             $scope.addJsTreeNode( $scope.selectedNodeId, node );
+         } );
      }
 } );
